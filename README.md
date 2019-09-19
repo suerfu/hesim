@@ -4,6 +4,10 @@ In dark matter direct detection experiments, it is calibration signals from the 
 
 The goal of this project is to use GEANT package to set up simulations with similar geometry shown in the figure and well understood scattering behaviour in 4-Helium for Janis fridge in B255. As is suggested by the requirement of Physics 199, write-up or presentations will be given as reports of the progress.
 
+
+<img src="figures/Arktis.png" width = "70%" />
+
+
 ##  Steps
 ### Fix the Geometry
 There were some codes of similar geometry available, however the dimensions are not accurate enough to produce perfect simulations. The first step of the project is to build the correct geometry for experiments in Janis fridge based on a combination of CAD or drawing and measurement as a check since part of the fridge like sample chambers have been modified. Possible work may also be done on searching for a reasonable approximation of the dimension of the detector considering both convenience to build the geometry as well as acceptably little influence on the received signals.
