@@ -68,7 +68,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 JanisDetectorConstruction::JanisDetectorConstruction()
-: G4VUserDetectorConstruction()
+: G4VUserDetectorConstruction(),
+  fScoringVolume(0)
 {
 }
 
@@ -93,7 +94,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::Construct()
 void JanisDetectorConstruction::DefineMaterials()
 {
 
-    OxCryoMaterials* nistManager = OxCryoMaterials::GetInstance();
+    G4NistManager* nistManager =  G4NistManager::Instance();
 
     G4double a;  // mass of a mole;
     G4double z;  // z=mean number of protons;
@@ -167,7 +168,7 @@ void JanisDetectorConstruction::DefineMaterials()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4PhysicsVolume* JanisDetectorConstruction::DefineVolumes()
+G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 {
     // Option to switch on/off checking of volumes overlaps
     G4bool checkOverlaps = true;
@@ -179,6 +180,7 @@ G4PhysicsVolume* JanisDetectorConstruction::DefineVolumes()
     // Room
 
     G4Material* world_material = mat_man -> FindOrBuildMaterial("G4_AIR");
+    /*
     G4Material* z_wall_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
     G4Material* x_wall_short_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
     G4Material* x_wall_long_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
@@ -191,9 +193,9 @@ G4PhysicsVolume* JanisDetectorConstruction::DefineVolumes()
     G4Material* platform_material = G4Material::GetMaterial("Al6061");
     G4Material* soil_space_material = G4Material::GetMaterial("Soil");
     G4Material* dose_box_material = mat_man -> FindOrBuildMaterial("G4_WATER");
-
+    */
     // Cryostat
-
+    /*
     G4Material* default_material = G4Material::GetMaterial("galactic");
     G4Material* liquid_helium_material = G4Material::GetMaterial("liquid_helium");
 
@@ -216,7 +218,7 @@ G4PhysicsVolume* JanisDetectorConstruction::DefineVolumes()
     G4Material* cryo_vacuum_inner_material = G4Material::GetMaterial("galactic");
     G4Material* cryo_77k_inner_material = G4Material::GetMaterial("galactic");
     G4Material* cryo_4k_inner_material = G4Material::GetMaterial("liquid_helium");
-
+    */
     // Clean old geometry, if any
     G4GeometryManager::GetInstance()->OpenGeometry();
     G4PhysicalVolumeStore::GetInstance()->Clean();
@@ -226,134 +228,47 @@ G4PhysicsVolume* JanisDetectorConstruction::DefineVolumes()
     //===============  Dimensions ===============//
 
     // World
-    G4double world_x = 100.*inch;
-    G4double world_y = 100.*inch;
-    G4double world_z = 100.*inch;
+    G4double world_x = 100.*cm;
+    G4double world_y = 100.*cm;
+    G4double world_z = 100.*cm;
 
     //===============  Build Geometry ===============//
 
+    G4String name;
     // World
     name = "world_box";
     G4Box* world_box = new G4Box(name, world_x/2.0, world_y/2.0, world_z/2.0);
     WorldLV = new G4LogicalVolume(world_box, world_material, "WorldLV");
-    WorldPV = new G4PVPlacement(0, G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0);
+    WorldPV = new G4PVPlacement(0, G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0, checkOverlaps);
 
     //===============  Visualization ===============//
-
+    /*
     G4VisAttributes* yellowTVA = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.5));
     G4VisAttributes* redTVA = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.5));
     G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
     G4VisAttributes* greyTVA = new G4VisAttributes(G4Colour(0.5, 0.5, 0.5, 0.25));
     G4VisAttributes* blueTVA = new G4VisAttributes(G4Colour(0.0, 0.0, 1.0, 0.5));
-
+    */
     // World
-    WorldLV->SetVisAttributes(yellowTVA)//(G4VisAttributes::Invisible);
+    WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
+    fScoringVolume = WorldLV; // meaningless, just to make it runnable
 
-    return WorldPV
+    return WorldPV;
 }
-
-
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 /*
+void JanisDetectorConstruction::ConstructSDandField()
 {
-  // Get nist material manager
-  G4NistManager* nist = G4NistManager::Instance();
+  // Create global magnetic field messenger.
+  // Uniform magnetic field is then created automatically if
+  // the field value is not zero.
+  G4ThreeVector fieldValue = G4ThreeVector();
+  fMagFieldMessenger = new G4GlobalMagFieldMessenger(fieldValue);
+  fMagFieldMessenger->SetVerboseLevel(1);
 
-  // Envelope parameters
-  //
-  G4double env_sizeXY = 20*cm, env_sizeZ = 30*cm;
-  G4Material* env_mat = nist->FindOrBuildMaterial("G4_WATER");
-
-  // Option to switch on/off checking of volumes overlaps
-  //
-  G4bool checkOverlaps = true;
-
-  //
-  // World
-  //
-  G4double world_sizeXY = 1.2*env_sizeXY;
-  G4double world_sizeZ  = 1.2*env_sizeZ;
-  G4Material* world_mat = nist->FindOrBuildMaterial("G4_AIR");
-
-  G4Box* solidWorld =
-    new G4Box("World",                       //its name
-       0.5*world_sizeXY, 0.5*world_sizeXY, 0.5*world_sizeZ);     //its size
-
-  G4LogicalVolume* logicWorld =
-    new G4LogicalVolume(solidWorld,          //its solid
-                        world_mat,           //its material
-                        "World");            //its name
-
-  G4VPhysicalVolume* physWorld =
-    new G4PVPlacement(0,                     //no rotation
-                      G4ThreeVector(),       //at (0,0,0)
-                      logicWorld,            //its logical volume
-                      "World",               //its name
-                      0,                     //its mother  volume
-                      false,                 //no boolean operation
-                      0,                     //copy number
-                      checkOverlaps);        //overlaps checking
-
-  //
-  // Envelope
-  //
-  G4Box* solidEnv =
-    new G4Box("Envelope",                    //its name
-        0.5*env_sizeXY, 0.5*env_sizeXY, 0.5*env_sizeZ); //its size
-
-  G4LogicalVolume* logicEnv =
-    new G4LogicalVolume(solidEnv,            //its solid
-                        env_mat,             //its material
-                        "Envelope");         //its name
-
-  new G4PVPlacement(0,                       //no rotation
-                    G4ThreeVector(),         //at (0,0,0)
-                    logicEnv,                //its logical volume
-                    "Envelope",              //its name
-                    logicWorld,              //its mother  volume
-                    false,                   //no boolean operation
-                    0,                       //copy number
-                    checkOverlaps);          //overlaps checking
-
-  //
-  // Shape 1
-  //
-  G4Material* shape1_mat = nist->FindOrBuildMaterial("G4_A-150_TISSUE");
-  G4ThreeVector pos1 = G4ThreeVector(0, 0, 0);
-
-  // Conical section shape
-  const G4double pi  = 3.14159265358979323846;
-  G4double shape1_Rmin = 6.*cm;
-  G4double shape1_Rmax = 7.*cm;
-  G4double shape1_Rz = 7.*cm;
-  G4double shape1_Sphi = 0;
-  G4double shape1_Dphi = 2*pi;
-
-  G4RotationMatrix rotm  = G4RotationMatrix();
-  rotm.rotateX(90*deg);
-  G4Transform3D transform = G4Transform3D(rotm,pos1);
-
-  G4Tubs* solidShape1 =
-    new G4Tubs("Shape1",shape1_Rmin, shape1_Rmax,
-               shape1_Rz, shape1_Sphi, shape1_Dphi);
-
-  G4LogicalVolume* logicShape1 =
-    new G4LogicalVolume(solidShape1, shape1_mat, "Shape1");
-
-  new G4PVPlacement(transform,
-                    logicShape1,
-                    "Shape1",
-                    logicEnv,
-                    false,
-                    0,
-                    checkOverlaps);
-
-  //
-  //always return the physical World
-  //
-  return physWorld;
+  // Register the field messenger for deleting
+  G4AutoDelete::Register(fMagFieldMessenger);
 }
 */
-
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

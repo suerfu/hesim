@@ -54,9 +54,7 @@
 /vis/scene/add/text 6 7 10 cm 18 4 4 Shape2
 /vis/scene/notifyHandlers
 /vis/geometry/set/visibility World 0 false
-/vis/scene/notifyHandlers
 /vis/geometry/set/colour Envelope 0 0 0 1 .3
-/vis/scene/notifyHandlers
 /vis/viewer/set/style surface
 /vis/viewer/set/hiddenMarker true
 /vis/viewer/set/viewpointThetaPhi 120 150

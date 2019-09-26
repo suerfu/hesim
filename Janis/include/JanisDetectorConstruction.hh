@@ -30,11 +30,20 @@
 #ifndef JanisDetectorConstruction_h
 #define JanisDetectorConstruction_h 1
 
-#include "G4VUserDetectorConstruction.hh"
 #include "globals.hh"
+#include "G4VUserDetectorConstruction.hh"
+#include "G4Cache.hh"
+#include "OxCryoMaterials.hh"
+#include "G4ThreeVector.hh"
+#include "tls.hh"
 
 class G4VPhysicalVolume;
+class OxCryoMaterials;
 class G4LogicalVolume;
+class G4Material;
+class G4UserLimits;
+class G4GlobalMagFieldMessenger;
+class G4Event;
 
 /// Detector construction class to define materials and geometry.
 
@@ -44,9 +53,38 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     JanisDetectorConstruction();
     virtual ~JanisDetectorConstruction();
 
+  public:
     virtual G4VPhysicalVolume* Construct();
+    //virtual void ConstructSDandField();
+
+    G4Material* FindMaterial(G4String);
+
+    // get methods
+    //
+    const G4VPhysicalVolume* GetMeterPV() const;
+    G4LogicalVolume* GetMeterLV() const;
 
     G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
+
+  private:
+    // methods
+    //
+    void DefineMaterials();
+    G4VPhysicalVolume* DefineVolumes();
+    G4VPhysicalVolume* ConstructVolumes();
+    OxCryoMaterials* materialConstruction;
+    G4Material* mate;
+
+    G4String fDetector;
+    G4double fOffset;
+
+    G4LogicalVolume*   WorldLV;       // pointers
+    G4VPhysicalVolume* WorldPV;
+
+    static G4ThreadLocal G4GlobalMagFieldMessenger*  fMagFieldMessenger;
+                                      // magnetic field messenger
+
+    G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
 
   protected:
     G4LogicalVolume*  fScoringVolume;
