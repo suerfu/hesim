@@ -235,50 +235,50 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     // Cryostat
 
     G4double can_sample_outer_rMin = 0.0*mm;
-    G4double can_sample_outer_rMax = 65.0*mm;
-    G4double can_sample_outer_Dz = 193.0*mm;
+    G4double can_sample_outer_rMax = 63.5*mm;
+    G4double can_sample_outer_Dz = 190.5*mm;
     G4double can_sample_outer_SPhi = 0.0*deg;
     G4double can_sample_outer_DPhi = 360.0*deg;
 
     G4double can_sample_inner_rMin = 0.0*mm;
-    G4double can_sample_inner_rMax = can_sample_outer_rMax - 1.0*mm;
-    G4double can_sample_inner_Dz = can_sample_outer_Dz - 10.0*mm;
+    G4double can_sample_inner_rMax = can_sample_outer_rMax - 1.65*mm;
+    G4double can_sample_inner_Dz = can_sample_outer_Dz - 4.75*mm;
     G4double can_sample_inner_SPhi = 0.0*deg;
     G4double can_sample_inner_DPhi = 360.0*deg;
 
     G4double can_4k_outer_rMin = 0.0*mm;
-    G4double can_4k_outer_rMax = 70.5*mm;
-    G4double can_4k_outer_Dz = 337.0*mm;
+    G4double can_4k_outer_rMax = 70.65*mm;
+    G4double can_4k_outer_Dz = 365.125*mm;
     G4double can_4k_outer_SPhi = 0.0*deg;
     G4double can_4k_outer_DPhi = 360.0*deg;
 
     G4double can_4k_inner_rMin = 0.0*mm;
-    G4double can_4k_inner_rMax = can_4k_outer_rMax - 1.6*mm;
-    G4double can_4k_inner_Dz = can_4k_outer_Dz - 10.0*mm;
+    G4double can_4k_inner_rMax = can_4k_outer_rMax - 1.5875*mm;
+    G4double can_4k_inner_Dz = can_4k_outer_Dz - 1.58*mm;
     G4double can_4k_inner_SPhi = 0.0*deg;
     G4double can_4k_inner_DPhi = 360.0*deg;
 
     G4double can_77k_outer_rMin = 0.0*mm;
     G4double can_77k_outer_rMax = 76.2*mm;
-    G4double can_77k_outer_Dz = 368.0*mm; //400.5mm
+    G4double can_77k_outer_Dz = 400.05*mm;
     G4double can_77k_outer_SPhi = 0.0*deg;
     G4double can_77k_outer_DPhi = 360.0*deg;
 
     G4double can_77k_inner_rMin = 0.0*mm;
-    G4double can_77k_inner_rMax = can_77k_outer_rMax - 1.2*mm;
-    G4double can_77k_inner_Dz = can_77k_outer_Dz - 10.0*mm;
+    G4double can_77k_inner_rMax = can_77k_outer_rMax- 1.3*mm;
+    G4double can_77k_inner_Dz = can_77k_outer_Dz - 6.35*mm;
     G4double can_77k_inner_SPhi = 0.0*deg;
     G4double can_77k_inner_DPhi = 360.0*deg;
 
     G4double can_vacuum_outer_rMin = 0.0*mm;
     G4double can_vacuum_outer_rMax = 101.6*mm;
-    G4double can_vacuum_outer_Dz = 451.0*mm;
+    G4double can_vacuum_outer_Dz = 450.85*mm;
     G4double can_vacuum_outer_SPhi = 0.0*deg;
     G4double can_vacuum_outer_DPhi = 360.0*deg;
 
     G4double can_vacuum_inner_rMin = 0.0*mm;
     G4double can_vacuum_inner_rMax = can_vacuum_outer_rMax-1.3*mm;
-    G4double can_vacuum_inner_Dz = can_vacuum_outer_Dz-10.0*mm;
+    G4double can_vacuum_inner_Dz = can_vacuum_outer_Dz-6.35*mm;
     G4double can_vacuum_inner_SPhi = 0.0*deg;
     G4double can_vacuum_inner_DPhi = 360.0*deg;
 
@@ -348,35 +348,35 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     G4double can_sample_outer_posX = 0.0*mm;
     G4double can_sample_outer_posY = 0.0*mm;
-    G4double can_sample_outer_posZ = (can_4k_outer_Dz - can_sample_outer_Dz)/2.0 - 13.0*mm;
+    G4double can_sample_outer_posZ = (can_4k_outer_Dz - can_sample_outer_Dz)/2.0 - 146.05*mm;
 
     G4double can_sample_inner_posX = 0.0*mm;
     G4double can_sample_inner_posY = 0.0*mm;
-    G4double can_sample_inner_posZ = 0.0*mm;
+    G4double can_sample_inner_posZ = 4.75/2.0*mm;
 
     G4double can_4k_outer_posX = 0.0*mm;
     G4double can_4k_outer_posY = 0.0*mm;
-    G4double can_4k_outer_posZ = (can_77k_outer_Dz - can_4k_outer_Dz)/2.0 - 13.0*mm;
+    G4double can_4k_outer_posZ = (can_77k_outer_Dz - can_4k_outer_Dz)/2.0 - 31.75*mm;
 
     G4double can_4k_inner_posX = 0.0*mm;
     G4double can_4k_inner_posY = 0.0*mm;
-    G4double can_4k_inner_posZ = 0.0*mm;
+    G4double can_4k_inner_posZ = 1.57/2.0*mm;
 
     G4double can_77k_outer_posX = 0.0*mm;
     G4double can_77k_outer_posY = 0.0*mm;
-    G4double can_77k_outer_posZ = (can_vacuum_outer_Dz - can_77k_outer_Dz)/2.0 - 13.0*mm; // 31.75
+    G4double can_77k_outer_posZ = (can_vacuum_outer_Dz - can_77k_outer_Dz)/2.0 - 31.75*mm; // problematic
 
     G4double can_77k_inner_posX = 0.0*mm;
     G4double can_77k_inner_posY = 0.0*mm;
-    G4double can_77k_inner_posZ = 0.0*mm;
+    G4double can_77k_inner_posZ = 6.35/2.0*mm;
 
-    G4double can_vacuum_outer_posX = 31.75*mm;
-    G4double can_vacuum_outer_posY = 970.80*mm;
-    G4double can_vacuum_outer_posZ =  (1.0*m + can_vacuum_outer_Dz/2.0) - (world_z/2.0);
+    G4double can_vacuum_outer_posX = 0.0*mm;
+    G4double can_vacuum_outer_posY = 0.0*mm;
+    G4double can_vacuum_outer_posZ = 0.0*mm;
 
     G4double can_vacuum_inner_posX = 0.0*mm;
     G4double can_vacuum_inner_posY = 0.0*mm;
-    G4double can_vacuum_inner_posZ = 0.0*mm;
+    G4double can_vacuum_inner_posZ = 6.35/2.0*mm;
 
     G4double arm_vacuum_posX = can_vacuum_outer_posX;
     G4double arm_vacuum_posY = can_vacuum_outer_posY;
@@ -442,7 +442,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4RotationMatrix* cryo_77k_inner_rm = new G4RotationMatrix;
     G4RotationMatrix* cryo_4k_inner_rm = new G4RotationMatrix;
 
-    can_vacuum_outer_rm->rotateX(180*deg);
+
 
     //===============  Build Geometry ===============//
 
@@ -476,7 +476,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Tubs* can_77k_inner_S = new G4Tubs(name, can_77k_inner_rMin, can_77k_inner_rMax, can_77k_inner_Dz/2.0, can_77k_inner_SPhi, can_77k_inner_DPhi);
     G4LogicalVolume* can_77k_inner_LV = new G4LogicalVolume(can_77k_inner_S, can_77k_inner_material, name);
     new G4PVPlacement(can_77k_inner_rm, G4ThreeVector(can_77k_inner_posX,can_77k_inner_posY,can_77k_inner_posZ), can_77k_inner_LV, name, can_77k_outer_LV, false, 0, fCheckOverlaps);
-    /*
+
     name = "can_4k_outer";
     G4Tubs* can_4k_outer_S = new G4Tubs(name, can_4k_outer_rMin, can_4k_outer_rMax, can_4k_outer_Dz/2.0, can_4k_outer_SPhi, can_4k_outer_DPhi);
     G4LogicalVolume* can_4k_outer_LV = new G4LogicalVolume(can_4k_outer_S, can_4k_outer_material, name);
@@ -546,7 +546,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Tubs* cryo_4k_inner_S = new G4Tubs(name, cryo_4k_inner_rMin, cryo_4k_inner_rMax, cryo_4k_inner_Dz/2.0, cryo_4k_inner_SPhi, cryo_4k_inner_DPhi);
     G4LogicalVolume* cryo_4k_inner_LV = new G4LogicalVolume(cryo_4k_inner_S, cryo_4k_inner_material, name);
     new G4PVPlacement(cryo_4k_inner_rm, G4ThreeVector(cryo_4k_inner_posX,cryo_4k_inner_posY,cryo_4k_inner_posZ), cryo_4k_inner_LV, name, cryo_4k_outer_LV, false, 0, fCheckOverlaps);
-    */
+
     G4VisAttributes* helium_vis = new G4VisAttributes(G4Colour(0.0,0.0,1.0,0.75));
     G4VisAttributes* nitrogen_vis = new G4VisAttributes(G4Colour(0.0,1.0,1.0,0.75));
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
@@ -568,26 +568,26 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     // Cryostat
 
       // Inner
-    //can_sample_inner_LV->SetVisAttributes(helium_vis);
-    //can_4k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
+    can_sample_inner_LV->SetVisAttributes(helium_vis);
+    can_4k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
     can_77k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
     can_vacuum_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
-    //cryo_vacuum_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
-    //cryo_77k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
-    //cryo_4k_inner_LV->SetVisAttributes(helium_vis);
+    cryo_vacuum_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
+    cryo_77k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
+    cryo_4k_inner_LV->SetVisAttributes(helium_vis);
 
       // Outer
-    //can_sample_outer_LV->SetVisAttributes(container_vis);
-    //can_4k_outer_LV->SetVisAttributes(container_vis);
+    can_sample_outer_LV->SetVisAttributes(container_vis);
+    can_4k_outer_LV->SetVisAttributes(container_vis);
     can_77k_outer_LV->SetVisAttributes(container_vis);
     can_vacuum_outer_LV->SetVisAttributes(container_vis);
-    //arm_vacuum_LV->SetVisAttributes(container_vis);
-    //arm_77k_LV->SetVisAttributes(container_vis);
-    //arm_4k_LV->SetVisAttributes(container_vis);
-    //cryo_vacuum_outer_LV->SetVisAttributes(container_vis);
-    //cryo_77k_outer_LV->SetVisAttributes(container_vis);
-    //cryo_nitrogen_LV->SetVisAttributes(nitrogen_vis);
-    //cryo_4k_outer_LV->SetVisAttributes(container_vis);
+    arm_vacuum_LV->SetVisAttributes(container_vis);
+    arm_77k_LV->SetVisAttributes(container_vis);
+    arm_4k_LV->SetVisAttributes(container_vis);
+    cryo_vacuum_outer_LV->SetVisAttributes(container_vis);
+    cryo_77k_outer_LV->SetVisAttributes(container_vis);
+    cryo_nitrogen_LV->SetVisAttributes(nitrogen_vis);
+    cryo_4k_outer_LV->SetVisAttributes(container_vis);
 
 
     return WorldPV;
