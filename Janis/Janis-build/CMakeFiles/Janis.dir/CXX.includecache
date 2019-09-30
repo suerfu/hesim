@@ -19,6 +19,8 @@ G4ThreeVector.hh
 ../include/G4ThreeVector.hh
 tls.hh
 ../include/tls.hh
+G4RotationMatrix.hh
+../include/G4RotationMatrix.hh
 
 ../include/OxCryoMaterials.hh
 globals.hh

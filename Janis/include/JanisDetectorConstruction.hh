@@ -36,6 +36,7 @@
 #include "OxCryoMaterials.hh"
 #include "G4ThreeVector.hh"
 #include "tls.hh"
+#include "G4RotationMatrix.hh"
 
 class G4VPhysicalVolume;
 class OxCryoMaterials;
@@ -83,6 +84,11 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     static G4ThreadLocal G4GlobalMagFieldMessenger*  fMagFieldMessenger;
                                       // magnetic field messenger
+
+    void PlacePMT(G4LogicalVolume* worldLV,G4double &PMT_posX,G4double &PMT_posY,G4double &PMT_posZ,G4RotationMatrix* PMT_RM);
+
+    G4VPhysicalVolume* os_body_PV;
+    G4VPhysicalVolume* liquid_helium_PV;
 
     G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
 

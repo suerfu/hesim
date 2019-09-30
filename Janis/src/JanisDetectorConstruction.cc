@@ -198,6 +198,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Material* default_material = G4Material::GetMaterial("galactic");
     G4Material* liquid_helium_material = G4Material::GetMaterial("liquid_helium");
 
+    G4Material* can_sample_plate_material = G4Material::GetMaterial("ss_t316");
+    G4Material* can_sample_ring_material = G4Material::GetMaterial("ss_t316");
     G4Material* can_sample_outer_material = G4Material::GetMaterial("ss_t316");
     G4Material* can_4k_outer_material = G4Material::GetMaterial("Cu");
     G4Material* can_77k_outer_material = G4Material::GetMaterial("Cu");
@@ -205,6 +207,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Material* arm_vacuum_material = G4Material::GetMaterial("ss_t316");
     G4Material* arm_77k_material = G4Material::GetMaterial("Al");
     G4Material* arm_4k_material = G4Material::GetMaterial("Al");
+    G4Material* arm_sample_material = G4Material::GetMaterial("Al");
     G4Material* cryo_vacuum_outer_material = G4Material::GetMaterial("ss_t316");
     G4Material* cryo_77k_outer_material = G4Material::GetMaterial("ss_t316");
     G4Material* cryo_nitrogen_material = G4Material::GetMaterial("liquid_nitrogen");
@@ -218,6 +221,24 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Material* cryo_77k_inner_material = G4Material::GetMaterial("galactic");
     G4Material* cryo_4k_inner_material = G4Material::GetMaterial("liquid_helium");
 
+    // Organic Scintillator
+
+    G4Material* os_body_material = G4Material::GetMaterial("generic_organic_scintillator");
+    G4Material* os_case_material = G4Material::GetMaterial("Al");
+    G4Material* os_pmt_material = G4Material::GetMaterial("generic_pmt");
+
+    // PMT Related
+
+    G4Material* acrylic_cell_material = G4Material::GetMaterial("generic_acrylic");
+    G4Material* pmt_array_material = G4Material::GetMaterial("liquid_helium");
+
+    if ( ! default_material || ! acrylic_cell_material || ! liquid_helium_material || ! os_body_material ) {
+      G4ExceptionDescription msg;
+      msg << "Cannot retrieve materials already defined.";
+      G4Exception("JanisDetectorConstruction::DefineVolumes()",
+        "MyCode0001", FatalException, msg);
+    }
+
     // Clean old geometry, if any
     G4GeometryManager::GetInstance()->OpenGeometry();
     G4PhysicalVolumeStore::GetInstance()->Clean();
@@ -228,15 +249,27 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // World
 
-    G4double world_x = 100.*cm;
-    G4double world_y = 100.*cm;
-    G4double world_z = 100.*cm;
+    G4double world_x = 1000.*cm;
+    G4double world_y = 1000.*cm;
+    G4double world_z = 1000.*cm;
 
     // Cryostat
 
+    G4double can_sample_plate_rMin = 0.0*mm;
+    G4double can_sample_plate_rMax = 68.26*mm;
+    G4double can_sample_plate_Dz = 6.35*mm;
+    G4double can_sample_plate_SPhi = 0.0*deg;
+    G4double can_sample_plate_DPhi = 360.0*deg;
+
+    G4double can_sample_ring_rMin = 63.5*mm;
+    G4double can_sample_ring_rMax = 68.26*mm;
+    G4double can_sample_ring_Dz = 8.97*mm;
+    G4double can_sample_ring_SPhi = 0.0*deg;
+    G4double can_sample_ring_DPhi = 360.0*deg;
+
     G4double can_sample_outer_rMin = 0.0*mm;
     G4double can_sample_outer_rMax = 63.5*mm;
-    G4double can_sample_outer_Dz = 190.5*mm;
+    G4double can_sample_outer_Dz = 190.754*mm;
     G4double can_sample_outer_SPhi = 0.0*deg;
     G4double can_sample_outer_DPhi = 360.0*deg;
 
@@ -283,22 +316,28 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double can_vacuum_inner_DPhi = 360.0*deg;
 
     G4double arm_vacuum_rMax = 50.8*mm;
-    G4double arm_vacuum_rMin = arm_vacuum_rMax - 5.0*mm;
+    G4double arm_vacuum_rMin = arm_vacuum_rMax - 3.175*mm;
     G4double arm_vacuum_Dz = 304.8*mm;
     G4double arm_vacuum_SPhi = 0.0*deg;
     G4double arm_vacuum_DPhi = 360.0*deg;
 
-    G4double arm_77k_rMax = 44.0*mm;
-    G4double arm_77k_rMin = arm_77k_rMax - 5.0*mm;
-    G4double arm_77k_Dz = 300.8*mm;
+    G4double arm_77k_rMax = 44.45*mm;
+    G4double arm_77k_rMin = arm_77k_rMax - 1.58*mm;
+    G4double arm_77k_Dz = arm_vacuum_Dz;
     G4double arm_77k_SPhi = 0.0*deg;
     G4double arm_77k_DPhi = 360.0*deg;
 
-    G4double arm_4k_rMax = 38*mm;
-    G4double arm_4k_rMin = arm_4k_rMax - 5.0*mm;
-    G4double arm_4k_Dz = 296.8*mm;
+    G4double arm_4k_rMax = 38.1*mm;
+    G4double arm_4k_rMin = arm_4k_rMax - 1.57*mm;
+    G4double arm_4k_Dz = arm_vacuum_Dz;
     G4double arm_4k_SPhi = 0.0*deg;
     G4double arm_4k_DPhi = 360.0*deg;
+
+    G4double arm_sample_rMax = 12.67*mm;
+    G4double arm_sample_rMin = arm_sample_rMax - 1.2446*mm;
+    G4double arm_sample_Dz = arm_vacuum_Dz;
+    G4double arm_sample_SPhi = 0.0*deg;
+    G4double arm_sample_DPhi = 360.0*deg;
 
     G4double cryo_vacuum_outer_rMin = 0.0*mm;
     G4double cryo_vacuum_outer_rMax = 209.6*mm;
@@ -342,9 +381,62 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double cryo_4k_inner_SPhi = 0.0*deg;
     G4double cryo_4k_inner_DPhi = 360.0*deg;
 
+    // Liquid Helium Size (one of our sensitive volumes)
+
+    G4double liquid_helium_sizeX = 25.7*mm;
+    G4double liquid_helium_sizeY = 25.7*mm;
+    G4double liquid_helium_sizeZ = 25.7*mm;
+
+    // Acrylic cell around liquid helium
+
+    G4double acrylic_cell_wall_thickness = 0.5*mm;
+
+    G4double acrylic_cell_exterior_sizeX = liquid_helium_sizeX+(2*acrylic_cell_wall_thickness);
+    G4double acrylic_cell_exterior_sizeY = liquid_helium_sizeY+(2*acrylic_cell_wall_thickness);
+    G4double acrylic_cell_exterior_sizeZ = liquid_helium_sizeZ+(2*acrylic_cell_wall_thickness);
+
+    // PMT
+
+    G4double pmt_sizeX = 25.7*mm;
+    G4double pmt_sizeY = 25.7*mm;
+    G4double pmt_sizeZ = 29.45*mm;
+
+    // PMT Array (Mother volume for the six PMTs)
+
+    G4double pmt_array_size_xyz = 1*mm + (pmt_sizeZ*2 + acrylic_cell_exterior_sizeZ);
+
+    // Organic Scintillator
+
+    G4double os_body_rMin = 0.0*mm;
+    G4double os_body_rMax = 47.0*mm;
+    G4double os_body_Dz = 94.0*mm;
+    G4double os_body_SPhi = 0.0*deg;
+    G4double os_body_DPhi = 360.0*deg;
+
+    G4double os_case_rMin = 0.0*mm;
+    G4double os_case_rMax = 50.0*mm;
+    G4double os_case_Dz = 336.0*mm;
+    G4double os_case_SPhi = 0.0*deg;
+    G4double os_case_DPhi = 360.0*deg;
+
+    G4double os_pmt_rMin = 0.0*mm;
+    G4double os_pmt_rMax = 47.0*mm;
+    G4double os_pmt_Dz = 200.0*mm;
+    G4double os_pmt_SPhi = 0.0*deg;
+    G4double os_pmt_DPhi = 360.0*deg;
+
+
     //===============  Positions ===============//
 
     // Cryostat
+
+    G4double can_sample_plate_posX = 0.0*mm;
+    G4double can_sample_plate_posY = 0.0*mm;
+    G4double can_sample_plate_posZ = (can_sample_outer_Dz + can_sample_plate_Dz)/2.0;
+
+    G4double can_sample_ring_posX = 0.0*mm;
+    G4double can_sample_ring_posY = 0.0*mm;
+    G4double can_sample_ring_posZ = (can_sample_outer_Dz - can_sample_ring_Dz)/2.0;
 
     G4double can_sample_outer_posX = 0.0*mm;
     G4double can_sample_outer_posY = 0.0*mm;
@@ -390,6 +482,10 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double arm_4k_posY = arm_vacuum_posY;
     G4double arm_4k_posZ = arm_vacuum_posZ;
 
+    G4double arm_sample_posX = arm_vacuum_posX;
+    G4double arm_sample_posY = arm_vacuum_posY;
+    G4double arm_sample_posZ = arm_vacuum_posZ;
+
     G4double cryo_vacuum_outer_posX = can_vacuum_outer_posX;
     G4double cryo_vacuum_outer_posY = can_vacuum_outer_posY;
     G4double cryo_vacuum_outer_posZ = arm_vacuum_posZ + (arm_vacuum_Dz/2.0) + (cryo_vacuum_outer_Dz/2.0);
@@ -418,10 +514,83 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double cryo_4k_inner_posY = 0.0*mm;
     G4double cryo_4k_inner_posZ = 0.0*mm;
 
+
+    // PMT Array Position
+
+    G4double pmt_array_posX = 0*mm;
+    G4double pmt_array_posY = 0*mm;
+    G4double pmt_array_posZ = 0*mm;
+
+    // PMT Positions
+
+    G4double pmt1_posX = acrylic_cell_exterior_sizeX/2.0 + pmt_sizeZ/2.0*mm;
+    G4double pmt1_posY = 0*mm;
+    G4double pmt1_posZ = 0*mm;
+
+    G4double pmt2_posX = -(acrylic_cell_exterior_sizeX/2.0 + pmt_sizeZ/2.0)*mm;
+    G4double pmt2_posY = 0*mm;
+    G4double pmt2_posZ = 0*mm;
+
+    G4double pmt3_posX = 0*mm;
+    G4double pmt3_posY = acrylic_cell_exterior_sizeY/2.0 + pmt_sizeZ/2.0*mm;
+    G4double pmt3_posZ = 0*mm;
+
+    G4double pmt4_posX = 0*mm;
+    G4double pmt4_posY = -(acrylic_cell_exterior_sizeY/2.0 + pmt_sizeZ/2.0)*mm;
+    G4double pmt4_posZ = 0*mm;
+
+    G4double pmt5_posX = 0*mm;
+    G4double pmt5_posY = 0*mm;
+    G4double pmt5_posZ = acrylic_cell_exterior_sizeZ/2.0 + pmt_sizeZ/2.0*mm;
+
+    G4double pmt6_posX = 0*mm;
+    G4double pmt6_posY = 0*mm;
+    G4double pmt6_posZ = -(acrylic_cell_exterior_sizeZ/2.0 + pmt_sizeZ/2.0)*mm;
+
+    // Organic Scintillator
+
+    G4double os_body_posX = 0.0*mm;
+    G4double os_body_posY = 0.0*mm;
+    G4double os_body_posZ = os_case_Dz/2.0 - os_body_Dz/2.0 - 3.0;
+
+    char* temp;
+
+    G4double os_case_dist;
+    G4double os_case_ang;
+
+    temp = getenv("OS_CASE_DIST");
+    if (temp!=NULL){
+      os_case_dist = atof(temp)*mm;
+    } else {
+      G4cout << "OS_CASE_DIST not set! using default value" << G4endl;
+      os_case_dist = 1000.0*mm;
+    }
+    G4cout << "OS_CASE_DIST set to " << os_case_dist << G4endl;
+
+    temp = getenv("OS_CASE_ANG");
+    if (temp!=NULL){
+      os_case_ang = atof(temp)*deg;
+    } else {
+      G4cout << "OS_CASE_ANG not set! using default value" << G4endl;
+      os_case_ang = 5.0*deg;
+    }
+    G4cout << "OS_CASE_ANG set to "  << os_case_ang << G4endl;
+
+    G4double os_case_posX = os_case_dist*sin(os_case_ang)*mm;
+    G4double os_case_posY = 0.0*mm;
+    G4double os_case_posZ = os_case_dist*cos(os_case_ang)*mm;
+
+    G4double os_pmt_posX = 0.0*mm;
+    G4double os_pmt_posY = 0.0*mm;
+    G4double os_pmt_posZ = os_case_Dz/2.0 - os_pmt_Dz/2.0 - os_body_Dz - 3.0;
+
+
     //===============  Rotations ===============//
 
     // Cryostat
 
+    G4RotationMatrix* can_sample_plate_rm = new G4RotationMatrix;
+    G4RotationMatrix* can_sample_ring_rm = new G4RotationMatrix;
     G4RotationMatrix* can_sample_outer_rm = new G4RotationMatrix;
     G4RotationMatrix* can_4k_outer_rm = new G4RotationMatrix;
     G4RotationMatrix* can_77k_outer_rm = new G4RotationMatrix;
@@ -429,6 +598,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4RotationMatrix* arm_vacuum_rm = new G4RotationMatrix;
     G4RotationMatrix* arm_77k_rm = new G4RotationMatrix;
     G4RotationMatrix* arm_4k_rm = new G4RotationMatrix;
+    G4RotationMatrix* arm_sample_rm = new G4RotationMatrix;
     G4RotationMatrix* cryo_vacuum_outer_rm = new G4RotationMatrix;
     G4RotationMatrix* cryo_77k_outer_rm = new G4RotationMatrix;
     G4RotationMatrix* cryo_nitrogen_rm = new G4RotationMatrix;
@@ -442,7 +612,33 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4RotationMatrix* cryo_77k_inner_rm = new G4RotationMatrix;
     G4RotationMatrix* cryo_4k_inner_rm = new G4RotationMatrix;
 
+    // PMT
+    G4RotationMatrix *NO_ROT = new G4RotationMatrix;
+    G4RotationMatrix *pmt1_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt2_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt3_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt4_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt5_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt6_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt_array_rm = new G4RotationMatrix;
 
+    // Organic Scintillator
+
+    G4RotationMatrix *os_body_rm = new G4RotationMatrix;
+    G4RotationMatrix *os_case_rm = new G4RotationMatrix;
+    G4RotationMatrix *os_pmt_rm = new G4RotationMatrix;
+
+    // Rotate the various PMTs so that they all point inward
+    pmt1_rm->rotateY(90.0*deg);
+    pmt2_rm->rotateY(-90.0*deg);
+    pmt3_rm->rotateX(-90.0*deg);
+    pmt4_rm->rotateX(90.0*deg);
+    pmt5_rm->rotateX(180.0*deg);
+    pmt6_rm->rotateX(0*deg);
+
+    //Rotate the organic scintillator so that it always points towards the sensitive helium
+    os_case_rm->rotateY(-os_case_ang);
+    os_case_rm->rotateY(180.0*deg);
 
     //===============  Build Geometry ===============//
 
@@ -497,6 +693,16 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4LogicalVolume* can_sample_inner_LV = new G4LogicalVolume(can_sample_inner_S, can_sample_inner_material, name);
     new G4PVPlacement(can_sample_inner_rm, G4ThreeVector(can_sample_inner_posX,can_sample_inner_posY,can_sample_inner_posZ), can_sample_inner_LV, name, can_sample_outer_LV, false, 0, fCheckOverlaps);
 
+    name = "can_sample_ring";
+    G4Tubs* can_sample_ring_S = new G4Tubs(name, can_sample_ring_rMin, can_sample_ring_rMax, can_sample_ring_Dz/2.0, can_sample_ring_SPhi, can_sample_ring_DPhi);
+    G4LogicalVolume* can_sample_ring_LV = new G4LogicalVolume(can_sample_ring_S, can_sample_ring_material, name);
+    new G4PVPlacement(can_sample_ring_rm, G4ThreeVector(can_sample_ring_posX, can_sample_ring_posY, can_sample_ring_posZ), can_sample_ring_LV, name, can_sample_outer_LV, false, 0, fCheckOverlaps);
+
+    name = "can_sample_plate";
+    G4Tubs* can_sample_plate_S = new G4Tubs(name, can_sample_plate_rMin, can_sample_plate_rMax, can_sample_plate_Dz/2.0, can_sample_plate_SPhi, can_sample_plate_DPhi);
+    G4LogicalVolume* can_sample_plate_LV = new G4LogicalVolume(can_sample_plate_S, can_sample_plate_material, name);
+    new G4PVPlacement(can_sample_plate_rm, G4ThreeVector(can_sample_plate_posX, can_sample_plate_posY, can_sample_plate_posZ), can_sample_plate_LV, name, can_sample_outer_LV, false, 0, fCheckOverlaps);
+
     name = "arm_vacuum";
     G4Tubs* arm_vacuum_S = new G4Tubs(name, arm_vacuum_rMin, arm_vacuum_rMax, arm_vacuum_Dz/2.0, arm_vacuum_SPhi, arm_vacuum_DPhi);
     G4LogicalVolume* arm_vacuum_LV = new G4LogicalVolume(arm_vacuum_S, arm_vacuum_material, name);
@@ -511,6 +717,11 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Tubs* arm_4k_S = new G4Tubs(name, arm_4k_rMin, arm_4k_rMax, arm_4k_Dz/2.0, arm_4k_SPhi, arm_4k_DPhi);
     G4LogicalVolume* arm_4k_LV = new G4LogicalVolume(arm_4k_S, arm_4k_material, name);
     new G4PVPlacement(arm_4k_rm, G4ThreeVector(arm_4k_posX,arm_4k_posY,arm_4k_posZ), arm_4k_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "arm_sample";
+    G4Tubs* arm_sample_S = new G4Tubs(name, arm_sample_rMin, arm_sample_rMax, arm_sample_Dz/2.0, arm_sample_SPhi, arm_sample_DPhi);
+    G4LogicalVolume* arm_sample_LV = new G4LogicalVolume(arm_sample_S, arm_sample_material, name);
+    new G4PVPlacement(arm_sample_rm, G4ThreeVector(arm_sample_posX,arm_sample_posY,arm_sample_posZ), arm_sample_LV, name, WorldLV, false, 0, fCheckOverlaps);
 
     name = "cryo_vacuum_outer";
     G4Tubs* cryo_vacuum_outer_S = new G4Tubs(name, cryo_vacuum_outer_rMin, cryo_vacuum_outer_rMax, cryo_vacuum_outer_Dz/2.0, cryo_vacuum_outer_SPhi, cryo_vacuum_outer_DPhi);
@@ -552,6 +763,51 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
 
+    // Organic Scintillator
+    /*
+    name = "os_case";
+    G4Tubs* os_case_S = new G4Tubs(name, os_case_rMin, os_case_rMax, os_case_Dz/2.0, os_case_SPhi, os_case_DPhi);
+    G4LogicalVolume* os_case_LV = new G4LogicalVolume(os_case_S, os_case_material, name);
+    new G4PVPlacement(os_case_rm, G4ThreeVector(os_case_posX,os_case_posY,os_case_posZ), os_case_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
+    name = "os_body";
+    G4Tubs* os_body_S = new G4Tubs(name, os_body_rMin, os_body_rMax, os_body_Dz/2.0, os_body_SPhi, os_body_DPhi);
+    G4LogicalVolume* os_body_LV = new G4LogicalVolume(os_body_S, os_body_material, name);
+    os_body_PV = new G4PVPlacement(os_body_rm, G4ThreeVector(os_body_posX,os_body_posY,os_body_posZ), os_body_LV, name, os_case_LV, false, 0, fCheckOverlaps);
+
+    name = "os_pmt";
+    G4Tubs* os_pmt_S = new G4Tubs(name, os_pmt_rMin, os_pmt_rMax, os_pmt_Dz/2.0, os_pmt_SPhi, os_pmt_DPhi);
+    G4LogicalVolume* os_pmt_LV = new G4LogicalVolume(os_pmt_S, os_pmt_material, name);
+    new G4PVPlacement(os_pmt_rm, G4ThreeVector(os_pmt_posX,os_pmt_posY,os_pmt_posZ), os_pmt_LV, name, os_case_LV, false, 0, fCheckOverlaps);
+    */
+
+    // PMT Array (Uses function PlacePMT to place individual PMTs)
+
+    name = "pmt_array";
+    G4VSolid* pmt_array_S = new G4Box(name, pmt_array_size_xyz/2., pmt_array_size_xyz/2., pmt_array_size_xyz/2.);
+    G4LogicalVolume* pmt_array_LV = new G4LogicalVolume(pmt_array_S, pmt_array_material, name);
+    new G4PVPlacement(pmt_array_rm, G4ThreeVector(pmt_array_posX,pmt_array_posY,pmt_array_posZ), pmt_array_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
+    JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt1_posX,pmt1_posY,pmt1_posZ,pmt1_rm);
+    JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt2_posX,pmt2_posY,pmt2_posZ,pmt2_rm);
+    JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt3_posX,pmt3_posY,pmt3_posZ,pmt3_rm);
+    JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt4_posX,pmt4_posY,pmt4_posZ,pmt4_rm);
+    JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt5_posX,pmt5_posY,pmt5_posZ,pmt5_rm);
+    JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt6_posX,pmt6_posY,pmt6_posZ,pmt6_rm);
+
+    // Acrylic cell
+
+    name = "acrylic_cell";
+    G4VSolid* acrylic_cell_exterior_S = new G4Box(name, acrylic_cell_exterior_sizeX/2., acrylic_cell_exterior_sizeY/2., acrylic_cell_exterior_sizeZ/2.);
+    G4LogicalVolume* acrylic_cell_LV = new G4LogicalVolume(acrylic_cell_exterior_S, acrylic_cell_material, name);
+    new G4PVPlacement(NO_ROT,G4ThreeVector(), acrylic_cell_LV, name, pmt_array_LV, false, 0, fCheckOverlaps);
+
+    // Liquid Helium
+
+    name = "liquid helium";
+    G4VSolid* liquid_helium_S = new G4Box(name, liquid_helium_sizeX/2., liquid_helium_sizeY/2., liquid_helium_sizeZ/2.);
+    G4LogicalVolume* liquid_helium_LV = new G4LogicalVolume(liquid_helium_S, liquid_helium_material, name);
+    liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(), liquid_helium_LV, name, acrylic_cell_LV, false, 0, fCheckOverlaps);
 
     //===============  Visualization ===============//
 
@@ -560,14 +816,18 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
     G4VisAttributes* greyTVA = new G4VisAttributes(G4Colour(0.5, 0.5, 0.5, 0.25));
     G4VisAttributes* blueTVA = new G4VisAttributes(G4Colour(0.0, 0.0, 1.0, 0.5));
+    G4VisAttributes* simpleBoxVisAtt= new G4VisAttributes(G4Colour(1.0,1.0,1.0, 0.5));
 
     // World
     WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
     fScoringVolume = WorldLV; // meaningless, just to make it runnable
 
     // Cryostat
-
-      // Inner
+    //os_body_LV->SetVisAttributes (simpleBoxVisAtt);
+    //os_case_LV->SetVisAttributes(container_vis);
+    //os_pmt_LV->SetVisAttributes(container_vis);
+    acrylic_cell_LV->SetVisAttributes(simpleBoxVisAtt);
+    pmt_array_LV->SetVisAttributes(helium_vis);
     can_sample_inner_LV->SetVisAttributes(helium_vis);
     can_4k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
     can_77k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
@@ -576,7 +836,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     cryo_77k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
     cryo_4k_inner_LV->SetVisAttributes(helium_vis);
 
-      // Outer
+    can_sample_plate_LV->SetVisAttributes(container_vis);
+    can_sample_ring_LV->SetVisAttributes(container_vis);
     can_sample_outer_LV->SetVisAttributes(container_vis);
     can_4k_outer_LV->SetVisAttributes(container_vis);
     can_77k_outer_LV->SetVisAttributes(container_vis);
@@ -584,6 +845,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     arm_vacuum_LV->SetVisAttributes(container_vis);
     arm_77k_LV->SetVisAttributes(container_vis);
     arm_4k_LV->SetVisAttributes(container_vis);
+    arm_sample_LV->SetVisAttributes(container_vis);
     cryo_vacuum_outer_LV->SetVisAttributes(container_vis);
     cryo_77k_outer_LV->SetVisAttributes(container_vis);
     cryo_nitrogen_LV->SetVisAttributes(nitrogen_vis);
@@ -608,4 +870,75 @@ void JanisDetectorConstruction::ConstructSDandField()
   G4AutoDelete::Register(fMagFieldMessenger);
 }
 */
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::PlacePMT(G4LogicalVolume* can_sample_inner_LV, G4double &pmt_posX,G4double &pmt_posY,G4double &pmt_posZ,G4RotationMatrix* pmt_rm)
+{
+
+  //
+  // This function only places one PMT
+  // Used to shorten the code
+  // All six PMT geometries have the same properties, just different rotation/positions
+  //
+
+  G4String name;
+
+  G4double pmt_sizeX = 25.7*mm;
+  G4double pmt_sizeY = 25.7*mm;
+  G4double pmt_sizeZ = 29.45*mm;
+
+  G4double pmt_Window_sizeX = 24.*mm;
+  G4double pmt_Window_sizeY = 24.*mm;
+  G4double pmt_Window_sizeZ = 1.2*mm;
+
+  G4double pmt_Body_sizeX = 25.7*mm;
+  G4double pmt_Body_sizeY = 25.7*mm;
+  G4double pmt_Body_sizeZ = 28.25*mm;
+
+  G4double pmt_interior_sizeX = 22.7*mm;
+  G4double pmt_interior_sizeY = 22.7*mm;
+  G4double pmt_interior_sizeZ = 26.25*mm;
+
+  G4Material* pmt_material = G4Material::GetMaterial("galactic");
+  G4Material* pmt_Window_material = G4Material::GetMaterial("synthetic_silica");
+  G4Material* pmt_Body_material = G4Material::GetMaterial("ss_t316");
+  G4Material* pmt_interior_material = G4Material::GetMaterial("generic_pmt");
+
+  if ( ! pmt_material || ! pmt_Window_material || ! pmt_Body_material ) {
+    G4ExceptionDescription msg;
+    msg << "Cannot retrieve materials already defined.";
+    G4Exception("JanisDetectorConstruction::DefineVolumes()",
+      "MyCode0001", FatalException, msg);
+  }
+
+  name = "pmt";
+  G4VSolid* pmt_S = new G4Box(name, pmt_sizeX/2., pmt_sizeY/2., pmt_sizeZ/2.);
+  G4LogicalVolume* pmt_LV = new G4LogicalVolume(pmt_S, pmt_material, name);
+  new G4PVPlacement(pmt_rm, G4ThreeVector(pmt_posX,pmt_posY,pmt_posZ), pmt_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
+  name = "pmt_Window";
+  G4VSolid* pmt_Window_S = new G4Box(name, pmt_Window_sizeX/2., pmt_Window_sizeY/2., pmt_Window_sizeZ/2.);
+  G4LogicalVolume* pmt_Window_LV = new G4LogicalVolume(pmt_Window_S, pmt_Window_material, name);
+  new G4PVPlacement(0, G4ThreeVector(0,0,pmt_sizeZ/2. - pmt_Window_sizeZ/2.), pmt_Window_LV, name, pmt_LV, false, 0, fCheckOverlaps);
+
+  name = "pmt_Body";
+  G4VSolid* pmt_Body_S = new G4Box(name, pmt_Body_sizeX/2., pmt_Body_sizeY/2., pmt_Body_sizeZ/2.);
+  G4LogicalVolume* pmt_Body_LV = new G4LogicalVolume(pmt_Body_S, pmt_Body_material, name);
+  new G4PVPlacement(0, G4ThreeVector(0,0,-pmt_Window_sizeZ/2.), pmt_Body_LV, name, pmt_LV, false, 0, fCheckOverlaps);
+
+  name = "pmt_interior";
+  G4VSolid* pmt_interior_S = new G4Box(name, pmt_interior_sizeX/2., pmt_interior_sizeY/2., pmt_interior_sizeZ/2.);
+  G4LogicalVolume* pmt_interior_LV = new G4LogicalVolume(pmt_interior_S, pmt_interior_material, name);
+  new G4PVPlacement(0, G4ThreeVector(0,0,0), pmt_interior_LV, name, pmt_Body_LV, false, 0, fCheckOverlaps);
+
+  G4VisAttributes* simpleBoxVisAtt= new G4VisAttributes(G4Colour(1.0,1.0,1.0,0.25));
+  G4VisAttributes* Synthetic_Silica_Vis= new G4VisAttributes(G4Colour(1.0,1.0,0.25,0.75));
+  G4VisAttributes* redTVA = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.5));
+  simpleBoxVisAtt->SetVisibility(true);
+
+  pmt_LV->SetVisAttributes (G4VisAttributes::Invisible);
+  pmt_Window_LV->SetVisAttributes (Synthetic_Silica_Vis);
+  pmt_Body_LV->SetVisAttributes (redTVA);
+
+}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
