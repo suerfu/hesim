@@ -519,7 +519,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     G4double pmt_array_posX = 0*mm;
     G4double pmt_array_posY = 0*mm;
-    G4double pmt_array_posZ = 0*mm;
+    G4double pmt_array_posZ = -25.33*mm;
 
     // PMT Positions
 
