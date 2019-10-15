@@ -24,6 +24,7 @@
 // ********************************************************************
 //
 //
+/*
 /// \file JanisEventAction.cc
 /// \brief Implementation of the JanisEventAction class
 
@@ -59,6 +60,67 @@ void JanisEventAction::EndOfEventAction(const G4Event*)
 {
   // accumulate statistics in run action
   fRunAction->AddEdep(fEdep);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+*/
+
+// $Id: JanisEventAction.cc 88427 2015-02-19 08:19:38Z gcosmo $
+//
+/// \file JanisEventAction.cc
+/// \brief Implementation of the JanisEventAction class
+
+#include "JanisEventAction.hh"
+#include "JanisRunAction.hh"
+#include "JanisAnalysis.hh"
+
+#include "G4RunManager.hh"
+#include "G4Event.hh"
+#include "G4UnitsTable.hh"
+
+#include "Randomize.hh"
+#include <iomanip>
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+JanisEventAction::JanisEventAction()
+ : G4UserEventAction()
+{}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+JanisEventAction::~JanisEventAction()
+{}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisEventAction::PrintEventStatistics() const
+{
+  // print event statistics
+  G4cout
+     << " nothing so far "
+     << G4endl;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisEventAction::BeginOfEventAction(const G4Event*)
+{}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisEventAction::EndOfEventAction(const G4Event* event)
+{
+  // Print per event (modulo n)
+  //
+  G4int eventID = event->GetEventID();
+  G4int printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
+  if ( ( printModulo > 0 ) && ( eventID % printModulo == 0 ) ) {
+    G4cout << "---> End of event: " << eventID << G4endl;
+
+    //PrintEventStatistics(fEnergyHe, nScattersHe);
+
+  }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

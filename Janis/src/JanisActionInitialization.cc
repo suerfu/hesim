@@ -24,6 +24,8 @@
 // ********************************************************************
 //
 //
+
+/*
 /// \file JanisActionInitialization.cc
 /// \brief Implementation of the JanisActionInitialization class
 
@@ -65,6 +67,57 @@ void JanisActionInitialization::Build() const
   SetUserAction(eventAction);
 
   SetUserAction(new JanisSteppingAction(eventAction));
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+*/
+
+
+// $Id: JanisActionInitialization.cc $
+//
+/// \file JanisActionInitialization.cc
+/// \brief Implementation of the JanisActionInitialization class
+
+#include "JanisActionInitialization.hh"
+//#include "JanisPrimaryGeneratorAction.hh"
+//#include "JanisGPSGeneratorAction.hh"
+#include "JanisDDGeneratorAction.hh"
+#include "JanisRunAction.hh"
+#include "JanisEventAction.hh"
+#include "JanisSteppingAction.hh"
+#include "JanisDetectorConstruction.hh"
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+JanisActionInitialization::JanisActionInitialization
+							(JanisDetectorConstruction* detConstruction)
+ : G4VUserActionInitialization(),
+ fDetConstruction(detConstruction)
+{}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+JanisActionInitialization::~JanisActionInitialization()
+{}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisActionInitialization::BuildForMaster() const
+{
+  SetUserAction(new JanisRunAction);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisActionInitialization::Build() const
+{
+  //SetUserAction(new JanisPrimaryGeneratorAction);
+  SetUserAction(new JanisDDGeneratorAction);
+  //SetUserAction(new JanisGPSGeneratorAction);
+  SetUserAction(new JanisRunAction);
+  JanisEventAction* eventAction = new JanisEventAction;
+  SetUserAction(eventAction);
+  SetUserAction(new JanisSteppingAction(fDetConstruction, eventAction));
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

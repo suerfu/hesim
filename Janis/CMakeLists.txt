@@ -1,8 +1,10 @@
+# $Id: CMakeLists.txt 86065 2014-11-07 08:51:15Z gcosmo $
 
 #----------------------------------------------------------------------------
 # Setup the project
+#
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
-project(Janis)
+project(JanisJanis)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
@@ -23,7 +25,6 @@ endif()
 include(${Geant4_USE_FILE})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-
 #----------------------------------------------------------------------------
 # Locate sources and headers for this project
 # NB: headers are included so they will show up in IDEs
@@ -42,16 +43,16 @@ target_link_libraries(Janis ${Geant4_LIBRARIES})
 # build Janis. This is so that we can run the executable directly because it
 # relies on these scripts being in the current working directory.
 #
-set(JANIS_SCRIPTS
-  Janis.in
+set(Janis_SCRIPTS
   Janis.out
+  icons.mac
+  gui.mac
+  run.png
   init_vis.mac
-  run1.mac
-  run2.mac
   vis.mac
   )
 
-foreach(_script ${JANIS_SCRIPTS})
+foreach(_script ${Janis_SCRIPTS})
   configure_file(
     ${PROJECT_SOURCE_DIR}/${_script}
     ${PROJECT_BINARY_DIR}/${_script}
@@ -60,14 +61,6 @@ foreach(_script ${JANIS_SCRIPTS})
 endforeach()
 
 #----------------------------------------------------------------------------
-# For internal Geant4 use - but has no effect if you build this
-# example standalone
-#
-add_custom_target(JanisFridge DEPENDS Janis)
-
-#----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
 install(TARGETS Janis DESTINATION bin)
-
-

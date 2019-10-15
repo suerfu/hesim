@@ -65,7 +65,7 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     const G4VPhysicalVolume* GetMeterPV() const;
     G4LogicalVolume* GetMeterLV() const;
 
-    G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
+    // G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
 
   private:
     // methods
@@ -92,8 +92,8 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
 
-  protected:
-    G4LogicalVolume*  fScoringVolume;
+ // protected:
+    // G4LogicalVolume*  fScoringVolume;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

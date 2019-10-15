@@ -26,7 +26,7 @@
 //
 /// \file JanisActionInitialization.hh
 /// \brief Definition of the JanisActionInitialization class
-
+/*
 #ifndef JanisActionInitialization_h
 #define JanisActionInitialization_h 1
 
@@ -45,5 +45,33 @@ class JanisActionInitialization : public G4VUserActionInitialization
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+#endif
+*/
+
+// $Id: JanisActionInitialization.hh $
+//
+/// \file JanisActionInitialization.hh
+/// \brief Definition of the JanisActionInitialization class
+
+#ifndef JanisActionInitialization_h
+#define JanisActionInitialization_h 1
+
+#include "G4VUserActionInitialization.hh"
+
+class JanisDetectorConstruction;
+
+class JanisActionInitialization : public G4VUserActionInitialization
+{
+  public:
+    JanisActionInitialization(JanisDetectorConstruction*);
+    virtual ~JanisActionInitialization();
+
+    virtual void BuildForMaster() const;
+    virtual void Build() const;
+
+  private:
+  	JanisDetectorConstruction* fDetConstruction;
+};
 
 #endif

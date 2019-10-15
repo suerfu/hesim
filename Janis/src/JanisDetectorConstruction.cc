@@ -69,7 +69,7 @@
 
 JanisDetectorConstruction::JanisDetectorConstruction()
 : G4VUserDetectorConstruction(),
-  fScoringVolume(0)
+  fCheckOverlaps(true)
 {
 }
 
@@ -820,7 +820,6 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // World
     WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
-    fScoringVolume = WorldLV; // meaningless, just to make it runnable
 
     // Cryostat
     //os_body_LV->SetVisAttributes (simpleBoxVisAtt);
