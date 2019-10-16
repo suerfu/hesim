@@ -12,6 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.15.2/CMakeSystem.cmake"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/CMakeLists.txt"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/Janis.out"
+  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/JanisTest.mac"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/gui.mac"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/icons.mac"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/init_vis.mac"
@@ -93,6 +94,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "Janis.out"
+  "JanisTest.mac"
   "icons.mac"
   "gui.mac"
   "run.png"

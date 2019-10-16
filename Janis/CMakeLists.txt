@@ -45,6 +45,7 @@ target_link_libraries(Janis ${Geant4_LIBRARIES})
 #
 set(Janis_SCRIPTS
   Janis.out
+  JanisTest.mac
   icons.mac
   gui.mac
   run.png

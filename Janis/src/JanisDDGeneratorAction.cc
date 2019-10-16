@@ -46,26 +46,28 @@ JanisDDGeneratorAction::~JanisDDGeneratorAction()
 void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   //Parameters of Energy_vs_Angle fitted into a cubic polynomial
-  G4double e1 =   4.852e-7;
-  G4double e2 =  -0.0001289;
-  G4double e3 =  0.0008434;
-  G4double e4 = 14.67;
+  G4double e1 =  -3.76446665e-10;
+  G4double e2 =  3.75645182e-07;
+  G4double e3 =  -7.76735734e-05;
+  G4double e4 = 5.23749916e-04;
+  G4double e5 =  2.80130909e+00;
 
   //Parameters of the Differential_crossection_vs_Angle fitted into a cubic polynomial
-  G4double d1 = 3.042e-08 ;
-  G4double d2 = -8.194e-06;
-  G4double d3 = 2.906e-05;
-  G4double d4 = 1.0;
+  G4double d1 = -4.55564278e-08 ;
+  G4double d2 = 1.25782970e-05;
+  G4double d3 = 4.60832782e-03;
+  G4double d4 = 2.27093768e-03;
+
 
 G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
-G4double angle = DD_dist(d1,d2, d3, d4);
+G4double angle = DD_dist(d1, d2, d3, d4);
 G4double theta = angle*(3.14159265358979323846/180)*radian;
 G4ThreeVector neutronDirection;
 neutronDirection.setRhoPhiTheta(-1.0,phi,theta);//-1 is needed because we are pointing it towards -ve z direction.
 
 // set particle parameters
 fParticleSource->SetParticleMomentumDirection(neutronDirection);
-fParticleSource->SetParticleEnergy(e1*angle*angle*angle + e2*angle*angle + e3*angle + e4);
+fParticleSource->SetParticleEnergy(e1*angle*angle*angle*angle + e2*angle*angle*angle + e3*angle*angle + e4*angle + e5);
  G4ParticleDefinition* particleDefinition
    = G4ParticleTable::GetParticleTable()->FindParticle("neutron");
  fParticleSource->SetParticleDefinition(particleDefinition);

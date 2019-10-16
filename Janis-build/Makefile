@@ -304,33 +304,6 @@ src/JanisEventAction.cc.s:
 	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisEventAction.cc.s
 .PHONY : src/JanisEventAction.cc.s
 
-src/JanisPrimaryGeneratorAction.o: src/JanisPrimaryGeneratorAction.cc.o
-
-.PHONY : src/JanisPrimaryGeneratorAction.o
-
-# target to build an object file
-src/JanisPrimaryGeneratorAction.cc.o:
-	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisPrimaryGeneratorAction.cc.o
-.PHONY : src/JanisPrimaryGeneratorAction.cc.o
-
-src/JanisPrimaryGeneratorAction.i: src/JanisPrimaryGeneratorAction.cc.i
-
-.PHONY : src/JanisPrimaryGeneratorAction.i
-
-# target to preprocess a source file
-src/JanisPrimaryGeneratorAction.cc.i:
-	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisPrimaryGeneratorAction.cc.i
-.PHONY : src/JanisPrimaryGeneratorAction.cc.i
-
-src/JanisPrimaryGeneratorAction.s: src/JanisPrimaryGeneratorAction.cc.s
-
-.PHONY : src/JanisPrimaryGeneratorAction.s
-
-# target to generate assembly for a file
-src/JanisPrimaryGeneratorAction.cc.s:
-	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisPrimaryGeneratorAction.cc.s
-.PHONY : src/JanisPrimaryGeneratorAction.cc.s
-
 src/JanisRunAction.o: src/JanisRunAction.cc.o
 
 .PHONY : src/JanisRunAction.o
@@ -413,9 +386,6 @@ help:
 	@echo "... src/JanisEventAction.o"
 	@echo "... src/JanisEventAction.i"
 	@echo "... src/JanisEventAction.s"
-	@echo "... src/JanisPrimaryGeneratorAction.o"
-	@echo "... src/JanisPrimaryGeneratorAction.i"
-	@echo "... src/JanisPrimaryGeneratorAction.s"
 	@echo "... src/JanisRunAction.o"
 	@echo "... src/JanisRunAction.i"
 	@echo "... src/JanisRunAction.s"

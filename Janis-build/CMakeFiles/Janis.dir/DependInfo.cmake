@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisEventAction.cc.o"
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisPrimaryGeneratorAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisPrimaryGeneratorAction.cc.o"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisRunAction.cc.o"
   "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
   )
