@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/Janis.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/Janis.cc.o"
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o"
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o"
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o"
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisEventAction.cc.o"
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisRunAction.cc.o"
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc" "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/Janis.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/Janis.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisEventAction.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisRunAction.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 
@@ -36,7 +36,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/include"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include"
   "/Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4"
   "/usr/local/include"
   "/usr/local/opt/qt/lib/QtWidgets.framework"

@@ -53,7 +53,7 @@ public:
 private:
   G4ParticleGun*  fParticleSource;
 
-  G4double DD_dist(G4double w1, G4double w2, G4double w3, G4double w4);
+  G4double DD_dist(G4double w1, G4double w2, G4double w3, G4double w4, G4double w5);
 
 };
 

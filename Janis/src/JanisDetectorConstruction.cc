@@ -38,6 +38,7 @@
 
 #include "G4Box.hh"
 #include "G4Tubs.hh"
+#include "G4Cons.hh"
 #include "G4Orb.hh"
 #include "G4ExtrudedSolid.hh"
 #include "G4SubtractionSolid.hh"
@@ -227,6 +228,16 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Material* os_case_material = G4Material::GetMaterial("Al");
     G4Material* os_pmt_material = G4Material::GetMaterial("generic_pmt");
 
+    // Far-side Detector
+
+    G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fs_head_inner_material = G4Material::GetMaterial("generic_organic_scintillator");
+    G4Material* fs_neck_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fs_body_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fs_pants_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fs_leg_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fs_foot_outer_material = G4Material::GetMaterial("Al");
+
     // PMT Related
 
     G4Material* acrylic_cell_material = G4Material::GetMaterial("generic_acrylic");
@@ -249,9 +260,9 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // World
 
-    G4double world_x = 1000.*cm;
-    G4double world_y = 1000.*cm;
-    G4double world_z = 1000.*cm;
+    G4double world_x = 5000.*cm;
+    G4double world_y = 5000.*cm;
+    G4double world_z = 2000.*cm;
 
     // Cryostat
 
@@ -425,6 +436,52 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double os_pmt_SPhi = 0.0*deg;
     G4double os_pmt_DPhi = 360.0*deg;
 
+    // Far-side Detector
+
+    G4double fs_head_outer_rMin = 0.0*mm;
+    G4double fs_head_outer_rMax = 66.675*mm;
+    G4double fs_head_outer_Dz = 133.35*mm;
+    G4double fs_head_outer_SPhi = 0.0*deg;
+    G4double fs_head_outer_DPhi = 360.0*deg;
+
+    G4double fs_head_inner_rMin = 0.0*mm;
+    G4double fs_head_inner_rMax = 63.5*mm;
+    G4double fs_head_inner_Dz = 12.7*cm;
+    G4double fs_head_inner_SPhi = 0.0*deg;
+    G4double fs_head_inner_DPhi = 360.0*deg;
+
+    G4double fs_neck_outer_rMin = 0.0*mm;
+    G4double fs_neck_outer_rMax = 82.55*mm;
+    G4double fs_neck_outer_Dz = 2.065*cm;
+    G4double fs_neck_outer_SPhi = 0.0*deg;
+    G4double fs_neck_outer_DPhi = 360.0*deg;
+
+    G4double fs_body_outer_rMin = 0.0*mm;
+    G4double fs_body_outer_rMax = 7.145*cm;
+    G4double fs_body_outer_Dz = 133.35*mm;
+    G4double fs_body_outer_SPhi = 0.0*deg;
+    G4double fs_body_outer_DPhi = 360.0*deg;
+
+    G4double fs_pants_outer_rMin1 = 0.0*mm;
+    G4double fs_pants_outer_rMax1 = 71.45*mm;
+    G4double fs_pants_outer_rMin2 = 0.0*mm;
+    G4double fs_pants_outer_rMax2 = 50.8*mm;
+    G4double fs_pants_outer_Dz = 28.575*mm;
+    G4double fs_pants_outer_SPhi = 0.0*deg;
+    G4double fs_pants_outer_DPhi = 360.0*deg;
+
+    G4double fs_leg_outer_rMin = 0.0*mm;
+    G4double fs_leg_outer_rMax = 50.8*mm;
+    G4double fs_leg_outer_Dz = 85.725*mm;
+    G4double fs_leg_outer_SPhi = 0.0*deg;
+    G4double fs_leg_outer_DPhi = 360.0*deg;
+
+    G4double fs_foot_outer_rMin = 0.0*mm;
+    G4double fs_foot_outer_rMax = 2.54*cm;
+    G4double fs_foot_outer_Dz = 85.725*mm;
+    G4double fs_foot_outer_SPhi = 0.0*deg;
+    G4double fs_foot_outer_DPhi = 360.0*deg;
+
 
     //===============  Positions ===============//
 
@@ -584,6 +641,41 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double os_pmt_posY = 0.0*mm;
     G4double os_pmt_posZ = os_case_Dz/2.0 - os_pmt_Dz/2.0 - os_body_Dz - 3.0;
 
+    // Far-side Detector
+
+    // Modify here for Far-side detector placement
+    G4double fs_placement_angle = 60.0*deg;
+    G4double fs_placement_height = -10.0*mm;
+    G4double fs_placement_distance = 140*cm;
+
+    G4double fs_head_outer_posX = 0.0*mm;
+    G4double fs_head_outer_posY = 0.0*mm;
+    G4double fs_head_outer_posZ = 0.0*mm;
+
+    G4double fs_head_inner_posX = fs_placement_distance * cos(fs_placement_angle);
+    G4double fs_head_inner_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_inner_posZ = fs_placement_height;
+
+    G4double fs_neck_outer_posX = 0.0*mm;
+    G4double fs_neck_outer_posY = 0.0*mm;
+    G4double fs_neck_outer_posZ = (fs_neck_outer_Dz + fs_head_outer_Dz)/2;
+
+    G4double fs_body_outer_posX = 0.0*mm;
+    G4double fs_body_outer_posY = 0.0*mm;
+    G4double fs_body_outer_posZ = (fs_neck_outer_Dz + fs_body_outer_Dz)/2;
+
+    G4double fs_pants_outer_posX = 0.0*mm;
+    G4double fs_pants_outer_posY = 0.0*mm;
+    G4double fs_pants_outer_posZ = (fs_pants_outer_Dz + fs_body_outer_Dz)/2;
+
+    G4double fs_leg_outer_posX = 0.0*mm;
+    G4double fs_leg_outer_posY = 0.0*mm;
+    G4double fs_leg_outer_posZ = (fs_pants_outer_Dz + fs_leg_outer_Dz)/2;
+
+    G4double fs_foot_outer_posX = 0.0*mm;
+    G4double fs_foot_outer_posY = 0.0*mm;
+    G4double fs_foot_outer_posZ = (fs_foot_outer_Dz + fs_leg_outer_Dz)/2;
+
 
     //===============  Rotations ===============//
 
@@ -628,6 +720,15 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4RotationMatrix *os_case_rm = new G4RotationMatrix;
     G4RotationMatrix *os_pmt_rm = new G4RotationMatrix;
 
+    // Far-side Detector
+    G4RotationMatrix *fs_head_outer_rm = new G4RotationMatrix;
+    G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix *fs_neck_outer_rm = new G4RotationMatrix;
+    G4RotationMatrix *fs_body_outer_rm = new G4RotationMatrix;
+    G4RotationMatrix *fs_pants_outer_rm = new G4RotationMatrix;
+    G4RotationMatrix *fs_leg_outer_rm = new G4RotationMatrix;
+    G4RotationMatrix *fs_foot_outer_rm = new G4RotationMatrix;
+
     // Rotate the various PMTs so that they all point inward
     pmt1_rm->rotateY(90.0*deg);
     pmt2_rm->rotateY(-90.0*deg);
@@ -639,6 +740,9 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     //Rotate the organic scintillator so that it always points towards the sensitive helium
     os_case_rm->rotateY(-os_case_ang);
     os_case_rm->rotateY(180.0*deg);
+
+    // Rotate the Far-side Detector
+    fs_head_inner_rm->rotateY(270.0*deg);
 
     //===============  Build Geometry ===============//
 
@@ -809,6 +913,43 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4LogicalVolume* liquid_helium_LV = new G4LogicalVolume(liquid_helium_S, liquid_helium_material, name);
     liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(), liquid_helium_LV, name, acrylic_cell_LV, false, 0, fCheckOverlaps);
 
+    // Far-side Detector
+
+    name = 'fs_head_inner';
+    G4Tubs* fs_head_inner_S = new G4Tubs(name, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
+    G4LogicalVolume* fs_head_inner_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name);
+    new G4PVPlacement(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ), fs_head_inner_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = 'fs_head_outer';
+    G4Tubs* fs_head_outer_S = new G4Tubs(name, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
+    G4LogicalVolume* fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name);
+    new G4PVPlacement(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_outer_LV, name, fs_head_inner_LV, false, 0, fCheckOverlaps);
+
+    name = 'fs_neck_outer';
+    G4Tubs* fs_neck_outer_S = new G4Tubs(name, fs_neck_outer_rMin, fs_neck_outer_rMax, fs_neck_outer_Dz/2.0, fs_neck_outer_SPhi, fs_neck_outer_DPhi);
+    G4LogicalVolume* fs_neck_outer_LV = new G4LogicalVolume(fs_neck_outer_S, fs_neck_outer_material, name);
+    new G4PVPlacement(fs_neck_outer_rm, G4ThreeVector(fs_neck_outer_posX,fs_neck_outer_posY,fs_neck_outer_posZ), fs_neck_outer_LV, name, fs_head_outer_LV, false, 0, fCheckOverlaps);
+
+    name = 'fs_body_outer';
+    G4Tubs* fs_body_outer_S = new G4Tubs(name, fs_body_outer_rMin, fs_body_outer_rMax, fs_body_outer_Dz/2.0, fs_body_outer_SPhi, fs_body_outer_DPhi);
+    G4LogicalVolume* fs_body_outer_LV = new G4LogicalVolume(fs_body_outer_S, fs_body_outer_material, name);
+    new G4PVPlacement(fs_body_outer_rm, G4ThreeVector(fs_body_outer_posX,fs_body_outer_posY,fs_body_outer_posZ), fs_body_outer_LV, name, fs_neck_outer_LV, false, 0, fCheckOverlaps);
+
+    name = 'fs_pants_outer';
+    G4Cons* fs_pants_outer_S = new G4Cons(name, fs_pants_outer_rMin1, fs_pants_outer_rMax1, fs_pants_outer_rMin2, fs_pants_outer_rMax2, fs_pants_outer_Dz/2.0, fs_pants_outer_SPhi, fs_pants_outer_DPhi);
+    G4LogicalVolume* fs_pants_outer_LV = new G4LogicalVolume(fs_pants_outer_S, fs_pants_outer_material, name);
+    new G4PVPlacement(fs_pants_outer_rm, G4ThreeVector(fs_pants_outer_posX,fs_pants_outer_posY,fs_pants_outer_posZ), fs_pants_outer_LV, name, fs_body_outer_LV, false, 0, fCheckOverlaps);
+
+    name = 'fs_leg_outer';
+    G4Tubs* fs_leg_outer_S = new G4Tubs(name, fs_leg_outer_rMin, fs_leg_outer_rMax, fs_leg_outer_Dz/2.0, fs_leg_outer_SPhi, fs_leg_outer_DPhi);
+    G4LogicalVolume* fs_leg_outer_LV = new G4LogicalVolume(fs_leg_outer_S, fs_leg_outer_material, name);
+    new G4PVPlacement(fs_leg_outer_rm, G4ThreeVector(fs_leg_outer_posX,fs_leg_outer_posY,fs_leg_outer_posZ), fs_leg_outer_LV, name, fs_pants_outer_LV, false, 0, fCheckOverlaps);
+
+    name = 'fs_foot_outer';
+    G4Tubs* fs_foot_outer_S = new G4Tubs(name, fs_foot_outer_rMin, fs_foot_outer_rMax, fs_foot_outer_Dz/2.0, fs_foot_outer_SPhi, fs_foot_outer_DPhi);
+    G4LogicalVolume* fs_foot_outer_LV = new G4LogicalVolume(fs_foot_outer_S, fs_foot_outer_material, name);
+    new G4PVPlacement(fs_foot_outer_rm, G4ThreeVector(fs_foot_outer_posX,fs_foot_outer_posY,fs_foot_outer_posZ), fs_foot_outer_LV, name, fs_leg_outer_LV, false, 0, fCheckOverlaps);
+
     //===============  Visualization ===============//
 
     G4VisAttributes* yellowTVA = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.5));
@@ -819,9 +960,11 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4VisAttributes* simpleBoxVisAtt= new G4VisAttributes(G4Colour(1.0,1.0,1.0, 0.5));
 
     // World
+
     WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
 
     // Cryostat
+
     //os_body_LV->SetVisAttributes (simpleBoxVisAtt);
     //os_case_LV->SetVisAttributes(container_vis);
     //os_pmt_LV->SetVisAttributes(container_vis);
@@ -850,6 +993,15 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     cryo_nitrogen_LV->SetVisAttributes(nitrogen_vis);
     cryo_4k_outer_LV->SetVisAttributes(container_vis);
 
+    // Far-side Detector
+
+    fs_head_outer_LV->SetVisAttributes(container_vis);
+    fs_head_inner_LV->SetVisAttributes(greenTVA);
+    fs_neck_outer_LV->SetVisAttributes(container_vis);
+    fs_body_outer_LV->SetVisAttributes(container_vis);
+    fs_pants_outer_LV->SetVisAttributes(container_vis);
+    fs_leg_outer_LV->SetVisAttributes(container_vis);
+    fs_foot_outer_LV->SetVisAttributes(container_vis);
 
     return WorldPV;
 }

@@ -73,12 +73,3 @@
 /vis/viewer/refresh
 /vis/viewer/set/hiddenEdge 0
 /vis/viewer/refresh
-/control/execute JanisTest.mac
-/control/execute JanisTest
-/control/execute <JanisTest.mac>
-/control/execute <JanisTest>
-/control/macroPath JanisTest.mac
-/control/execute JanisTest.mac
-/control/macroPath <path>
-/control/macroPath /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build
-/control/execute JanisTest.mac

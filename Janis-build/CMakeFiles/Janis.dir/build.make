@@ -43,10 +43,10 @@ RM = /usr/local/Cellar/cmake/3.15.2/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis
+CMAKE_SOURCE_DIR = /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build
+CMAKE_BINARY_DIR = /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Janis.dir/depend.make
@@ -58,95 +58,95 @@ include CMakeFiles/Janis.dir/progress.make
 include CMakeFiles/Janis.dir/flags.make
 
 CMakeFiles/Janis.dir/Janis.cc.o: CMakeFiles/Janis.dir/flags.make
-CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/Janis.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Janis.dir/Janis.cc.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/Janis.cc.o -c /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/Janis.cc
+CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/Janis.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Janis.dir/Janis.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/Janis.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/Janis.cc
 
 CMakeFiles/Janis.dir/Janis.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/Janis.cc.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/Janis.cc > CMakeFiles/Janis.dir/Janis.cc.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/Janis.cc > CMakeFiles/Janis.dir/Janis.cc.i
 
 CMakeFiles/Janis.dir/Janis.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/Janis.cc.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/Janis.cc -o CMakeFiles/Janis.dir/Janis.cc.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/Janis.cc -o CMakeFiles/Janis.dir/Janis.cc.s
 
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: CMakeFiles/Janis.dir/flags.make
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o -c /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc
+CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc
 
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc > CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc > CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.i
 
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc -o CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisActionInitialization.cc -o CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.s
 
 CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o: CMakeFiles/Janis.dir/flags.make
-CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o: /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o -c /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc
+CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc
 
 CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc > CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc > CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.i
 
 CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc -o CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDDGeneratorAction.cc -o CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.s
 
 CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o: CMakeFiles/Janis.dir/flags.make
-CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o: /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o -c /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc
+CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc
 
 CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc > CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc > CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.i
 
 CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc -o CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisDetectorConstruction.cc -o CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.s
 
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: CMakeFiles/Janis.dir/flags.make
-CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Janis.dir/src/JanisEventAction.cc.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisEventAction.cc.o -c /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc
+CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Janis.dir/src/JanisEventAction.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisEventAction.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc
 
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/src/JanisEventAction.cc.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc > CMakeFiles/Janis.dir/src/JanisEventAction.cc.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc > CMakeFiles/Janis.dir/src/JanisEventAction.cc.i
 
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/JanisEventAction.cc.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc -o CMakeFiles/Janis.dir/src/JanisEventAction.cc.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc -o CMakeFiles/Janis.dir/src/JanisEventAction.cc.s
 
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: CMakeFiles/Janis.dir/flags.make
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Janis.dir/src/JanisRunAction.cc.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisRunAction.cc.o -c /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc
+CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Janis.dir/src/JanisRunAction.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisRunAction.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc
 
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/src/JanisRunAction.cc.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc > CMakeFiles/Janis.dir/src/JanisRunAction.cc.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc > CMakeFiles/Janis.dir/src/JanisRunAction.cc.i
 
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/JanisRunAction.cc.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc -o CMakeFiles/Janis.dir/src/JanisRunAction.cc.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc -o CMakeFiles/Janis.dir/src/JanisRunAction.cc.s
 
 CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o: CMakeFiles/Janis.dir/flags.make
-CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o: /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o -c /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc
+CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc
 
 CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc > CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc > CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.i
 
 CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc -o CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc -o CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.s
 
 # Object files for target Janis
 Janis_OBJECTS = \
@@ -208,7 +208,7 @@ Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4intercom
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4global.dylib
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4clhep.dylib
 Janis: CMakeFiles/Janis.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Janis"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Janis"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Janis.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -221,6 +221,6 @@ CMakeFiles/Janis.dir/clean:
 .PHONY : CMakeFiles/Janis.dir/clean
 
 CMakeFiles/Janis.dir/depend:
-	cd /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Janis.dir/depend
 

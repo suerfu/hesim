@@ -1,4 +1,4 @@
-# Install script for directory: /Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis
+# Install script for directory: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,7 +33,7 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/Janis")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/Janis")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis")
     execute_process(COMMAND /usr/bin/install_name_tool
@@ -53,5 +53,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/lanqingyuan/Documents/Github/McKinsey_Janis_Fridge/Janis-build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

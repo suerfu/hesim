@@ -1,9 +1,9 @@
 /run/initialize
 /tracking/verbose 1
 
-/random/setSeeds 12383 43886
+/random/setSeeds 12384 42886
 
 /process/list
 /run/printProgress 10
-/analysis/setFileName testrun
-/run/beamOn 1000
+/analysis/setFileName testrun4
+/run/beamOn 100
