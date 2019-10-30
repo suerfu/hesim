@@ -39,7 +39,7 @@
 #include "G4RotationMatrix.hh"
 
 class G4VPhysicalVolume;
-class OxCryoMaterials;
+//class OxCryoMaterials;
 class G4LogicalVolume;
 class G4Material;
 class G4UserLimits;
@@ -82,9 +82,6 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4LogicalVolume*   WorldLV;       // pointers
     G4VPhysicalVolume* WorldPV;
 
-    static G4ThreadLocal G4GlobalMagFieldMessenger*  fMagFieldMessenger;
-                                      // magnetic field messenger
-
     void PlacePMT(G4LogicalVolume* worldLV,G4double &PMT_posX,G4double &PMT_posY,G4double &PMT_posZ,G4RotationMatrix* PMT_RM);
 
     G4VPhysicalVolume* os_body_PV;
@@ -92,8 +89,7 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
 
- // protected:
-    // G4LogicalVolume*  fScoringVolume;
+
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

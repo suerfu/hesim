@@ -24,62 +24,8 @@
 // ********************************************************************
 //
 //
-/*
-/// \file JanisSteppingAction.cc
-/// \brief Implementation of the JanisSteppingAction class
 
-#include "JanisSteppingAction.hh"
-#include "JanisEventAction.hh"
-#include "JanisDetectorConstruction.hh"
 
-#include "G4Step.hh"
-#include "G4Event.hh"
-#include "G4RunManager.hh"
-#include "G4LogicalVolume.hh"
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-JanisSteppingAction::JanisSteppingAction(JanisEventAction* eventAction)
-: G4UserSteppingAction(),
-  fEventAction(eventAction),
-  fScoringVolume(0)
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-JanisSteppingAction::~JanisSteppingAction()
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void JanisSteppingAction::UserSteppingAction(const G4Step* step)
-{
-  if (!fScoringVolume) {
-    const JanisDetectorConstruction* detectorConstruction
-      = static_cast<const JanisDetectorConstruction*>
-        (G4RunManager::GetRunManager()->GetUserDetectorConstruction());
-    fScoringVolume = detectorConstruction->GetScoringVolume();
-  }
-
-  // get volume of the current step
-  G4LogicalVolume* volume
-    = step->GetPreStepPoint()->GetTouchableHandle()
-      ->GetVolume()->GetLogicalVolume();
-
-  // check if we are in scoring volume
-  if (volume != fScoringVolume) return;
-
-  // collect energy deposited in this step
-  G4double edepStep = step->GetTotalEnergyDeposit();
-  fEventAction->AddEdep(edepStep);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-*/
-
-// $Id: JanisSteppingAction.cc 68058 2013-03-13 14:47:43Z gcosmo $
-//
 /// \file JanisSteppingAction.cc
 /// \brief Implementation of the JanisSteppingAction class
 

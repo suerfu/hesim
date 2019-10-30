@@ -1,4 +1,4 @@
-//
+    //
 // ********************************************************************
 // * License and Disclaimer                                           *
 // *                                                                  *
@@ -146,9 +146,9 @@ void JanisDetectorConstruction::DefineMaterials()
     new G4Material(name = "Al",z = 13., a =  26.981538*g/mole, density = 2.70*g/cm3);
 
     //Naphthalene
-    G4Material* Generic_Organic_Scintillator = new G4Material(name = "generic_organic_scintillator" , density = 1.0253*g/cm3 , nComponents = 2);
-    Generic_Organic_Scintillator -> AddElement(elH , nAtoms = 8);
-    Generic_Organic_Scintillator -> AddElement(elC  , nAtoms = 10);
+    G4Material* BC501A = new G4Material(name = "BC-501A" , density = 0.874*g/cm3 , nComponents = 2);
+    BC501A -> AddElement(elH , nAtoms = 482);
+    BC501A -> AddElement(elC  , nAtoms = 398);
 
     G4Material* Synthetic_Silica = new G4Material(name = "synthetic_silica" , density = 2.65*g/cm3 , nComponents = 2);
     Synthetic_Silica -> AddElement(elSi , nAtoms = 1);
@@ -178,21 +178,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     G4NistManager* mat_man = G4NistManager::Instance(); //material mananger
 
-    // Room
-
+    //
     G4Material* world_material = mat_man -> FindOrBuildMaterial("G4_AIR");
-    G4Material* z_wall_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
-    G4Material* x_wall_short_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
-    G4Material* x_wall_long_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
-    G4Material* y_wall_left_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
-    G4Material* y_wall_right_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
-    G4Material* x_wall_adj_door_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
-    G4Material* cupboard_material = G4Material::GetMaterial("wood");
-    G4Material* pump_room_material = G4Material::GetMaterial("wood");
-    G4Material* platform_pillar_material = G4Material::GetMaterial("Al6061");
-    G4Material* platform_material = G4Material::GetMaterial("Al6061");
-    G4Material* soil_space_material = G4Material::GetMaterial("Soil");
-    G4Material* dose_box_material = mat_man -> FindOrBuildMaterial("G4_WATER");
 
     // Cryostat
 
@@ -222,28 +209,23 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Material* cryo_77k_inner_material = G4Material::GetMaterial("galactic");
     G4Material* cryo_4k_inner_material = G4Material::GetMaterial("liquid_helium");
 
-    // Organic Scintillator
-
-    G4Material* os_body_material = G4Material::GetMaterial("generic_organic_scintillator");
-    G4Material* os_case_material = G4Material::GetMaterial("Al");
-    G4Material* os_pmt_material = G4Material::GetMaterial("generic_pmt");
-
     // Far-side Detector
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
-    G4Material* fs_head_inner_material = G4Material::GetMaterial("generic_organic_scintillator");
-    G4Material* fs_neck_outer_material = G4Material::GetMaterial("Al");
-    G4Material* fs_body_outer_material = G4Material::GetMaterial("Al");
-    G4Material* fs_pants_outer_material = G4Material::GetMaterial("Al");
-    G4Material* fs_leg_outer_material = G4Material::GetMaterial("Al");
-    G4Material* fs_foot_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
+        //They are hidden because they are not necessary
+    //G4Material* fs_neck_outer_material = G4Material::GetMaterial("Al");
+    //G4Material* fs_body_outer_material = G4Material::GetMaterial("Al");
+    //G4Material* fs_pants_outer_material = G4Material::GetMaterial("Al");
+    //G4Material* fs_leg_outer_material = G4Material::GetMaterial("Al");
+    //G4Material* fs_foot_outer_material = G4Material::GetMaterial("Al");
 
     // PMT Related
 
     G4Material* acrylic_cell_material = G4Material::GetMaterial("generic_acrylic");
     G4Material* pmt_array_material = G4Material::GetMaterial("liquid_helium");
 
-    if ( ! default_material || ! acrylic_cell_material || ! liquid_helium_material || ! os_body_material ) {
+    if ( ! default_material || ! acrylic_cell_material || ! liquid_helium_material ) {
       G4ExceptionDescription msg;
       msg << "Cannot retrieve materials already defined.";
       G4Exception("JanisDetectorConstruction::DefineVolumes()",
@@ -416,26 +398,6 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     G4double pmt_array_size_xyz = 1*mm + (pmt_sizeZ*2 + acrylic_cell_exterior_sizeZ);
 
-    // Organic Scintillator
-
-    G4double os_body_rMin = 0.0*mm;
-    G4double os_body_rMax = 47.0*mm;
-    G4double os_body_Dz = 94.0*mm;
-    G4double os_body_SPhi = 0.0*deg;
-    G4double os_body_DPhi = 360.0*deg;
-
-    G4double os_case_rMin = 0.0*mm;
-    G4double os_case_rMax = 50.0*mm;
-    G4double os_case_Dz = 336.0*mm;
-    G4double os_case_SPhi = 0.0*deg;
-    G4double os_case_DPhi = 360.0*deg;
-
-    G4double os_pmt_rMin = 0.0*mm;
-    G4double os_pmt_rMax = 47.0*mm;
-    G4double os_pmt_Dz = 200.0*mm;
-    G4double os_pmt_SPhi = 0.0*deg;
-    G4double os_pmt_DPhi = 360.0*deg;
-
     // Far-side Detector
 
     G4double fs_head_outer_rMin = 0.0*mm;
@@ -450,6 +412,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double fs_head_inner_SPhi = 0.0*deg;
     G4double fs_head_inner_DPhi = 360.0*deg;
 
+    //They are hidden because they are not necessary
+    /*
     G4double fs_neck_outer_rMin = 0.0*mm;
     G4double fs_neck_outer_rMax = 82.55*mm;
     G4double fs_neck_outer_Dz = 2.065*cm;
@@ -481,7 +445,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double fs_foot_outer_Dz = 85.725*mm;
     G4double fs_foot_outer_SPhi = 0.0*deg;
     G4double fs_foot_outer_DPhi = 360.0*deg;
-
+    */
 
     //===============  Positions ===============//
 
@@ -604,46 +568,10 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double pmt6_posY = 0*mm;
     G4double pmt6_posZ = -(acrylic_cell_exterior_sizeZ/2.0 + pmt_sizeZ/2.0)*mm;
 
-    // Organic Scintillator
-
-    G4double os_body_posX = 0.0*mm;
-    G4double os_body_posY = 0.0*mm;
-    G4double os_body_posZ = os_case_Dz/2.0 - os_body_Dz/2.0 - 3.0;
-
-    char* temp;
-
-    G4double os_case_dist;
-    G4double os_case_ang;
-
-    temp = getenv("OS_CASE_DIST");
-    if (temp!=NULL){
-      os_case_dist = atof(temp)*mm;
-    } else {
-      G4cout << "OS_CASE_DIST not set! using default value" << G4endl;
-      os_case_dist = 1000.0*mm;
-    }
-    G4cout << "OS_CASE_DIST set to " << os_case_dist << G4endl;
-
-    temp = getenv("OS_CASE_ANG");
-    if (temp!=NULL){
-      os_case_ang = atof(temp)*deg;
-    } else {
-      G4cout << "OS_CASE_ANG not set! using default value" << G4endl;
-      os_case_ang = 5.0*deg;
-    }
-    G4cout << "OS_CASE_ANG set to "  << os_case_ang << G4endl;
-
-    G4double os_case_posX = os_case_dist*sin(os_case_ang)*mm;
-    G4double os_case_posY = 0.0*mm;
-    G4double os_case_posZ = os_case_dist*cos(os_case_ang)*mm;
-
-    G4double os_pmt_posX = 0.0*mm;
-    G4double os_pmt_posY = 0.0*mm;
-    G4double os_pmt_posZ = os_case_Dz/2.0 - os_pmt_Dz/2.0 - os_body_Dz - 3.0;
 
     // Far-side Detector
 
-    // Modify here for Far-side detector placement
+        // Please modify here for Far-side detector placement
     G4double fs_placement_angle = 60.0*deg;
     G4double fs_placement_height = -10.0*mm;
     G4double fs_placement_distance = 140*cm;
@@ -656,6 +584,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double fs_head_inner_posY = fs_placement_distance * sin(fs_placement_angle);
     G4double fs_head_inner_posZ = fs_placement_height;
 
+    /*
+        //They are hidden because they are not necessary
     G4double fs_neck_outer_posX = 0.0*mm;
     G4double fs_neck_outer_posY = 0.0*mm;
     G4double fs_neck_outer_posZ = (fs_neck_outer_Dz + fs_head_outer_Dz)/2;
@@ -675,7 +605,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double fs_foot_outer_posX = 0.0*mm;
     G4double fs_foot_outer_posY = 0.0*mm;
     G4double fs_foot_outer_posZ = (fs_foot_outer_Dz + fs_leg_outer_Dz)/2;
-
+    */
 
     //===============  Rotations ===============//
 
@@ -714,20 +644,17 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4RotationMatrix *pmt6_rm = new G4RotationMatrix;
     G4RotationMatrix *pmt_array_rm = new G4RotationMatrix;
 
-    // Organic Scintillator
-
-    G4RotationMatrix *os_body_rm = new G4RotationMatrix;
-    G4RotationMatrix *os_case_rm = new G4RotationMatrix;
-    G4RotationMatrix *os_pmt_rm = new G4RotationMatrix;
-
     // Far-side Detector
     G4RotationMatrix *fs_head_outer_rm = new G4RotationMatrix;
-    G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fs_head_inner_rm = G4RotationMatrix();
+    /*
+        //They are hidden because they are not necessary
     G4RotationMatrix *fs_neck_outer_rm = new G4RotationMatrix;
     G4RotationMatrix *fs_body_outer_rm = new G4RotationMatrix;
     G4RotationMatrix *fs_pants_outer_rm = new G4RotationMatrix;
     G4RotationMatrix *fs_leg_outer_rm = new G4RotationMatrix;
     G4RotationMatrix *fs_foot_outer_rm = new G4RotationMatrix;
+    */
 
     // Rotate the various PMTs so that they all point inward
     pmt1_rm->rotateY(90.0*deg);
@@ -737,12 +664,9 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     pmt5_rm->rotateX(180.0*deg);
     pmt6_rm->rotateX(0*deg);
 
-    //Rotate the organic scintillator so that it always points towards the sensitive helium
-    os_case_rm->rotateY(-os_case_ang);
-    os_case_rm->rotateY(180.0*deg);
-
     // Rotate the Far-side Detector
-    fs_head_inner_rm->rotateY(270.0*deg);
+    fs_head_inner_rm.rotateY(270.0*deg);
+    fs_head_inner_rm.rotateZ(fs_placement_angle);
 
     //===============  Build Geometry ===============//
 
@@ -867,24 +791,6 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
 
-    // Organic Scintillator
-    /*
-    name = "os_case";
-    G4Tubs* os_case_S = new G4Tubs(name, os_case_rMin, os_case_rMax, os_case_Dz/2.0, os_case_SPhi, os_case_DPhi);
-    G4LogicalVolume* os_case_LV = new G4LogicalVolume(os_case_S, os_case_material, name);
-    new G4PVPlacement(os_case_rm, G4ThreeVector(os_case_posX,os_case_posY,os_case_posZ), os_case_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
-
-    name = "os_body";
-    G4Tubs* os_body_S = new G4Tubs(name, os_body_rMin, os_body_rMax, os_body_Dz/2.0, os_body_SPhi, os_body_DPhi);
-    G4LogicalVolume* os_body_LV = new G4LogicalVolume(os_body_S, os_body_material, name);
-    os_body_PV = new G4PVPlacement(os_body_rm, G4ThreeVector(os_body_posX,os_body_posY,os_body_posZ), os_body_LV, name, os_case_LV, false, 0, fCheckOverlaps);
-
-    name = "os_pmt";
-    G4Tubs* os_pmt_S = new G4Tubs(name, os_pmt_rMin, os_pmt_rMax, os_pmt_Dz/2.0, os_pmt_SPhi, os_pmt_DPhi);
-    G4LogicalVolume* os_pmt_LV = new G4LogicalVolume(os_pmt_S, os_pmt_material, name);
-    new G4PVPlacement(os_pmt_rm, G4ThreeVector(os_pmt_posX,os_pmt_posY,os_pmt_posZ), os_pmt_LV, name, os_case_LV, false, 0, fCheckOverlaps);
-    */
-
     // PMT Array (Uses function PlacePMT to place individual PMTs)
 
     name = "pmt_array";
@@ -918,13 +824,15 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     name = 'fs_head_inner';
     G4Tubs* fs_head_inner_S = new G4Tubs(name, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
     G4LogicalVolume* fs_head_inner_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name);
-    new G4PVPlacement(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ), fs_head_inner_LV, name, WorldLV, false, 0, fCheckOverlaps);
+    G4Transform3D fs_head_inner_transform(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ));
+    new G4PVPlacement(fs_head_inner_transform, fs_head_inner_LV, name, WorldLV, false, 0, fCheckOverlaps);
 
     name = 'fs_head_outer';
     G4Tubs* fs_head_outer_S = new G4Tubs(name, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     G4LogicalVolume* fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name);
     new G4PVPlacement(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_outer_LV, name, fs_head_inner_LV, false, 0, fCheckOverlaps);
 
+    /*
     name = 'fs_neck_outer';
     G4Tubs* fs_neck_outer_S = new G4Tubs(name, fs_neck_outer_rMin, fs_neck_outer_rMax, fs_neck_outer_Dz/2.0, fs_neck_outer_SPhi, fs_neck_outer_DPhi);
     G4LogicalVolume* fs_neck_outer_LV = new G4LogicalVolume(fs_neck_outer_S, fs_neck_outer_material, name);
@@ -949,6 +857,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Tubs* fs_foot_outer_S = new G4Tubs(name, fs_foot_outer_rMin, fs_foot_outer_rMax, fs_foot_outer_Dz/2.0, fs_foot_outer_SPhi, fs_foot_outer_DPhi);
     G4LogicalVolume* fs_foot_outer_LV = new G4LogicalVolume(fs_foot_outer_S, fs_foot_outer_material, name);
     new G4PVPlacement(fs_foot_outer_rm, G4ThreeVector(fs_foot_outer_posX,fs_foot_outer_posY,fs_foot_outer_posZ), fs_foot_outer_LV, name, fs_leg_outer_LV, false, 0, fCheckOverlaps);
+    */
 
     //===============  Visualization ===============//
 
@@ -965,10 +874,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // Cryostat
 
-    //os_body_LV->SetVisAttributes (simpleBoxVisAtt);
-    //os_case_LV->SetVisAttributes(container_vis);
-    //os_pmt_LV->SetVisAttributes(container_vis);
-    acrylic_cell_LV->SetVisAttributes(simpleBoxVisAtt);
+    acrylic_cell_LV->SetVisAttributes(yellowTVA);
     pmt_array_LV->SetVisAttributes(helium_vis);
     can_sample_inner_LV->SetVisAttributes(helium_vis);
     can_4k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
@@ -997,30 +903,18 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     fs_head_outer_LV->SetVisAttributes(container_vis);
     fs_head_inner_LV->SetVisAttributes(greenTVA);
+    /*
     fs_neck_outer_LV->SetVisAttributes(container_vis);
     fs_body_outer_LV->SetVisAttributes(container_vis);
     fs_pants_outer_LV->SetVisAttributes(container_vis);
     fs_leg_outer_LV->SetVisAttributes(container_vis);
     fs_foot_outer_LV->SetVisAttributes(container_vis);
+    */
 
     return WorldPV;
 }
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-/*
-void JanisDetectorConstruction::ConstructSDandField()
-{
-  // Create global magnetic field messenger.
-  // Uniform magnetic field is then created automatically if
-  // the field value is not zero.
-  G4ThreeVector fieldValue = G4ThreeVector();
-  fMagFieldMessenger = new G4GlobalMagFieldMessenger(fieldValue);
-  fMagFieldMessenger->SetVerboseLevel(1);
 
-  // Register the field messenger for deleting
-  G4AutoDelete::Register(fMagFieldMessenger);
-}
-*/
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void JanisDetectorConstruction::PlacePMT(G4LogicalVolume* can_sample_inner_LV, G4double &pmt_posX,G4double &pmt_posY,G4double &pmt_posZ,G4RotationMatrix* pmt_rm)

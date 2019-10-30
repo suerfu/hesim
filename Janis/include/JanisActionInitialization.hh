@@ -24,33 +24,7 @@
 // ********************************************************************
 //
 //
-/// \file JanisActionInitialization.hh
-/// \brief Definition of the JanisActionInitialization class
-/*
-#ifndef JanisActionInitialization_h
-#define JanisActionInitialization_h 1
 
-#include "G4VUserActionInitialization.hh"
-
-/// Action initialization class.
-
-class JanisActionInitialization : public G4VUserActionInitialization
-{
-  public:
-    JanisActionInitialization();
-    virtual ~JanisActionInitialization();
-
-    virtual void BuildForMaster() const;
-    virtual void Build() const;
-};
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-#endif
-*/
-
-// $Id: JanisActionInitialization.hh $
-//
 /// \file JanisActionInitialization.hh
 /// \brief Definition of the JanisActionInitialization class
 

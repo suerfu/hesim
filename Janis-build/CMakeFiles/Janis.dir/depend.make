@@ -351,7 +351,6 @@ CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Docu
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisDDGeneratorAction.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisDetectorConstruction.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisEventAction.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisPrimaryGeneratorAction.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisRunAction.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisSteppingAction.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/OxCryoMaterials.hh
@@ -375,8 +374,6 @@ CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Docu
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/RotationZ.icc
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/ThreeVector.h
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/ThreeVector.icc
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Accumulable.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Accumulable.icc
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Allocator.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4AllocatorPool.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4AutoLock.hh
@@ -405,24 +402,16 @@ CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Docu
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialPropertiesTable.icc
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialPropertyVector.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialTable.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MergeMode.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NistElementBuilder.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NistManager.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NistMaterialBuilder.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4OrderedTable.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PDefManager.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleDefinition.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleDefinition.icc
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleGun.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleMomentum.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsFreeVector.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsOrderedFreeVector.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsVector.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsVector.icc
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsVectorType.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Pow.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PrimaryParticle.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PrimaryVertex.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4RotationMatrix.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4SandiaTable.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4String.hh
@@ -433,12 +422,9 @@ CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Docu
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserEventAction.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserRunAction.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserSteppingAction.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAccumulable.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAccumulable.icc
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VExceptionHandler.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VPhysicalVolume.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VPhysicalVolume.icc
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VPrimaryGenerator.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VUserActionInitialization.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VUserDetectorConstruction.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VUserPrimaryGeneratorAction.hh
@@ -446,7 +432,6 @@ CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Docu
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/geomdefs.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/geomwdefs.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/globals.hh
-CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/pwdefs.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/templates.hh
 CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/tls.hh
 
@@ -1097,8 +1082,6 @@ CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/gea
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/RotationZ.icc
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/ThreeVector.h
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/ThreeVector.icc
-CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Accumulable.hh
-CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Accumulable.icc
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4AffineTransform.hh
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4AffineTransform.icc
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Allocator.hh
@@ -1162,7 +1145,6 @@ CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/gea
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialPropertiesTable.icc
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialPropertyVector.hh
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialTable.hh
-CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MergeMode.hh
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NavigationHistory.hh
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NavigationHistory.icc
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NavigationHistoryPool.hh
@@ -1280,8 +1262,6 @@ CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/gea
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserStackingAction.hh
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserSteppingAction.hh
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserTrackingAction.hh
-CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAccumulable.hh
-CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAccumulable.icc
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAnalysisManager.hh
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAnalysisManager.icc
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAnalysisReader.hh
@@ -1428,10 +1408,7 @@ CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/gea
 CMakeFiles/Janis.dir/src/JanisEventAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/trkdefs.hh
 
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisAnalysis.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisDetectorConstruction.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisPrimaryGeneratorAction.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/JanisRunAction.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include/OxCryoMaterials.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Geometry/BasicVector3D.h
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Geometry/Normal3D.h
@@ -1503,10 +1480,6 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/RotationZ.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/ThreeVector.h
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/CLHEP/Vector/ThreeVector.icc
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Accumulable.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Accumulable.icc
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4AccumulableManager.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4AccumulableManager.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4AffineTransform.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4AffineTransform.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Allocator.hh
@@ -1525,8 +1498,6 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4BinScheme.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4BlockingList.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4BlockingList.icc
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Cache.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4CacheDetails.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ClassificationOfNewTrack.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4DCofThisEvent.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4DataVector.hh
@@ -1558,16 +1529,13 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4HCofThisEvent.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4HnInformation.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4HnManager.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ICRU90StoppingData.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4IonisParamElm.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4IonisParamMat.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Isotope.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4IsotopeVector.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4LPhysicsFreeVector.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Log.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4LogicalVolume.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4LogicalVolume.icc
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4LogicalVolumeStore.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4LorentzVector.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Material.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialPropertiesIndex.hh
@@ -1575,7 +1543,6 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialPropertiesTable.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialPropertyVector.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MaterialTable.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4MergeMode.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NavigationHistory.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NavigationHistory.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NavigationHistoryPool.hh
@@ -1586,9 +1553,6 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NavigationLogger.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Navigator.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Navigator.icc
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NistElementBuilder.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NistManager.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NistMaterialBuilder.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NormalNavigation.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4NormalNavigation.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4OrderedTable.hh
@@ -1601,12 +1565,10 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleChange.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleDefinition.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleDefinition.icc
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleGun.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleMomentum.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleTable.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleTable.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ParticleTableIterator.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsFreeVector.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsModelCatalog.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsOrderedFreeVector.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsTable.hh
@@ -1614,7 +1576,6 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsVector.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsVector.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PhysicsVectorType.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4Pow.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PrimaryParticle.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PrimaryTransformer.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4PrimaryVertex.hh
@@ -1700,8 +1661,6 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserStackingAction.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserSteppingAction.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4UserTrackingAction.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAccumulable.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAccumulable.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAnalysisManager.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAnalysisManager.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VAnalysisReader.hh
@@ -1713,7 +1672,6 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VH2Manager.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VH3Manager.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VHitsCollection.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VNotifier.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VNtupleManager.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VP1Manager.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VP2Manager.hh
@@ -1722,19 +1680,15 @@ CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VParticleChange.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VPhysicalVolume.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VPhysicalVolume.icc
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VPrimaryGenerator.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VProcess.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VRNtupleManager.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VSolid.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VSolid.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VSteppingVerbose.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VStoreNotifier.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VTouchable.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VTouchable.icc
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VTrajectory.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VUserDetectorConstruction.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VUserEventInformation.hh
-CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VUserPrimaryGeneratorAction.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VUserTrackInformation.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VVolumeMaterialScanner.hh
 CMakeFiles/Janis.dir/src/JanisRunAction.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VoxelNavigation.hh

@@ -24,43 +24,7 @@
 // ********************************************************************
 //
 //
-/*
-/// \file JanisSteppingAction.hh
-/// \brief Definition of the JanisSteppingAction class
 
-#ifndef JanisSteppingAction_h
-#define JanisSteppingAction_h 1
-
-#include "G4UserSteppingAction.hh"
-#include "globals.hh"
-
-class JanisEventAction;
-
-class G4LogicalVolume;
-
-/// Stepping action class
-///
-
-class JanisSteppingAction : public G4UserSteppingAction
-{
-  public:
-    JanisSteppingAction(JanisEventAction* eventAction);
-    virtual ~JanisSteppingAction();
-
-    // method from the base class
-    virtual void UserSteppingAction(const G4Step*);
-
-  private:
-    JanisEventAction*  fEventAction;
-    G4LogicalVolume* fScoringVolume;
-};
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-#endif
-*/
-
-// $Id: JanisSteppingAction.hh 68058 2013-03-13 14:47:43Z gcosmo $
 //
 /// \file JanisSteppingAction.hh
 /// \brief Definition of the JanisSteppingAction class

@@ -25,56 +25,6 @@
 //
 //
 
-/*
-/// \file JanisActionInitialization.cc
-/// \brief Implementation of the JanisActionInitialization class
-
-#include "JanisActionInitialization.hh"
-#include "JanisPrimaryGeneratorAction.hh"
-#include "JanisRunAction.hh"
-#include "JanisEventAction.hh"
-#include "JanisSteppingAction.hh"
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-JanisActionInitialization::JanisActionInitialization()
- : G4VUserActionInitialization()
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-JanisActionInitialization::~JanisActionInitialization()
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void JanisActionInitialization::BuildForMaster() const
-{
-  JanisRunAction* runAction = new JanisRunAction;
-  SetUserAction(runAction);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void JanisActionInitialization::Build() const
-{
-  SetUserAction(new JanisPrimaryGeneratorAction);
-
-  JanisRunAction* runAction = new JanisRunAction;
-  SetUserAction(runAction);
-
-  JanisEventAction* eventAction = new JanisEventAction(runAction);
-  SetUserAction(eventAction);
-
-  SetUserAction(new JanisSteppingAction(eventAction));
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-*/
-
-
-// $Id: JanisActionInitialization.cc $
-//
 /// \file JanisActionInitialization.cc
 /// \brief Implementation of the JanisActionInitialization class
 

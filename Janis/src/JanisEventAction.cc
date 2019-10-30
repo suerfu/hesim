@@ -24,49 +24,8 @@
 // ********************************************************************
 //
 //
-/*
-/// \file JanisEventAction.cc
-/// \brief Implementation of the JanisEventAction class
 
-#include "JanisEventAction.hh"
-#include "JanisRunAction.hh"
 
-#include "G4Event.hh"
-#include "G4RunManager.hh"
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-JanisEventAction::JanisEventAction(JanisRunAction* runAction)
-: G4UserEventAction(),
-  fRunAction(runAction),
-  fEdep(0.)
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-JanisEventAction::~JanisEventAction()
-{}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void JanisEventAction::BeginOfEventAction(const G4Event*)
-{
-  fEdep = 0.;
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void JanisEventAction::EndOfEventAction(const G4Event*)
-{
-  // accumulate statistics in run action
-  fRunAction->AddEdep(fEdep);
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-*/
-
-// $Id: JanisEventAction.cc 88427 2015-02-19 08:19:38Z gcosmo $
-//
 /// \file JanisEventAction.cc
 /// \brief Implementation of the JanisEventAction class
 

@@ -64,17 +64,18 @@ G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
 G4double angle = DD_dist(d1, d2, d3, d4, d5);
 G4double theta = angle*(3.14159265358979323846/180)*radian;
 G4ThreeVector neutronDirection;
-neutronDirection.setRhoPhiTheta(-1.0,phi,theta);//-1 is needed because we are pointing it towards -ve z direction.
+neutronDirection.setRhoPhiTheta(1.0,phi,theta);//-1 is needed because we are pointing it towards -ve z direction.
+neutronDirection.rotateY(90*deg);
 
 // set particle parameters
 fParticleSource->SetParticleMomentumDirection(neutronDirection);
 fParticleSource->SetParticleEnergy(e1*angle*angle*angle*angle + e2*angle*angle*angle + e3*angle*angle + e4*angle + e5);
  G4ParticleDefinition* particleDefinition
    = G4ParticleTable::GetParticleTable()->FindParticle("neutron");
- fParticleSource->SetParticleDefinition(particleDefinition);
+fParticleSource->SetParticleDefinition(particleDefinition);
 
 // Set source position
- fParticleSource->SetParticlePosition(G4ThreeVector(-140. * cm , 0., -10. * cm));
+ fParticleSource->SetParticlePosition(G4ThreeVector(-35. * cm , 0., -10. * cm));
  fParticleSource->GeneratePrimaryVertex(anEvent);
 
 }
@@ -84,7 +85,7 @@ G4double JanisDDGeneratorAction::DD_dist(G4double w1, G4double w2, G4double w3, 
   G4double x;
   while(flag == FALSE){
     G4double weight = G4UniformRand();
-    x = G4UniformRand()*180.0;
+    x = G4UniformRand()*90.0;
     G4double actual_weight = w1*x*x*x*x + w2*x*x*x + w3*x*x + w4*x + w5;
     if(weight<actual_weight){
        flag = TRUE;
