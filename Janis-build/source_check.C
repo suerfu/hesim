@@ -38,14 +38,14 @@ struct PlotCollection{
 
 	string fname;
 
-	map<pair<string,int>, TH2F*> energy_angle;  // source energy VS detector angle
-	map<pair<string,int>, TH1D*> angle_histo;	// source angle distribution
-
 	int energy_min = 2;
 	int energy_max = 3;
 	int nbins_angle = 100;
 	int angle_min = 0;
 	int angle_max = 90;
+
+	TH2F *hXY = new TH2F("","", 100, angle_min , angle_max, 100, energy_min, energy_max);  // source energy VS detector angle
+	map<pair<string,int>, TH1D*> angle_histo;	// source angle distribution
 
 
 	map<string, int> colors;
@@ -59,16 +59,13 @@ struct PlotCollection{
 		if(angle_histo.count(key) == 0){
 			angle_histo[key] = new TH1D("", "", nbins_angle, angle_min, angle_max);
 		}
-		if(energy_angle.count(key) == 0){
-			energy_angle[key] = new TH2F("","", 100, angle_min , angle_max, 100, energy_min, energy_max);
-		}
 
 		// Fill histograms with event
 		double angle_filled = TMath::ACos(x_mom/TMath::Power(TMath::Power(x_mom,2) + TMath::Power(y_mom,2) + TMath::Power(z_mom,2),0.5)) * 180.0 / TMath::Pi();
 		//cout << endl << "The detected angle of " << fname << ": " << angle_filled << endl << endl;
 		// if(x_mom < 0){cout << x_mom << endl;}
 		angle_histo[key]->Fill(angle_filled, w);
-		energy_angle[key]->Fill(angle_filled, E, w);
+		hXY->Fill(angle_filled, E);
 	}
 
 	void DrawAngleDistribution(){
@@ -119,49 +116,18 @@ struct PlotCollection{
 	}
 
 	void DrawEnergyDistribution(){
-		THStack* hXY = new THStack;
-		TLegend* leg = new TLegend(0.75, 0.65, 0.99, 0.85);
-
-		for(auto it : energy_angle){
-			string ll = it.first.first;
-			if (it.first.second == 2112){
-				ll += "";
-			} else {
-				cout << "unsorted PID: " << it.first.second << endl;
-			}
-
-			int color = colors[ll];
-			it.second->SetLineColor(color);
-			it.second->SetLineWidth(3);
-
-			it.second->Scale(1/it.second->GetBinWidth(1), "noSumw2");
-
-			if(it.first.second == 2112){
-				hXY->Add(it.second);
-				leg->AddEntry(it.second, ll.c_str(), "F");
-				//cout << ll << ": " << it.second->Integral(0, nbins_energy, "width") << " cts / sec " << endl;
-			}
-
-			for(int ibin=1; ibin<= it.second->GetNbinsX(); ++ibin){
-        		it.second->SetBinError(ibin, 0);
-      		}
-		}
 
 		TCanvas* c = new TCanvas();
 		c->SetLogy();
 
 
-		hXY->Draw("nostack");
+		hXY->Draw();
 
 		hXY->SetTitle(fname.c_str());
 
 		hXY->GetXaxis()->SetTitle("Angle [deg.]");
 		hXY->GetYaxis()->SetTitle("Energy (MeV)");
 
-		//leg->SetTextSize(0.03);
-    	//leg->Draw("same");
-
-    	// c->SaveAs(("angle_distribution_" + fname + ".pdf").c_str());
         c->SaveAs((fname + ".png").c_str());
 	}
 };
