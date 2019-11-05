@@ -330,7 +330,6 @@ CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05
 CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VoxelNavigation.hh
 CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4VoxelNavigation.icc
 CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/G4ios.hh
-CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/QBBC.hh
 CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/Randomize.hh
 CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/Shielding.hh
 CMakeFiles/Janis.dir/Janis.cc.o: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4/evmandefs.hh

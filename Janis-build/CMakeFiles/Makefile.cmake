@@ -17,6 +17,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/icons.mac"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/init_vis.mac"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/run.png"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/source_check.C"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/vis.mac"
   "/Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/Geant4-10.5.1/Geant4Config.cmake"
   "/Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/Geant4-10.5.1/Geant4ConfigVersion.cmake"
@@ -100,6 +101,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "run.png"
   "init_vis.mac"
   "vis.mac"
+  "source_check.C"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 

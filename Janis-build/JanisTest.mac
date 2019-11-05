@@ -5,5 +5,5 @@
 
 /process/list
 /run/printProgress 10
-/analysis/setFileName testrun4
-/run/beamOn 100
+/analysis/setFileName JanisTest
+/run/beamOn 50000

@@ -51,6 +51,7 @@ set(Janis_SCRIPTS
   run.png
   init_vis.mac
   vis.mac
+  source_check.C
   )
 
 foreach(_script ${Janis_SCRIPTS})

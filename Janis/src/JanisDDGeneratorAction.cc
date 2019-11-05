@@ -45,19 +45,19 @@ JanisDDGeneratorAction::~JanisDDGeneratorAction()
 
 void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-  //Parameters of Energy_vs_Angle fitted into a cubic polynomial
+  //Parameters of Energy_vs_Angle fitted into a 4th order polynomial
   G4double e1 =  -3.76446665e-10;
   G4double e2 =  3.75645182e-07;
   G4double e3 =  -7.76735734e-05;
   G4double e4 = 5.23749916e-04;
   G4double e5 =  2.80130909e+00;
 
-  //Parameters of the Differential_crossection_vs_Angle fitted into a cubic polynomial
-  G4double d1 = -9.78454219e-11 ;
-  G4double d2 = 2.11642813e-07;
-  G4double d3 = -5.71078133e-05;
-  G4double d4 = 9.45413306e-03;
-  G4double d5 = -7.72571642e-03;
+  //Parameters of the Differential_crossection_vs_Angle fitted into a 4th order polynomial
+  G4double d1 = -2.85692044e-10 ;
+  G4double d2 = 1.00118550e-07;
+  G4double d3 = -8.89313307e-06;
+  G4double d4 = -3.25438874e-05;
+  G4double d5 = 3.97964858e-02;
 
 
 G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
@@ -84,8 +84,8 @@ G4double JanisDDGeneratorAction::DD_dist(G4double w1, G4double w2, G4double w3, 
   G4bool flag = FALSE;
   G4double x;
   while(flag == FALSE){
-    G4double weight = G4UniformRand();
-    x = G4UniformRand()*90.0;
+    G4double weight = G4UniformRand()*0.04;
+    x = G4UniformRand()*180.0;
     G4double actual_weight = w1*x*x*x*x + w2*x*x*x + w3*x*x + w4*x + w5;
     if(weight<actual_weight){
        flag = TRUE;
