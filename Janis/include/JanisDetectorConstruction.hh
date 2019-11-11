@@ -62,8 +62,7 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     // get methods
     //
-    const G4VPhysicalVolume* GetMeterPV() const;
-    G4LogicalVolume* GetMeterLV() const;
+    const G4VPhysicalVolume* GetLHePV() const;
 
     // G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
 
@@ -82,6 +81,7 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4LogicalVolume*   WorldLV;       // pointers
     G4VPhysicalVolume* WorldPV;
 
+
     void PlacePMT(G4LogicalVolume* worldLV,G4double &PMT_posX,G4double &PMT_posY,G4double &PMT_posZ,G4RotationMatrix* PMT_RM);
 
     G4VPhysicalVolume* os_body_PV;
@@ -92,6 +92,11 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
 };
 
+// inline functions
+
+inline const G4VPhysicalVolume* JanisDetectorConstruction::GetLHePV() const {
+  return liquid_helium_PV;
+}
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif

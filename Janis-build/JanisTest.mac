@@ -1,9 +1,9 @@
 /run/initialize
 /tracking/verbose 1
 
-/random/setSeeds 12384 42886
+/random/setSeeds 1321 4456
 
 /process/list
 /run/printProgress 10
 /analysis/setFileName JanisTest
-/run/beamOn 50000
+/run/beamOn 100000

@@ -179,7 +179,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4NistManager* mat_man = G4NistManager::Instance(); //material mananger
 
     //
-    G4Material* world_material = mat_man -> FindOrBuildMaterial("G4_AIR");
+    G4Material* world_material = mat_man -> FindOrBuildMaterial("galactic");
 
     // Cryostat
 
@@ -572,8 +572,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     // Far-side Detector
 
         // Please modify here for Far-side detector placement
-    G4double fs_placement_angle = 60.0*deg;
-    G4double fs_placement_height = -10.0*mm;
+    G4double fs_placement_angle = 0.0*deg;
+    G4double fs_placement_height = -10.0*cm;
     G4double fs_placement_distance = 140*cm;
 
     G4double fs_head_outer_posX = 0.0*mm;
@@ -858,6 +858,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4LogicalVolume* fs_foot_outer_LV = new G4LogicalVolume(fs_foot_outer_S, fs_foot_outer_material, name);
     new G4PVPlacement(fs_foot_outer_rm, G4ThreeVector(fs_foot_outer_posX,fs_foot_outer_posY,fs_foot_outer_posZ), fs_foot_outer_LV, name, fs_leg_outer_LV, false, 0, fCheckOverlaps);
     */
+
 
     //===============  Visualization ===============//
 

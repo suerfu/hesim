@@ -71,7 +71,14 @@ void JanisSteppingAction::UserSteppingAction(const G4Step* step)
   //const G4ParticleDefinition* particle = track->GetDefinition();
   const G4String processName = postStep->GetProcessDefinedStep()->GetProcessName();
 
-  G4int test_volumeID = 0; // Just for now we ignore the volume information
+  G4int test_volumeID;
+
+  if (volume == fDetConstruction->GetLHePV()){
+      test_volumeID = 1;
+  }
+  else{
+      test_volumeID =0;
+  }
   /*
         if(volume == fDetConstruction->GetairlayersolidPV()){
           test_volumeID = 0;
@@ -79,7 +86,7 @@ void JanisSteppingAction::UserSteppingAction(const G4Step* step)
         else if(volume == fDetConstruction->GetinnershieldPV()){
           test_volumeID = 1;
         }
-        else if(volume == fDetConstruction->GetDTsolidPV()){
+            else if(volume == fDetConstruction->GetDTsolidPV()){
           test_volumeID = 2;
         }
         else if(volume == fDetConstruction->GetshieldcapironPV()){

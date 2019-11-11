@@ -45,10 +45,22 @@ struct PlotCollection{
 	int angle_max = 90;
 
 	TH2F *hXY = new TH2F("","", 100, angle_min , angle_max, 100, energy_min, energy_max);  // source energy VS detector angle
+	TH1D *hR = new TH1D("", "", 100, 0, 50000);
+	TH1D *hZ = new TH1D("", "", 100, -25000, 25000);
 	map<pair<string,int>, TH1D*> angle_histo;	// source angle distribution
 
 
 	map<string, int> colors;
+
+	// Counts of the off-curve points
+	int abnormal = 0;
+	//Parameters of Energy_vs_Angle fitted into a 4th order polynomial
+	double e1 =  -3.76446665e-10;
+	double e2 =  3.75645182e-07;
+	double e3 =  -7.76735734e-05;
+	double e4 = 5.23749916e-04;
+	double e5 =  2.80130909e+00;
+
 
 	void AddEvent(string label, double pid, double E, double x, double y, double z, double x_mom, double y_mom, double z_mom, double w){
 
@@ -61,11 +73,22 @@ struct PlotCollection{
 		}
 
 		// Fill histograms with event
-		double angle_filled = TMath::ACos(x_mom/TMath::Power(TMath::Power(x_mom,2) + TMath::Power(y_mom,2) + TMath::Power(z_mom,2),0.5)) * 180.0 / TMath::Pi();
+		double angle_filled = TVector3(x_mom, y_mom, z_mom).Angle(TVector3(1,0,0)) * 180. / TMath::Pi();
+		double radius = TMath::Power(TMath::Power(x,2) + TMath::Power(y,2),0.5);
+			//TMath::ACos(x_mom/TMath::Power(TMath::Power(x_mom,2) + TMath::Power(y_mom,2) + TMath::Power(z_mom,2),0.5)) * 180.0 / TMath::Pi();
 		//cout << endl << "The detected angle of " << fname << ": " << angle_filled << endl << endl;
 		// if(x_mom < 0){cout << x_mom << endl;}
 		angle_histo[key]->Fill(angle_filled, w);
 		hXY->Fill(angle_filled, E);
+		if(E != e1*angle_filled*angle_filled*angle_filled*angle_filled + e2*angle_filled*angle_filled*angle_filled + e3*angle_filled*angle_filled + e4*angle_filled + e5){
+			abnormal += 1;
+			cout<<abnormal<<endl;
+			//cout<<'E='<<E<<endl;
+			cout<<x<<' '<<y<<' '<<z<<endl;
+			cout<<x_mom<<' '<<y_mom<<' '<<z_mom<<endl;
+			hR->Fill(radius);
+			hZ->Fill(z);
+		}
 	}
 
 	void DrawAngleDistribution(){
@@ -128,7 +151,39 @@ struct PlotCollection{
 		hXY->GetXaxis()->SetTitle("Angle [deg.]");
 		hXY->GetYaxis()->SetTitle("Energy (MeV)");
 
-        c->SaveAs((fname + ".png").c_str());
+        c->SaveAs((fname + "_trackID.png").c_str());
+	}
+
+	void DrawProblematicRadius(){
+
+		TCanvas* c = new TCanvas();
+		c->SetLogy();
+
+
+		hR->Draw();
+
+		hR->SetTitle(fname.c_str());
+
+		hR->GetXaxis()->SetTitle("Radius [mm]");
+		hR->GetYaxis()->SetTitle("Counts");
+
+        c->SaveAs((fname + "_ProblematicRadius.png").c_str());
+	}
+
+	void DrawProblematicZ(){
+
+		TCanvas* c = new TCanvas();
+		c->SetLogy();
+
+
+		hZ->Draw();
+
+		hZ->SetTitle(fname.c_str());
+
+		hZ->GetXaxis()->SetTitle("Z [mm]");
+		hZ->GetYaxis()->SetTitle("Counts");
+
+		c->SaveAs((fname + "_ProblematicZ.png").c_str());
 	}
 };
 
@@ -146,6 +201,8 @@ void source_check(){
 
 	PlotCollection plots_1("Angular Distribution of DD Neutron");
 	PlotCollection plots_2("Energy Angular Distribution of DD Neutron");
+	PlotCollection plots_3("Problematic Radius Distribution");
+	PlotCollection plots_4("Problematic Z Distribution");
 
 	for(auto it : files){
 
@@ -189,9 +246,11 @@ void source_check(){
 
     	for(int i=0; i<nentries; ++i){
     		events->GetEntry(i);
-    		if(step_ID==1){
+    		if(step_ID==1 && track_ID==1){
 			plots_1.AddEvent(file_label, pid, energy, x_pos, y_pos, z_pos, x_mom, y_mom, z_mom, weights[it.first]);
 			plots_2.AddEvent(file_label, pid, energy, x_pos, y_pos, z_pos, x_mom, y_mom, z_mom, weights[it.first]);
+			plots_3.AddEvent(file_label, pid, energy, x_pos, y_pos, z_pos, x_mom, y_mom, z_mom, weights[it.first]);
+			plots_4.AddEvent(file_label, pid, energy, x_pos, y_pos, z_pos, x_mom, y_mom, z_mom, weights[it.first]);
 			}
 		}
 
@@ -199,6 +258,7 @@ void source_check(){
 
     plots_1.DrawAngleDistribution();
 	plots_2.DrawEnergyDistribution();
-
+	plots_3.DrawProblematicRadius();
+	plots_4.DrawProblematicZ();
 
 }
