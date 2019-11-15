@@ -45,6 +45,7 @@ class G4Material;
 class G4UserLimits;
 class G4GlobalMagFieldMessenger;
 class G4Event;
+class JanisDetectorConstructionMessenger;
 
 /// Detector construction class to define materials and geometry.
 
@@ -64,6 +65,8 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     //
     const G4VPhysicalVolume* GetLHePV() const;
 
+    void setFarSideAngle(G4double fs_angle);
+
     // G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
 
   private:
@@ -80,6 +83,11 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     G4LogicalVolume*   WorldLV;       // pointers
     G4VPhysicalVolume* WorldPV;
+    G4LogicalVolume* fs_head_inner_LV;
+    G4LogicalVolume* fs_head_outer_LV;
+    G4VPhysicalVolume* fs_head_inner_PV;
+    G4VPhysicalVolume* fs_head_outer_PV;
+    G4RotationMatrix *fs_head_outer_rm;
 
 
     void PlacePMT(G4LogicalVolume* worldLV,G4double &PMT_posX,G4double &PMT_posY,G4double &PMT_posZ,G4RotationMatrix* PMT_RM);
@@ -88,6 +96,9 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* liquid_helium_PV;
 
     G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
+    G4bool  fConstructed;
+
+    JanisDetectorConstructionMessenger* fDetectorMessenger;
 
 
 };

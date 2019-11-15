@@ -83,7 +83,7 @@ struct PlotCollection{
 		if(E != e1*angle_filled*angle_filled*angle_filled*angle_filled + e2*angle_filled*angle_filled*angle_filled + e3*angle_filled*angle_filled + e4*angle_filled + e5){
 			abnormal += 1;
 			cout<<abnormal<<endl;
-			//cout<<'E='<<E<<endl;
+			cout<<E - (e1*angle_filled*angle_filled*angle_filled*angle_filled + e2*angle_filled*angle_filled*angle_filled + e3*angle_filled*angle_filled + e4*angle_filled + e5)<<endl;
 			cout<<x<<' '<<y<<' '<<z<<endl;
 			cout<<x_mom<<' '<<y_mom<<' '<<z_mom<<endl;
 			hR->Fill(radius);

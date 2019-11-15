@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Janis.dir/src/JanisActionInitialization.cc.o"
   "CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.o"
   "CMakeFiles/Janis.dir/src/JanisDetectorConstruction.cc.o"
+  "CMakeFiles/Janis.dir/src/JanisDetectorConstructionMessenger.cc.o"
   "CMakeFiles/Janis.dir/src/JanisEventAction.cc.o"
   "CMakeFiles/Janis.dir/src/JanisRunAction.cc.o"
   "CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
