@@ -250,6 +250,33 @@ src/JanisDDGeneratorAction.cc.s:
 	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisDDGeneratorAction.cc.s
 .PHONY : src/JanisDDGeneratorAction.cc.s
 
+src/JanisDDGeneratorMessenger.o: src/JanisDDGeneratorMessenger.cc.o
+
+.PHONY : src/JanisDDGeneratorMessenger.o
+
+# target to build an object file
+src/JanisDDGeneratorMessenger.cc.o:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisDDGeneratorMessenger.cc.o
+.PHONY : src/JanisDDGeneratorMessenger.cc.o
+
+src/JanisDDGeneratorMessenger.i: src/JanisDDGeneratorMessenger.cc.i
+
+.PHONY : src/JanisDDGeneratorMessenger.i
+
+# target to preprocess a source file
+src/JanisDDGeneratorMessenger.cc.i:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisDDGeneratorMessenger.cc.i
+.PHONY : src/JanisDDGeneratorMessenger.cc.i
+
+src/JanisDDGeneratorMessenger.s: src/JanisDDGeneratorMessenger.cc.s
+
+.PHONY : src/JanisDDGeneratorMessenger.s
+
+# target to generate assembly for a file
+src/JanisDDGeneratorMessenger.cc.s:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisDDGeneratorMessenger.cc.s
+.PHONY : src/JanisDDGeneratorMessenger.cc.s
+
 src/JanisDetectorConstruction.o: src/JanisDetectorConstruction.cc.o
 
 .PHONY : src/JanisDetectorConstruction.o
@@ -407,6 +434,9 @@ help:
 	@echo "... src/JanisDDGeneratorAction.o"
 	@echo "... src/JanisDDGeneratorAction.i"
 	@echo "... src/JanisDDGeneratorAction.s"
+	@echo "... src/JanisDDGeneratorMessenger.o"
+	@echo "... src/JanisDDGeneratorMessenger.i"
+	@echo "... src/JanisDDGeneratorMessenger.s"
 	@echo "... src/JanisDetectorConstruction.o"
 	@echo "... src/JanisDetectorConstruction.i"
 	@echo "... src/JanisDetectorConstruction.s"

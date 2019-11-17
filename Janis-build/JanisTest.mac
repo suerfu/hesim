@@ -6,4 +6,15 @@
 /process/list
 /run/printProgress 10
 /analysis/setFileName JanisTest
-/run/beamOn 100000
+/run/beamOn 2
+
+/run/initialize
+/tracking/verbose 1
+
+/random/setSeeds 1321 4456
+
+/process/list
+/run/printProgress 10
+/analysis/setFileName JanisTest2
+/placement/setAngle 60
+/run/beamOn 2

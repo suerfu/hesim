@@ -23,70 +23,41 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
+// $Id: JanisDDGeneratorMessenger.hh $
 //
+/// \file JanisDDGeneratorMessenger.hh
+/// \brief Definition of the JanisDDGeneratorMessenger class
 
+#ifndef JanisDDGeneratorMessenger_h
+#define JanisDDGeneratorMessenger_h 1
 
-/// \file JanisPrimaryGeneratorAction.hh
-/// \brief Definition of the JanisPrimaryGeneratorAction class
-
-#ifndef JanisPrimaryGeneratorAction_h
-#define JanisPrimaryGeneratorAction_h 1
-
-#include "G4VUserPrimaryGeneratorAction.hh"
 #include "globals.hh"
-#include "G4ThreeVector.hh"
-#include "G4VPhysicalVolume.hh"
+#include "G4UImessenger.hh"
+#include "G4UIcmdWithADouble.hh"
+#include "G4UIcmdWithAString.hh"
 
-class G4ParticleGun;
-class G4Event;
-class G4VSolid;
-class G4Navigator;
-class G4ParticleDefinition;
+class JanisDDGeneratorAction;
+class G4UIdirectory;
+class G4UIcmdWithAString;
+class G4UIcmdWithADouble;
 
-class JanisPrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
+class JanisDDGeneratorMessenger : public G4UImessenger
 {
 public:
-  JanisPrimaryGeneratorAction();
-  virtual ~JanisPrimaryGeneratorAction();
 
-  virtual void GeneratePrimaries(G4Event* event);
+	JanisDDGeneratorMessenger(JanisDDGeneratorAction*);
+	virtual ~JanisDDGeneratorMessenger();
 
-  // set methods
-  void SetRandomFlag(G4bool value);
+	virtual void SetNewValue(G4UIcommand*, G4String);
 
 private:
-  G4ParticleGun*  fParticleSource;
 
-  G4double gamma_energy;
-  G4Navigator* gNavigator;
+	JanisDDGeneratorAction* primaryGenerator;
 
-  G4String generator_mode;
-  G4bool first_event;
+	G4UIdirectory* primaryGeneratorDir;
 
-  G4ThreeVector disk_global_position;
-  G4VSolid* source_PV;
+	G4UIcmdWithADouble* generatorDistanceCmd;
 
-  G4double boundingSphereRadius;
-  G4double process_threshold;
-  G4double target_mass;
-
-  G4ParticleDefinition* particleDefinition;
-  G4ThreeVector event_position;
-
-  G4bool accepted;
-  G4ThreeVector gamma_direction;
-  G4ThreeVector neutron_direction;
-  G4double neutron_angle;
-  G4double neutron_energy;
-
-  G4bool GenerateNeutronPoint(G4double sphereRadius, G4ThreeVector sourcePosition,
-  							G4Navigator* navigator, G4VSolid* parentVolume,
-  							G4ThreeVector& gammaDirection, G4ThreeVector& interactionPoint);
-
-  G4double PhotoneutronEnergy(G4double threshold, G4double scatteringAngle,
-  								G4double gammaEnergy, G4double nucleusMass);
 };
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif

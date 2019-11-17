@@ -29,9 +29,10 @@
 /// \brief Definition of the JanisDetectorConstructionMessenger class
 
 #include "JanisDetectorConstructionMessenger.hh"
-#include "JanisDetectorConstruction.cc"
+#include "JanisDetectorConstruction.hh"
 #include "G4UIdirectory.hh"
 #include "G4UIcmdWithADouble.hh"
+#include "G4UIcmdWithAString.hh"
 
 JanisDetectorConstructionMessenger::JanisDetectorConstructionMessenger(JanisDetectorConstruction* placement)
   : G4UImessenger(),
@@ -65,7 +66,7 @@ JanisDetectorConstructionMessenger::~JanisDetectorConstructionMessenger()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-void JanisDetectorConstructionMessenger::SetNewValue(G4UIcommand* command, G4double newValue)
+void JanisDetectorConstructionMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
 {
     if(command == AngleCmd){
         DetectorPlacement->setFarSideAngle(AngleCmd->GetNewDoubleValue(newValue));

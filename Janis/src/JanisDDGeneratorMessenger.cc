@@ -23,37 +23,51 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
+// $Id: JanisDDGeneratorMessenger.cc $
 //
-/// \file JanisDetectorConstructionMessenger.hh
-/// \brief Definition of the JanisDetectorConstructionMessenger class
+/// \file JanisDDGeneratorMessenger.cc
+/// \brief Definition of the JanisDDGeneratorMessenger class
 
-#ifndef JanisDetectorConstructionMessenger_h
-#define JanisDetectorConstructionMessenger_h 1
+#include "JanisDDGeneratorMessenger.hh"
 
-#include "globals.hh"
-#include "G4UImessenger.hh"
+#include "JanisDDGeneratorAction.hh"
+#include "G4UIdirectory.hh"
+#include "G4UIcmdWithAString.hh"
+#include "G4UIcmdWithADouble.hh"
 
-class JanisDetectorConstruction;
-class G4UIdirectory;
-class G4UIcmdWithADouble;
-class G4UIcmdWithAString;
-
-class JanisDetectorConstructionMessenger: public G4UImessenger
+JanisDDGeneratorMessenger::JanisDDGeneratorMessenger(JanisDDGeneratorAction* generator)
+  : G4UImessenger(),
+    primaryGenerator(generator),
+    primaryGeneratorDir(0),
+    generatorDistanceCmd(0)
 {
-    public:
-        JanisDetectorConstructionMessenger(JanisDetectorConstruction* );
-        virtual ~JanisDetectorConstructionMessenger();
+	primaryGeneratorDir = new G4UIdirectory("/generator/");
+	primaryGeneratorDir->SetGuidance("Generator distance control.");
 
-        virtual void SetNewValue(G4UIcommand*, G4String);
+	generatorDistanceCmd = new G4UIcmdWithADouble("/generator/setDistance", this);
+	generatorDistanceCmd->SetGuidance("Set distance between the target helium and DD generator in unit of cm");
+	generatorDistanceCmd->SetParameterName("distance", false);
+	generatorDistanceCmd->SetDefaultValue(0);
+	generatorDistanceCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+}
 
-      private:
-        JanisDetectorConstruction* DetectorPlacement;
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-        G4UIdirectory* DetectorPlacementDir;
-        G4UIcmdWithADouble* AngleCmd;
-        //G4UIcmdWithADouble* FSDistanceCmd;
-        G4UIcmdWithADouble* GeneratorDistanceCmd;
+JanisDDGeneratorMessenger::~JanisDDGeneratorMessenger()
+{
+	delete generatorDistanceCmd;
+	delete primaryGeneratorDir;
+}
 
-};
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-#endif
+void JanisDDGeneratorMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
+{
+	if( command == generatorDistanceCmd )
+	{
+		G4cout << "Setting generator distance to " << newValue << G4endl;
+		primaryGenerator->setGeneratorDistance(generatorDistanceCmd->GetNewDoubleValue(newValue));
+	}
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
