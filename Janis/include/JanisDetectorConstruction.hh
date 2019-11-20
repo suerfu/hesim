@@ -66,6 +66,7 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     const G4VPhysicalVolume* GetLHePV() const;
 
     void setFarSideAngle(G4double fs_angle);
+    void setFarSideDistance(G4double fs_distance);
 
     // G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
 
@@ -80,6 +81,8 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     G4String fDetector;
     G4double fOffset;
+    G4double fs_placement_angle;
+    G4double fs_placement_distance;
 
     G4LogicalVolume*   WorldLV;       // pointers
     G4VPhysicalVolume* WorldPV;
@@ -87,7 +90,7 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4LogicalVolume* fs_head_outer_LV;
     G4VPhysicalVolume* fs_head_inner_PV;
     G4VPhysicalVolume* fs_head_outer_PV;
-    G4RotationMatrix *fs_head_outer_rm;
+    G4RotationMatrix* fs_head_outer_rm;
 
 
     void PlacePMT(G4LogicalVolume* worldLV,G4double &PMT_posX,G4double &PMT_posY,G4double &PMT_posZ,G4RotationMatrix* PMT_RM);
