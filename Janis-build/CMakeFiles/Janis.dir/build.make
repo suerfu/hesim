@@ -174,6 +174,32 @@ CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc -o CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.s
 
+CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o: CMakeFiles/Janis.dir/flags.make
+CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisTrackingAction.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisTrackingAction.cc
+
+CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisTrackingAction.cc > CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.i
+
+CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisTrackingAction.cc -o CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.s
+
+CMakeFiles/Janis.dir/src/StepInfo.cc.o: CMakeFiles/Janis.dir/flags.make
+CMakeFiles/Janis.dir/src/StepInfo.cc.o: /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/StepInfo.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Janis.dir/src/StepInfo.cc.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Janis.dir/src/StepInfo.cc.o -c /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/StepInfo.cc
+
+CMakeFiles/Janis.dir/src/StepInfo.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Janis.dir/src/StepInfo.cc.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/StepInfo.cc > CMakeFiles/Janis.dir/src/StepInfo.cc.i
+
+CMakeFiles/Janis.dir/src/StepInfo.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Janis.dir/src/StepInfo.cc.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/StepInfo.cc -o CMakeFiles/Janis.dir/src/StepInfo.cc.s
+
 # Object files for target Janis
 Janis_OBJECTS = \
 "CMakeFiles/Janis.dir/Janis.cc.o" \
@@ -184,7 +210,9 @@ Janis_OBJECTS = \
 "CMakeFiles/Janis.dir/src/JanisDetectorConstructionMessenger.cc.o" \
 "CMakeFiles/Janis.dir/src/JanisEventAction.cc.o" \
 "CMakeFiles/Janis.dir/src/JanisRunAction.cc.o" \
-"CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
+"CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o" \
+"CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o" \
+"CMakeFiles/Janis.dir/src/StepInfo.cc.o"
 
 # External object files for target Janis
 Janis_EXTERNAL_OBJECTS =
@@ -198,6 +226,8 @@ Janis: CMakeFiles/Janis.dir/src/JanisDetectorConstructionMessenger.cc.o
 Janis: CMakeFiles/Janis.dir/src/JanisEventAction.cc.o
 Janis: CMakeFiles/Janis.dir/src/JanisRunAction.cc.o
 Janis: CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o
+Janis: CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o
+Janis: CMakeFiles/Janis.dir/src/StepInfo.cc.o
 Janis: CMakeFiles/Janis.dir/build.make
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4Tree.dylib
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4GMocren.dylib
@@ -212,6 +242,24 @@ Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4error_pr
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4readout.dylib
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4physicslists.dylib
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4parmodels.dylib
+Janis: /usr/local/lib/root/libCore.so
+Janis: /usr/local/lib/root/libImt.so
+Janis: /usr/local/lib/root/libRIO.so
+Janis: /usr/local/lib/root/libNet.so
+Janis: /usr/local/lib/root/libHist.so
+Janis: /usr/local/lib/root/libGraf.so
+Janis: /usr/local/lib/root/libGraf3d.so
+Janis: /usr/local/lib/root/libGpad.so
+Janis: /usr/local/lib/root/libROOTDataFrame.so
+Janis: /usr/local/lib/root/libTree.so
+Janis: /usr/local/lib/root/libTreePlayer.so
+Janis: /usr/local/lib/root/libRint.so
+Janis: /usr/local/lib/root/libPostscript.so
+Janis: /usr/local/lib/root/libMatrix.so
+Janis: /usr/local/lib/root/libPhysics.so
+Janis: /usr/local/lib/root/libMathCore.so
+Janis: /usr/local/lib/root/libThread.so
+Janis: /usr/local/lib/root/libMultiProc.so
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4FR.dylib
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4vis_management.dylib
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4modeling.dylib
@@ -238,7 +286,7 @@ Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4intercom
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4global.dylib
 Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4clhep.dylib
 Janis: CMakeFiles/Janis.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable Janis"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable Janis"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Janis.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

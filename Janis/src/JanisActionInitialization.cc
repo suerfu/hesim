@@ -29,13 +29,12 @@
 /// \brief Implementation of the JanisActionInitialization class
 
 #include "JanisActionInitialization.hh"
-//#include "JanisPrimaryGeneratorAction.hh"
-//#include "JanisGPSGeneratorAction.hh"
 #include "JanisDDGeneratorAction.hh"
 #include "JanisRunAction.hh"
 #include "JanisEventAction.hh"
 #include "JanisSteppingAction.hh"
 #include "JanisDetectorConstruction.hh"
+#include "JanisTrackingAction.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -61,12 +60,12 @@ void JanisActionInitialization::BuildForMaster() const
 
 void JanisActionInitialization::Build() const
 {
-  //SetUserAction(new JanisPrimaryGeneratorAction);
   SetUserAction(new JanisDDGeneratorAction);
-  //SetUserAction(new JanisGPSGeneratorAction);
-  SetUserAction(new JanisRunAction);
-  JanisEventAction* eventAction = new JanisEventAction;
+  JanisRunAction* runAction = new JanisRunAction;
+  SetUserAction(runAction);
+  JanisEventAction* eventAction = new JanisEventAction(runAction);
   SetUserAction(eventAction);
+  SetUserAction(new JanisTrackingAction(eventAction));
   SetUserAction(new JanisSteppingAction(fDetConstruction, eventAction));
 }
 

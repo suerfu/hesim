@@ -34,6 +34,9 @@
 #include "G4UserRunAction.hh"
 #include "globals.hh"
 
+#include "TFile.h"
+#include "TTree.h"
+
 class G4Run;
 
 class JanisRunAction : public G4UserRunAction
@@ -44,6 +47,12 @@ class JanisRunAction : public G4UserRunAction
 
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
+
+    TTree* GetDataTree();
+
+  private:
+    TFile* output_file;
+    TTree* data_tree;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

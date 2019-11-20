@@ -36,19 +36,43 @@
 
 #include "G4UserEventAction.hh"
 #include "globals.hh"
+#include "StepInfo.hh"
+#include "JanisRunAction.hh"
 
 class JanisEventAction : public G4UserEventAction
 {
   public:
-    JanisEventAction();
+    JanisEventAction(JanisRunAction* input_run_action);
     virtual ~JanisEventAction();
 
     virtual void  BeginOfEventAction(const G4Event* event);
     virtual void    EndOfEventAction(const G4Event* event);
 
+    vector<StepInfo>& GetStepCollection();
+
   private:
     // methods
     void PrintEventStatistics() const;
+
+    vector<StepInfo> stepCollection;
+
+    JanisRunAction* run_action;
+
+    int eventID;
+    int trackID;
+    int stepID;
+    int parentID;
+
+    string particle_name;
+    string volume_name;
+    int volume_copy_number;
+    double energy;
+
+    G4ThreeVector position;
+    G4ThreeVector momentum;
+
+    double global_time;
+    string process_name;
 
 };
 

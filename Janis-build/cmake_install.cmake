@@ -37,6 +37,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis")
     execute_process(COMMAND /usr/bin/install_name_tool
+      -delete_rpath "/usr/local/lib/root"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis")
+    execute_process(COMMAND /usr/bin/install_name_tool
       -delete_rpath "/Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis")
     if(CMAKE_INSTALL_DO_STRIP)

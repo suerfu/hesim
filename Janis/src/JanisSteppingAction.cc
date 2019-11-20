@@ -33,10 +33,11 @@
 #include "JanisEventAction.hh"
 #include "JanisDetectorConstruction.hh"
 #include "JanisAnalysis.hh"
+
 #include "G4Neutron.hh"
 #include "G4Step.hh"
 #include "G4RunManager.hh"
-
+#include "StepInfo.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -61,6 +62,13 @@ void JanisSteppingAction::UserSteppingAction(const G4Step* step)
 {
 // Collect energy and number of scatters step by step
 
+    // Don't save the out of world step
+    if(!step->GetPostStepPoint()->GetPhysicalVolume()) return;
+
+    StepInfo* stepInfo = new StepInfo(step);
+    fEventAction->GetStepCollection().push_back(*stepInfo);
+
+/*
   G4StepPoint* preStep = step->GetPreStepPoint();
   G4StepPoint* postStep = step->GetPostStepPoint();
 
@@ -79,35 +87,7 @@ void JanisSteppingAction::UserSteppingAction(const G4Step* step)
   else{
       test_volumeID =0;
   }
-  /*
-        if(volume == fDetConstruction->GetairlayersolidPV()){
-          test_volumeID = 0;
-        }
-        else if(volume == fDetConstruction->GetinnershieldPV()){
-          test_volumeID = 1;
-        }
-            else if(volume == fDetConstruction->GetDTsolidPV()){
-          test_volumeID = 2;
-        }
-        else if(volume == fDetConstruction->GetshieldcapironPV()){
-          test_volumeID = 3;
-        }
-        else if(volume == fDetConstruction->Getmoderatoriron1PV()){
-          test_volumeID = 4;
-        }
-        else if(volume == fDetConstruction->GetfilteraluminumPV()){
-          test_volumeID = 5;
-        }
-        else if(volume == fDetConstruction->GetIronsolidPV()){
-          test_volumeID = 6;
-        }
-        else if(volume == fDetConstruction->GetshieldingleadPV()){
-          test_volumeID = 7;
-        }
-        else {
-          test_volumeID =8;
-        }
-    */
+
         // energy deposit
         G4double energy = preStep->GetKineticEnergy();
 
@@ -138,6 +118,9 @@ void JanisSteppingAction::UserSteppingAction(const G4Step* step)
         }
 
 //  }
+*/
+
+  //std::cout << "eventID: " << stepInfo->GetEventID() << " trackID: " << stepInfo->GetTrackID() << " stepID: " << stepInfo->GetStepID() << " parentID: " << stepInfo->GetParentID() << " Name : " << stepInfo->GetParticleName() << " Volume: " << stepInfo->GetVolumeName() << " Copy #: " << stepInfo->GetVolumeCopyNumber() << " Energy: " << stepInfo->GetEnergy() << " Position: (" << stepInfo->GetPosition().x() << ", " << stepInfo->GetPosition().y() << ", " << stepInfo->GetPosition().z() << ") Momentum: (" << stepInfo->GetMomentumDirection().x() << ", " << stepInfo->GetMomentumDirection().y() <<  ", " << stepInfo->GetMomentumDirection().z() << ") Time: " << stepInfo->GetGlobalTime() << " Process: " << stepInfo->GetProcessName() << std::endl;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

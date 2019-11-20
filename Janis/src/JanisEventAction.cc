@@ -40,16 +40,38 @@
 #include "Randomize.hh"
 #include <iomanip>
 
+#include "StepInfo.hh"
+#include "G4ThreeVector.hh"
+
+#include "TTree.h"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-JanisEventAction::JanisEventAction()
- : G4UserEventAction()
-{}
+JanisEventAction::JanisEventAction(JanisRunAction* input_run_action)
+ : G4UserEventAction(),
+   stepCollection(),
+   run_action(input_run_action),
+   eventID(0),
+   trackID(0),
+   stepID(0),
+   parentID(0),
+   particle_name(""),
+   volume_name(""),
+   volume_copy_number(0),
+   energy(0),
+   position(0),
+   momentum(0),
+   global_time(0),
+   process_name("")
+{
+    std::cout << "CREATE EVENT" << std::endl;
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 JanisEventAction::~JanisEventAction()
-{}
+{
+}
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -76,10 +98,82 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
   G4int printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
   if ( ( printModulo > 0 ) && ( eventID % printModulo == 0 ) ) {
     G4cout << "---> End of event: " << eventID << G4endl;
-
-    //PrintEventStatistics(fEnergyHe, nScattersHe);
-
   }
+
+    TTree* data_tree = run_action->GetDataTree();
+
+    data_tree->Branch("eventID", &eventID, "eventID/I");
+    data_tree->Branch("trackID", &trackID, "trackID/I");
+    data_tree->Branch("stepID", &stepID, "stepID/I");
+    data_tree->Branch("parentID", &parentID, "parentID/I");
+    data_tree->Branch("particle_name", &particle_name);
+    data_tree->Branch("volume_name", &volume_name);
+    data_tree->Branch("volume_copy_number", &volume_copy_number, "volume_copy_number/I");
+    data_tree->Branch("energy", &energy, "energy/D");
+    data_tree->Branch("position", &position, "position[3]/D");
+    data_tree->Branch("momentum", &momentum, "momentum[3]/D");
+    data_tree->Branch("global_time", &global_time, "global_time/D");
+    data_tree->Branch("process_name", &process_name);
+
+    G4int j = 0; // used to refresh step_ID when track changes
+    for( size_t i=0; i < stepCollection.size(); ++i ){
+
+      eventID = stepCollection[i].GetEventID();
+      trackID = stepCollection[i].GetTrackID();
+      if(i!=0)
+      {
+          if(trackID==stepCollection[i-1].GetTrackID())
+          {
+              stepID = j;
+              j++;
+          }
+          else
+          {
+              j = 0;
+              stepID = j;
+              j++;
+          }
+      }
+      else
+      {
+          stepID = 0;
+          j++;
+      }
+      parentID = stepCollection[i].GetParentID();
+
+      particle_name = stepCollection[i].GetParticleName();
+      volume_name = stepCollection[i].GetVolumeName();
+      volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
+      energy = stepCollection[i].GetEnergy();
+
+      position = stepCollection[i].GetPosition();
+      momentum = stepCollection[i].GetMomentumDirection();
+
+      global_time = stepCollection[i].GetGlobalTime();
+      process_name = stepCollection[i].GetProcessName();
+
+      data_tree->Fill();
+    }
+    /*for( size_t i=0; i < stepCollection.size(); ++i ){
+      StepInfo stepInfo = stepCollection[i];
+      std::cout << "eventID: " << stepInfo.GetEventID() << " trackID: " << stepInfo.GetTrackID() << " stepID: ";
+      std::cout << stepInfo.GetStepID() << " parentID: " << stepInfo.GetParentID() << " Name : ";
+      std::cout << stepInfo.GetParticleName() << " Volume: " << stepInfo.GetVolumeName() << " Copy #: ";
+      std::cout << stepInfo.GetVolumeCopyNumber() << " Energy: " << stepInfo.GetEnergy() << " Position: (";
+      std::cout << stepInfo.GetPosition().x() << ", " << stepInfo.GetPosition().y() << ", ";
+      std::cout << stepInfo.GetPosition().z() << ") Momentum: (" << stepInfo.GetMomentumDirection().x();
+      std::cout << ", " << stepInfo.GetMomentumDirection().y() <<  ", " << stepInfo.GetMomentumDirection().z();
+      std::cout << ") Time: " << stepInfo.GetGlobalTime() << " Process: " << stepInfo.GetProcessName() << std::endl;
+    }*/
+    //PrintEventStatistics(fEnergyHe, nScattersHe);
+  stepCollection.clear();
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+vector<StepInfo>& JanisEventAction::GetStepCollection()
+{
+  return stepCollection;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

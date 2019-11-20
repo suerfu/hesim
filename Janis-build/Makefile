@@ -412,6 +412,60 @@ src/JanisSteppingAction.cc.s:
 	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.s
 .PHONY : src/JanisSteppingAction.cc.s
 
+src/JanisTrackingAction.o: src/JanisTrackingAction.cc.o
+
+.PHONY : src/JanisTrackingAction.o
+
+# target to build an object file
+src/JanisTrackingAction.cc.o:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o
+.PHONY : src/JanisTrackingAction.cc.o
+
+src/JanisTrackingAction.i: src/JanisTrackingAction.cc.i
+
+.PHONY : src/JanisTrackingAction.i
+
+# target to preprocess a source file
+src/JanisTrackingAction.cc.i:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.i
+.PHONY : src/JanisTrackingAction.cc.i
+
+src/JanisTrackingAction.s: src/JanisTrackingAction.cc.s
+
+.PHONY : src/JanisTrackingAction.s
+
+# target to generate assembly for a file
+src/JanisTrackingAction.cc.s:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.s
+.PHONY : src/JanisTrackingAction.cc.s
+
+src/StepInfo.o: src/StepInfo.cc.o
+
+.PHONY : src/StepInfo.o
+
+# target to build an object file
+src/StepInfo.cc.o:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/StepInfo.cc.o
+.PHONY : src/StepInfo.cc.o
+
+src/StepInfo.i: src/StepInfo.cc.i
+
+.PHONY : src/StepInfo.i
+
+# target to preprocess a source file
+src/StepInfo.cc.i:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/StepInfo.cc.i
+.PHONY : src/StepInfo.cc.i
+
+src/StepInfo.s: src/StepInfo.cc.s
+
+.PHONY : src/StepInfo.s
+
+# target to generate assembly for a file
+src/StepInfo.cc.s:
+	$(MAKE) -f CMakeFiles/Janis.dir/build.make CMakeFiles/Janis.dir/src/StepInfo.cc.s
+.PHONY : src/StepInfo.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -452,6 +506,12 @@ help:
 	@echo "... src/JanisSteppingAction.o"
 	@echo "... src/JanisSteppingAction.i"
 	@echo "... src/JanisSteppingAction.s"
+	@echo "... src/JanisTrackingAction.o"
+	@echo "... src/JanisTrackingAction.i"
+	@echo "... src/JanisTrackingAction.s"
+	@echo "... src/StepInfo.o"
+	@echo "... src/StepInfo.i"
+	@echo "... src/StepInfo.s"
 .PHONY : help
 
 

@@ -149,6 +149,12 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/local/opt/qt/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake"
   "/usr/local/opt/qt/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake"
   "/usr/local/opt/qt/lib/cmake/Qt5Widgets/Qt5Widgets_QMacStylePlugin.cmake"
+  "/usr/local/share/root/cmake/ROOTConfig-targets-release.cmake"
+  "/usr/local/share/root/cmake/ROOTConfig-targets.cmake"
+  "/usr/local/share/root/cmake/ROOTConfig-version.cmake"
+  "/usr/local/share/root/cmake/ROOTConfig.cmake"
+  "/usr/local/share/root/cmake/ROOTUseFile.cmake"
+  "/usr/local/share/root/cmake/modules/RootNewMacros.cmake"
   )
 
 # The corresponding makefile is:

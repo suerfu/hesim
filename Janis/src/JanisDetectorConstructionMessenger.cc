@@ -47,7 +47,7 @@ JanisDetectorConstructionMessenger::JanisDetectorConstructionMessenger(JanisDete
     AngleCmd->AvailableForStates(G4State_Idle);
 	AngleCmd->SetDefaultValue(0);
 
-    FSDistanceCmd = new G4UIcmdWithADouble("/placement/SetFSDistance", this);
+    FSDistanceCmd = new G4UIcmdWithADouble("/placement/setDistance", this);
     FSDistanceCmd->SetGuidance("Set the distance between the target and the far-side detector in unit of cm.");
     FSDistanceCmd->SetParameterName("fs_distance", false);
     FSDistanceCmd->AvailableForStates(G4State_Idle);

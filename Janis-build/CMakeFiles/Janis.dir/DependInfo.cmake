@@ -13,6 +13,8 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisEventAction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisEventAction.cc.o"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisRunAction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisRunAction.cc.o"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisSteppingAction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/JanisTrackingAction.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/src/StepInfo.cc" "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles/Janis.dir/src/StepInfo.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 
@@ -34,10 +36,12 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
   "QT_OPENGL_LIB"
   "QT_PRINTSUPPORT_LIB"
   "QT_WIDGETS_LIB"
+  "R__HAVE_CONFIG"
   )
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/usr/local/include/root"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/include"
   "/Users/lanqingyuan/Documents/geant/geant4.10.05-install/include/Geant4"
   "/usr/local/include"
