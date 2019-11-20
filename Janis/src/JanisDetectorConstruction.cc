@@ -832,14 +832,14 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     name = 'fs_head_inner';
     G4Tubs* fs_head_inner_S = new G4Tubs(name, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
-    G4LogicalVolume* fs_head_inner_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name);
+    fs_head_inner_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name);
     G4Transform3D fs_head_inner_transform(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ));
-    G4VPhysicalVolume* fs_head_inner_PV = new G4PVPlacement(fs_head_inner_transform, fs_head_inner_LV, name, WorldLV, false, 0, fCheckOverlaps);
+    fs_head_inner_PV = new G4PVPlacement(fs_head_inner_transform, fs_head_inner_LV, name, WorldLV, false, 0, fCheckOverlaps);
 
     name = 'fs_head_outer';
     G4Tubs* fs_head_outer_S = new G4Tubs(name, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
-    G4LogicalVolume* fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name);
-    G4VPhysicalVolume* fs_head_outer_PV = new G4PVPlacement(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_outer_LV, name, fs_head_inner_LV, false, 0, fCheckOverlaps);
+    fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name);
+    fs_head_outer_PV = new G4PVPlacement(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_outer_LV, name, fs_head_inner_LV, false, 0, fCheckOverlaps);
 
     /*
     name = 'fs_neck_outer';
@@ -911,7 +911,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // Far-side Detector
 
-    fs_head_outer_LV->SetVisAttributes(container_vis);
+    //fs_head_outer_LV->SetVisAttributes(container_vis);
     fs_head_inner_LV->SetVisAttributes(greenTVA);
     /*
     fs_neck_outer_LV->SetVisAttributes(container_vis);
@@ -1002,66 +1002,66 @@ void JanisDetectorConstruction::PlacePMT(G4LogicalVolume* can_sample_inner_LV, G
 
 void JanisDetectorConstruction::setFarSideAngle(G4double fs_angle)
 {
-    if(!fConstructed){
-        return;
-    }
-    else if(fConstructed){
-        fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-        delete fs_head_inner_PV;
-        WorldLV->RemoveDaughter(fs_head_inner_PV);
-        delete fs_head_outer_PV;
+    if(!fConstructed) return;
 
-        G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
-        G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
-
-        G4double fs_head_outer_rMin = 0.0*mm;
-        G4double fs_head_outer_rMax = 66.675*mm;
-        G4double fs_head_outer_Dz = 133.35*mm;
-        G4double fs_head_outer_SPhi = 0.0*deg;
-        G4double fs_head_outer_DPhi = 360.0*deg;
-
-        G4double fs_head_inner_rMin = 0.0*mm;
-        G4double fs_head_inner_rMax = 63.5*mm;
-        G4double fs_head_inner_Dz = 12.7*cm;
-        G4double fs_head_inner_SPhi = 0.0*deg;
-        G4double fs_head_inner_DPhi = 360.0*deg;
+    fs_head_inner_LV->ClearDaughters(); // PROBLEMATIC
+    delete fs_head_outer_PV;
+    WorldLV->RemoveDaughter(fs_head_outer_PV);
+    delete fs_head_inner_PV;
 
 
-        G4double fs_placement_angle = fs_angle*deg;
+    G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
-        G4double fs_placement_height = -10.0*cm;
-        G4double fs_placement_distance = 140*cm;
+    G4double fs_head_outer_rMin = 0.0*mm;
+    G4double fs_head_outer_rMax = 66.675*mm;
+    G4double fs_head_outer_Dz = 133.35*mm;
+    G4double fs_head_outer_SPhi = 0.0*deg;
+    G4double fs_head_outer_DPhi = 360.0*deg;
 
-        G4double fs_head_outer_posX = 0.0*mm;
-        G4double fs_head_outer_posY = 0.0*mm;
-        G4double fs_head_outer_posZ = 0.0*mm;
+    G4double fs_head_inner_rMin = 0.0*mm;
+    G4double fs_head_inner_rMax = 63.5*mm;
+    G4double fs_head_inner_Dz = 12.7*cm;
+    G4double fs_head_inner_SPhi = 0.0*deg;
+    G4double fs_head_inner_DPhi = 360.0*deg;
 
-        G4double fs_head_inner_posX = 140.0 * cos(fs_placement_angle) * cm;
-        G4double fs_head_inner_posY = 140.0 * sin(fs_placement_angle) * cm;
-        G4double fs_head_inner_posZ = fs_placement_height;
 
-        G4RotationMatrix fs_head_inner_rm = G4RotationMatrix();
-        fs_head_inner_rm.rotateZ(fs_placement_angle);
+    G4double fs_placement_angle = fs_angle*deg;
 
-        G4String name;
+    G4double fs_placement_height = -10.0*cm;
+    G4double fs_placement_distance = 140*cm;
 
-        name = 'fs_head_inner';
-        G4Tubs* fs_head_inner_S = new G4Tubs(name, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
-        G4LogicalVolume* fs_head_inner_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name);
-        G4Transform3D fs_head_inner_transform(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ));
-        new G4PVPlacement(fs_head_inner_transform, fs_head_inner_LV, name, WorldLV, false, 0, fCheckOverlaps);
+    G4double fs_head_outer_posX = 0.0*mm;
+    G4double fs_head_outer_posY = 0.0*mm;
+    G4double fs_head_outer_posZ = 0.0*mm;
 
-        name = 'fs_head_outer';
-        G4Tubs* fs_head_outer_S = new G4Tubs(name, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
-        G4LogicalVolume* fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name);
-        new G4PVPlacement(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_outer_LV, name, fs_head_inner_LV, false, 0, fCheckOverlaps);
+    G4double fs_head_inner_posX = 140.0 * cos(fs_placement_angle) * cm;
+    G4double fs_head_inner_posY = 140.0 * sin(fs_placement_angle) * cm;
+    G4double fs_head_inner_posZ = fs_placement_height;
 
-        G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
-        container_vis->SetVisibility(true);
-        G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
-        fs_head_outer_LV->SetVisAttributes(container_vis);
-        fs_head_inner_LV->SetVisAttributes(greenTVA);
+    G4RotationMatrix fs_head_inner_rm = G4RotationMatrix();
+    fs_head_inner_rm.rotateY(270.0*deg);
+    fs_head_inner_rm.rotateZ(fs_placement_angle);
 
-        G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    }
+    G4String name;
+
+    name = 'fs_head_inner';
+    G4Tubs* fs_head_inner_S = new G4Tubs(name, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
+    G4LogicalVolume* fs_head_inner_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name);
+    G4Transform3D fs_head_inner_transform(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ));
+    new G4PVPlacement(fs_head_inner_transform, fs_head_inner_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = 'fs_head_outer';
+    G4Tubs* fs_head_outer_S = new G4Tubs(name, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
+    G4LogicalVolume* fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name);
+    new G4PVPlacement(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_outer_LV, name, fs_head_inner_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fs_head_outer_LV->SetVisAttributes(container_vis);
+    fs_head_inner_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+
 }

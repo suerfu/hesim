@@ -69,7 +69,11 @@
 /gui/addButton viewer "Update scene" "/vis/scene/notifyHandlers"
 /run/printProgress 100
 /gui/addIcon "Run beam on" user_icon "/run/beamOn 1" run.png
+/placement/setAngle 30
+/run/geometryModified
 /run/beamOn 1
 /vis/scene/notifyHandlers scene-0
-/generator/setDistance 40.0
-/run/beamOn 1
+/vis/viewer/set/style s
+/vis/viewer/refresh
+/vis/viewer/set/hiddenEdge 0
+/vis/viewer/refresh
