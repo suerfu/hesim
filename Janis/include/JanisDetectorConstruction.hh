@@ -67,6 +67,7 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     void setFarSideAngle(G4double fs_angle);
     void setFarSideDistance(G4double fs_distance);
+    void addFarSideAngle(G4double new_fs_angle);
 
     // G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
 
@@ -84,8 +85,12 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4double fs_placement_angle;
     G4double fs_placement_distance;
 
-    G4LogicalVolume*   WorldLV;       // pointers
+    G4LogicalVolume*   WorldLV; // pointers
+    G4LogicalVolume*   FakeWorldLV;
+    G4LogicalVolume*   partitionLV;
     G4VPhysicalVolume* WorldPV;
+    G4VPhysicalVolume* partitionPV1;
+    G4VPhysicalVolume* partitionPV2;
     G4LogicalVolume* fs_head_inner_LV;
     G4LogicalVolume* fs_head_outer_LV;
     G4VPhysicalVolume* fs_head_inner_PV;

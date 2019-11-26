@@ -53,6 +53,7 @@ class JanisDetectorConstructionMessenger: public G4UImessenger
         G4UIcmdWithADouble* AngleCmd;
         G4UIcmdWithADouble* FSDistanceCmd;
         G4UIcmdWithADouble* GeneratorDistanceCmd;
+        G4UIcmdWithADouble* NewAngleCmd;
 
 };
 
