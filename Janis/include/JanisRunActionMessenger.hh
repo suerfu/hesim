@@ -24,42 +24,33 @@
 // ********************************************************************
 //
 //
+/// \file JanisRunActionMessenger.hh
+/// \brief Definition of the JanisRunActionMessenger class
 
-/// \file JanisRunAction.hh
-/// \brief Definition of the JanisRunAction class
+#ifndef JanisRunActionMessenger_h
+#define JanisRunActionMessenger_h 1
 
-#ifndef JanisRunAction_h
-#define JanisRunAction_h 1
-
-#include "G4UserRunAction.hh"
 #include "globals.hh"
+#include "G4UImessenger.hh"
 
-#include "TFile.h"
-#include "TTree.h"
+class JanisRunAction;
+class G4UIdirectory;
+class G4UIcmdWithAString;
 
-class G4Run;
-class JanisRunActionMessenger;
-
-class JanisRunAction : public G4UserRunAction
+class JanisRunActionMessenger: public G4UImessenger
 {
-  public:
-    JanisRunAction();
-    virtual ~JanisRunAction();
+    public:
+        JanisRunActionMessenger(JanisRunAction* );
+        virtual ~JanisRunActionMessenger();
 
-    virtual void setOutputFileName(G4String newname);
-    virtual void BeginOfRunAction(const G4Run*);
-    virtual void   EndOfRunAction(const G4Run*);
+        virtual void SetNewValue(G4UIcommand*, G4String);
 
-    TTree* GetDataTree();
+      private:
+        JanisRunAction* SetFileName;
 
-  private:
-    G4String output_name = "default_output_filename.root";
-    TFile* output_file;
-    TTree* data_tree;
+        G4UIdirectory* SetFileNameDir;
+        G4UIcmdWithAString* FileNameCmd;
 
-    JanisRunActionMessenger* fRunActionMessenger;
 };
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 #endif

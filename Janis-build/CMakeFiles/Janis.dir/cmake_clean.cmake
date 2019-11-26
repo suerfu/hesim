@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Janis.dir/src/JanisDetectorConstructionMessenger.cc.o"
   "CMakeFiles/Janis.dir/src/JanisEventAction.cc.o"
   "CMakeFiles/Janis.dir/src/JanisRunAction.cc.o"
+  "CMakeFiles/Janis.dir/src/JanisRunActionMessenger.cc.o"
   "CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o"
   "CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o"
   "CMakeFiles/Janis.dir/src/StepInfo.cc.o"

@@ -23,43 +23,41 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
+// $Id: JanisRunActionMessenger.cc $
 //
+/// \file JanisRunActionMessenger.cc
+/// \brief Definition of the JanisRunActionMessenger class
 
-/// \file JanisRunAction.hh
-/// \brief Definition of the JanisRunAction class
+#include "JanisRunActionMessenger.hh"
+#include "JanisRunAction.hh"
+#include "G4UIdirectory.hh"
+#include "G4UIcmdWithAString.hh"
 
-#ifndef JanisRunAction_h
-#define JanisRunAction_h 1
-
-#include "G4UserRunAction.hh"
-#include "globals.hh"
-
-#include "TFile.h"
-#include "TTree.h"
-
-class G4Run;
-class JanisRunActionMessenger;
-
-class JanisRunAction : public G4UserRunAction
+JanisRunActionMessenger::JanisRunActionMessenger(JanisRunAction* filename)
+  : G4UImessenger(),
+    SetFileName(filename)
 {
-  public:
-    JanisRunAction();
-    virtual ~JanisRunAction();
+    SetFileNameDir = new G4UIdirectory("/filename");
+    SetFileNameDir->SetGuidance("Set the filename of the out put file (Please write in form of <somename.root>)");
 
-    virtual void setOutputFileName(G4String newname);
-    virtual void BeginOfRunAction(const G4Run*);
-    virtual void   EndOfRunAction(const G4Run*);
+    FileNameCmd = new G4UIcmdWithAString("/filename/setFilename", this);
+    FileNameCmd->SetGuidance("Set the filename of the out put file (Please write in form of <somename.root>)");
+    FileNameCmd->SetParameterName("newname", false);
+    FileNameCmd->AvailableForStates(G4State_Idle);
+    FileNameCmd->SetDefaultValue("default_output_filename.root");
+}
 
-    TTree* GetDataTree();
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-  private:
-    G4String output_name = "default_output_filename.root";
-    TFile* output_file;
-    TTree* data_tree;
+JanisRunActionMessenger::~JanisRunActionMessenger()
+{
+    delete FileNameCmd;
+    delete SetFileNameDir;
+}
 
-    JanisRunActionMessenger* fRunActionMessenger;
-};
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-#endif
+void JanisRunActionMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
+{
+    SetFileName->setOutputFileName(newValue);
+}

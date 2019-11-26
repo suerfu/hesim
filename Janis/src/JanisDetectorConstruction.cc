@@ -1071,7 +1071,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 {
     if(!fConstructed) return;
 
-    fs_head_inner_LV->ClearDaughters(); // PROBLEMATIC
+    fs_head_inner_LV->ClearDaughters(); 
     delete fs_head_outer_PV;
     WorldLV->RemoveDaughter(fs_head_outer_PV);
     delete fs_head_inner_PV;

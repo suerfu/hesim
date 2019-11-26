@@ -32,6 +32,7 @@
 
 
 #include "JanisRunAction.hh"
+#include "JanisRunActionMessenger.hh"
 //#include "JanisAnalysis.hh"
 
 #include "G4Run.hh"
@@ -46,10 +47,13 @@
 
 JanisRunAction::JanisRunAction()
  : G4UserRunAction(),
-   data_tree()
+   data_tree(),
+   fRunActionMessenger(0)
 {
   // set printing event number per each event
+  fRunActionMessenger = new JanisRunActionMessenger(this);
   G4RunManager::GetRunManager()->SetPrintProgress(1);
+
 /*
   // Create analysis manager
   // The choice of analysis technology is done via selectin of a namespace
@@ -88,7 +92,15 @@ JanisRunAction::JanisRunAction()
 
 JanisRunAction::~JanisRunAction()
 {
+  delete fRunActionMessenger;
   //delete G4AnalysisManager::Instance();
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisRunAction::setOutputFileName(G4String newname)
+{
+  output_name = newname;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -102,8 +114,7 @@ void JanisRunAction::BeginOfRunAction(const G4Run* /*run*/)
   //analysisManager->OpenFile();
   //
 
-  // TODO: Macro command to control filename
-  G4String output_name = "test10086.root";
+  //output_name = "test10096.root";
   output_file = new TFile(output_name, "RECREATE");
 
   output_file->cd();
