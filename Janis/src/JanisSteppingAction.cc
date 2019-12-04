@@ -68,6 +68,60 @@ void JanisSteppingAction::UserSteppingAction(const G4Step* step)
     StepInfo* stepInfo = new StepInfo(step);
     fEventAction->GetStepCollection().push_back(*stepInfo);
 
+    /*
+    G4StepPoint* preStep = step->GetPreStepPoint();
+    G4StepPoint* postStep = step->GetPostStepPoint();
+
+    G4Track* track = step->GetTrack();
+
+
+    // get volume of the current step
+    const G4VPhysicalVolume* volume = postStep->GetPhysicalVolume();
+    G4String volume_name = volume->GetName();
+
+    G4int volume_copy_number = volume->GetCopyNo();
+
+    const G4ParticleDefinition* particle = track->GetDefinition();
+    G4String process_name = postStep->GetProcessDefinedStep()->GetProcessName();
+
+    G4ThreeVector position = postStep->GetPosition();
+    G4ThreeVector momentum_direction = postStep->GetMomentumDirection();
+
+    G4double global_time = postStep->GetGlobalTime();
+
+    // energy deposit
+    G4double energy = postStep->GetKineticEnergy();
+
+    // get analysis manager
+    //G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+    G4int eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
+    G4int trackID = track->GetTrackID();
+    G4int parentID = track->GetParentID();
+
+    G4String particle_name = track->GetParticleDefinition()->GetParticleName();
+    G4int particle_ID = track->GetParticleDefinition()->GetPDGEncoding();
+
+    // G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
+
+    if(true){
+    stepInfo->SetEventID(eventID);
+    stepInfo->SetTrackID(trackID);
+    stepInfo->SetStepID(0);
+    stepInfo->SetParentID(parentID);
+    stepInfo->SetParticleName(particle_name);
+    stepInfo->SetVolumeName(volume_name);
+    stepInfo->SetVolumeCopyNumber(volume_copy_number);
+    stepInfo->SetEnergy(energy);
+    stepInfo->SetPosition(position);
+    stepInfo->SetMomentumDirection(momentum_direction);
+    stepInfo->SetGlobalTime(global_time);
+    stepInfo->SetProcessName(process_name);
+
+    // analysisManager->FillNtupleIColumn(0, energy);
+    }
+    //std::cout << "eventID: " << stepInfo->GetEventID() << " trackID: " << stepInfo->GetTrackID() << " stepID: " << stepInfo->GetStepID() << " parentID: " << stepInfo->GetParentID() << " Name : " << stepInfo->GetParticleName() << " Volume: " << stepInfo->GetVolumeName() << " Copy #: " << stepInfo->GetVolumeCopyNumber() << " Energy: " << stepInfo->GetEnergy() << " Position: (" << stepInfo->GetPosition().x() << ", " << stepInfo->GetPosition().y() << ", " << stepInfo->GetPosition().z() << ") Momentum: (" << stepInfo->GetMomentumDirection().x() << ", " << stepInfo->GetMomentumDirection().y() <<  ", " << stepInfo->GetMomentumDirection().z() << ") Time: " << stepInfo->GetGlobalTime() << " Process: " << stepInfo->GetProcessName() << std::endl;
+    */
+// The abandoned version
 /*
   G4StepPoint* preStep = step->GetPreStepPoint();
   G4StepPoint* postStep = step->GetPostStepPoint();

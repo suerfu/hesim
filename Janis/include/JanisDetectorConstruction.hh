@@ -67,7 +67,14 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     void setFarSideAngle(G4double fs_angle);
     void setFarSideDistance(G4double fs_distance);
-    void addFarSideAngle(G4double new_fs_angle);
+    void add1stFarSideAngle(G4double new_fs_angle_1);
+    void add2ndFarSideAngle(G4double new_fs_angle_2);
+    void add3rdFarSideAngle(G4double new_fs_angle_3);
+    void add4thFarSideAngle(G4double new_fs_angle_4);
+    void add5thFarSideAngle(G4double new_fs_angle_5);
+    void add6thFarSideAngle(G4double new_fs_angle_6);
+    void add7thFarSideAngle(G4double new_fs_angle_7);
+    void add8thFarSideAngle(G4double new_fs_angle_8);
 
     // G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
 
@@ -97,6 +104,45 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* fs_head_outer_PV;
     G4RotationMatrix* fs_head_outer_rm;
 
+    G4LogicalVolume* fs_head_inner_1_LV;
+    G4LogicalVolume* fs_head_outer_1_LV;
+    G4VPhysicalVolume* fs_head_inner_1_PV;
+    G4VPhysicalVolume* fs_head_outer_1_PV;
+
+    G4LogicalVolume* fs_head_inner_2_LV;
+    G4LogicalVolume* fs_head_outer_2_LV;
+    G4VPhysicalVolume* fs_head_inner_2_PV;
+    G4VPhysicalVolume* fs_head_outer_2_PV;
+
+    G4LogicalVolume* fs_head_inner_3_LV;
+    G4LogicalVolume* fs_head_outer_3_LV;
+    G4VPhysicalVolume* fs_head_inner_3_PV;
+    G4VPhysicalVolume* fs_head_outer_3_PV;
+
+    G4LogicalVolume* fs_head_inner_4_LV;
+    G4LogicalVolume* fs_head_outer_4_LV;
+    G4VPhysicalVolume* fs_head_inner_4_PV;
+    G4VPhysicalVolume* fs_head_outer_4_PV;
+
+    G4LogicalVolume* fs_head_inner_5_LV;
+    G4LogicalVolume* fs_head_outer_5_LV;
+    G4VPhysicalVolume* fs_head_inner_5_PV;
+    G4VPhysicalVolume* fs_head_outer_5_PV;
+
+    G4LogicalVolume* fs_head_inner_6_LV;
+    G4LogicalVolume* fs_head_outer_6_LV;
+    G4VPhysicalVolume* fs_head_inner_6_PV;
+    G4VPhysicalVolume* fs_head_outer_6_PV;
+
+    G4LogicalVolume* fs_head_inner_7_LV;
+    G4LogicalVolume* fs_head_outer_7_LV;
+    G4VPhysicalVolume* fs_head_inner_7_PV;
+    G4VPhysicalVolume* fs_head_outer_7_PV;
+
+    G4LogicalVolume* fs_head_inner_8_LV;
+    G4LogicalVolume* fs_head_outer_8_LV;
+    G4VPhysicalVolume* fs_head_inner_8_PV;
+    G4VPhysicalVolume* fs_head_outer_8_PV;
 
     void PlacePMT(G4LogicalVolume* worldLV,G4double &PMT_posX,G4double &PMT_posY,G4double &PMT_posZ,G4RotationMatrix* PMT_RM);
 

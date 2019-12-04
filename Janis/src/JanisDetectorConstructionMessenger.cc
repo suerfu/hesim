@@ -53,12 +53,55 @@ JanisDetectorConstructionMessenger::JanisDetectorConstructionMessenger(JanisDete
     FSDistanceCmd->AvailableForStates(G4State_Idle);
     FSDistanceCmd->SetDefaultValue(140);
 
-    NewAngleCmd = new G4UIcmdWithADouble("/placement/addAngle",this);
-    NewAngleCmd->SetGuidance("Add a new detector, and set the angle of the far-side detector in unit of deg.");
-    NewAngleCmd->SetParameterName("new_fs_angle", false);
-    NewAngleCmd->AvailableForStates(G4State_Idle);
-    NewAngleCmd->SetDefaultValue(0);
+    NewAngle1Cmd = new G4UIcmdWithADouble("/placement/addAngle1",this);
+    NewAngle1Cmd->SetGuidance("Add the 1st far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle1Cmd->SetParameterName("new_fs_angle_1", false);
+    NewAngle1Cmd->AvailableForStates(G4State_Idle);
+    NewAngle1Cmd->SetDefaultValue(0);
+
+    NewAngle2Cmd = new G4UIcmdWithADouble("/placement/addAngle2",this);
+    NewAngle2Cmd->SetGuidance("Add the 2nd far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle2Cmd->SetParameterName("new_fs_angle_2", false);
+    NewAngle2Cmd->AvailableForStates(G4State_Idle);
+    NewAngle2Cmd->SetDefaultValue(0);
+
+    NewAngle3Cmd = new G4UIcmdWithADouble("/placement/addAngle3",this);
+    NewAngle3Cmd->SetGuidance("Add the 3rd far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle3Cmd->SetParameterName("new_fs_angle_3", false);
+    NewAngle3Cmd->AvailableForStates(G4State_Idle);
+    NewAngle3Cmd->SetDefaultValue(0);
+
+    NewAngle4Cmd = new G4UIcmdWithADouble("/placement/addAngle4",this);
+    NewAngle4Cmd->SetGuidance("Add the 4th far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle4Cmd->SetParameterName("new_fs_angle_4", false);
+    NewAngle4Cmd->AvailableForStates(G4State_Idle);
+    NewAngle4Cmd->SetDefaultValue(0);
+
+    NewAngle5Cmd = new G4UIcmdWithADouble("/placement/addAngle5",this);
+    NewAngle5Cmd->SetGuidance("Add the 5th far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle5Cmd->SetParameterName("new_fs_angle_5", false);
+    NewAngle5Cmd->AvailableForStates(G4State_Idle);
+    NewAngle5Cmd->SetDefaultValue(0);
+
+    NewAngle6Cmd = new G4UIcmdWithADouble("/placement/addAngle6",this);
+    NewAngle6Cmd->SetGuidance("Add the 6th far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle6Cmd->SetParameterName("new_fs_angle_6", false);
+    NewAngle6Cmd->AvailableForStates(G4State_Idle);
+    NewAngle6Cmd->SetDefaultValue(0);
+
+    NewAngle7Cmd = new G4UIcmdWithADouble("/placement/addAngle7",this);
+    NewAngle7Cmd->SetGuidance("Add the 7th far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle7Cmd->SetParameterName("new_fs_angle_7", false);
+    NewAngle7Cmd->AvailableForStates(G4State_Idle);
+    NewAngle7Cmd->SetDefaultValue(0);
+
+    NewAngle8Cmd = new G4UIcmdWithADouble("/placement/addAngle8",this);
+    NewAngle8Cmd->SetGuidance("Add the 8th far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle8Cmd->SetParameterName("new_fs_angle_8", false);
+    NewAngle8Cmd->AvailableForStates(G4State_Idle);
+    NewAngle8Cmd->SetDefaultValue(0);
 }
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
@@ -66,7 +109,14 @@ JanisDetectorConstructionMessenger::~JanisDetectorConstructionMessenger()
 {
     delete AngleCmd;
     delete FSDistanceCmd;
-    delete NewAngleCmd;
+    delete NewAngle1Cmd;
+    delete NewAngle2Cmd;
+    delete NewAngle3Cmd;
+    delete NewAngle4Cmd;
+    delete NewAngle5Cmd;
+    delete NewAngle6Cmd;
+    delete NewAngle7Cmd;
+    delete NewAngle8Cmd;
     delete DetectorPlacementDir;
 }
 
@@ -80,8 +130,29 @@ void JanisDetectorConstructionMessenger::SetNewValue(G4UIcommand* command, G4Str
     } else if(command == FSDistanceCmd){
         DetectorPlacement->setFarSideDistance(FSDistanceCmd->GetNewDoubleValue(newValue));
 
-    } else if(command == NewAngleCmd){
-        DetectorPlacement->addFarSideAngle(NewAngleCmd->GetNewDoubleValue(newValue));
+    } else if(command == NewAngle1Cmd){
+        DetectorPlacement->add1stFarSideAngle(NewAngle1Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle2Cmd){
+        DetectorPlacement->add2ndFarSideAngle(NewAngle2Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle3Cmd){
+        DetectorPlacement->add3rdFarSideAngle(NewAngle3Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle4Cmd){
+        DetectorPlacement->add4thFarSideAngle(NewAngle4Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle5Cmd){
+        DetectorPlacement->add5thFarSideAngle(NewAngle5Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle6Cmd){
+        DetectorPlacement->add6thFarSideAngle(NewAngle6Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle7Cmd){
+        DetectorPlacement->add7thFarSideAngle(NewAngle7Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle8Cmd){
+        DetectorPlacement->add8thFarSideAngle(NewAngle8Cmd->GetNewDoubleValue(newValue));
     }
 }
 

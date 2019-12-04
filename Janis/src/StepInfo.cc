@@ -1,7 +1,7 @@
 //
 //
 // $Id: StepInfo.cc $
-// 
+//
 /// \file StepInfo.cc
 /// \brief Implementation of the StepInfo class
 
@@ -51,7 +51,7 @@ StepInfo::StepInfo( const G4Step* step )
     global_time(0),
     process_name("")
 {
-	
+
   G4StepPoint* postStep = step->GetPostStepPoint();
   G4Track* track = step->GetTrack();
 
@@ -68,17 +68,18 @@ StepInfo::StepInfo( const G4Step* step )
     volume_name = postStep->GetPhysicalVolume()->GetName();
     volume_copy_number = postStep->GetPhysicalVolume()->GetCopyNo();
   }
+    if(volume_name == "new_fs_head_inner_1"){
+        energy = postStep->GetKineticEnergy();
+        position = postStep->GetPosition();
+        momentum_direction = postStep->GetMomentumDirection();
+        global_time = postStep->GetGlobalTime();
 
-  energy = postStep->GetKineticEnergy();
-  position = postStep->GetPosition();
-  momentum_direction = postStep->GetMomentumDirection();
-  global_time = postStep->GetGlobalTime();
-
-  if(!postStep->GetProcessDefinedStep()){
-    process_name = "initStep";
-  } else {
-    process_name = postStep->GetProcessDefinedStep()->GetProcessName();
-  }
+        if(!postStep->GetProcessDefinedStep()){
+        process_name = "initStep";
+        } else {
+        process_name = postStep->GetProcessDefinedStep()->GetProcessName();
+        }
+    }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -253,4 +254,3 @@ void StepInfo::SetProcessName( G4String new_process_name )
 {
   process_name = new_process_name;
 }
-
