@@ -28,6 +28,7 @@ StepInfo::StepInfo()
     volume_name(""),
     volume_copy_number(0),
     energy(0),
+    deposited_energy(0),
     position(0),
     momentum_direction(0),
     global_time(0),
@@ -46,6 +47,7 @@ StepInfo::StepInfo( const G4Step* step )
     volume_name(""),
     volume_copy_number(0),
     energy(0),
+    deposited_energy(0),
     position(0),
     momentum_direction(0),
     global_time(0),
@@ -53,6 +55,7 @@ StepInfo::StepInfo( const G4Step* step )
 {
 
   G4StepPoint* postStep = step->GetPostStepPoint();
+  G4StepPoint* preStep = step->GetPreStepPoint();
   G4Track* track = step->GetTrack();
 
   eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
@@ -68,17 +71,23 @@ StepInfo::StepInfo( const G4Step* step )
     volume_name = postStep->GetPhysicalVolume()->GetName();
     volume_copy_number = postStep->GetPhysicalVolume()->GetCopyNo();
   }
-    if(volume_name == "new_fs_head_inner_1"){
-        energy = postStep->GetKineticEnergy();
-        position = postStep->GetPosition();
-        momentum_direction = postStep->GetMomentumDirection();
-        global_time = postStep->GetGlobalTime();
 
-        if(!postStep->GetProcessDefinedStep()){
-        process_name = "initStep";
-        } else {
-        process_name = postStep->GetProcessDefinedStep()->GetProcessName();
-        }
+    energy = postStep->GetKineticEnergy();
+    G4double pre_energy;
+    if(eventID>=1){
+        pre_energy = preStep->GetKineticEnergy();
+        deposited_energy = pre_energy - energy;
+    }else{
+        deposited_energy = 0;
+    }
+    position = postStep->GetPosition();
+    momentum_direction = postStep->GetMomentumDirection();
+    global_time = postStep->GetGlobalTime();
+
+    if(!postStep->GetProcessDefinedStep()){
+    process_name = "initStep";
+    } else {
+    process_name = postStep->GetProcessDefinedStep()->GetProcessName();
     }
 }
 
@@ -197,6 +206,20 @@ G4double StepInfo::GetEnergy()
 void StepInfo::SetEnergy( G4double new_energy )
 {
   energy = new_energy;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+G4double StepInfo::GetDepositedEnergy()
+{
+  return deposited_energy;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void StepInfo::SetDepositedEnergy( G4double new_deposited_energy )
+{
+  deposited_energy = new_deposited_energy;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

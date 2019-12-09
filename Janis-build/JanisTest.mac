@@ -9,15 +9,16 @@
 /process/list
 
 # Farside detector at (0 deg, 140 cm) by default
-/filename/setFilename test_0.root
+/filename/setFilename test1.root
+
+/run/printProgress 10
+/placement/setDistance -40
+/run/beamOn 500
+
+/filename/setFilename test2.root
 
 /placement/addAngle1 0
-/run/printProgress 10
-/run/beamOn 5000
-
-/filename/setFilename test_-6_0_6.root
-
 /placement/addAngle2 -6
 /placement/addAngle3 6
 /run/printProgress 10
-/run/beamOn 5000
+/run/beamOn 500

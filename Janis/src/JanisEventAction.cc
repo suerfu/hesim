@@ -59,6 +59,7 @@ JanisEventAction::JanisEventAction(JanisRunAction* input_run_action)
    volume_name(""),
    volume_copy_number(0),
    energy(0),
+   deposited_energy(0),
    position(0),
    momentum(0),
    global_time(0),
@@ -110,12 +111,18 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
     data_tree->Branch("volume_name", &volume_name);
     data_tree->Branch("volume_copy_number", &volume_copy_number, "volume_copy_number/I");
     data_tree->Branch("energy", &energy, "energy/D");
+    data_tree->Branch("deposited_energy", &deposited_energy, "deposited_energy/D");
     data_tree->Branch("position", &position, "position[3]/D");
     data_tree->Branch("momentum", &momentum, "momentum[3]/D");
     data_tree->Branch("global_time", &global_time, "global_time/D");
     data_tree->Branch("process_name", &process_name);
 
     G4int j = 0; // used to refresh step_ID when track changes
+
+    if_helium = 0;
+    if_farside = 0;
+
+    // First we want to select the tracks we are caring about
     for( size_t i=0; i < stepCollection.size(); ++i ){
 
       eventID = stepCollection[i].GetEventID();
@@ -139,12 +146,14 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
           stepID = 0;
           j++;
       }
+
       parentID = stepCollection[i].GetParentID();
 
       particle_name = stepCollection[i].GetParticleName();
       volume_name = stepCollection[i].GetVolumeName();
       volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
       energy = stepCollection[i].GetEnergy();
+      deposited_energy = stepCollection[i].GetDepositedEnergy();
 
       position = stepCollection[i].GetPosition();
       momentum = stepCollection[i].GetMomentumDirection();
@@ -152,7 +161,61 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
       global_time = stepCollection[i].GetGlobalTime();
       process_name = stepCollection[i].GetProcessName();
 
-      data_tree->Fill();
+      if(trackID==1){
+          if(volume_name=="liquid helium"){
+              if_helium = 1;
+          }
+          if(volume_name=="fs_head_inner"){
+              if_farside = 1;
+          }
+      }
+    }
+
+    // Fill the wanted tracks
+    for( size_t i=0; i < stepCollection.size(); ++i ){
+
+      if(true){
+
+          eventID = stepCollection[i].GetEventID();
+          trackID = stepCollection[i].GetTrackID();
+
+          // Refresh stepID
+          if(i!=0)
+          {
+              if(trackID==stepCollection[i-1].GetTrackID())
+              {
+                  stepID = j;
+                  j++;
+              }
+              else
+              {
+                  j = 0;
+                  stepID = j;
+                  j++;
+              }
+          }
+          else
+          {
+              stepID = 0;
+              j++;
+          }
+
+          parentID = stepCollection[i].GetParentID();
+
+          particle_name = stepCollection[i].GetParticleName();
+          volume_name = stepCollection[i].GetVolumeName();
+          volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
+          energy = stepCollection[i].GetEnergy();
+          deposited_energy = stepCollection[i].GetDepositedEnergy();
+
+          position = stepCollection[i].GetPosition();
+          momentum = stepCollection[i].GetMomentumDirection();
+
+          global_time = stepCollection[i].GetGlobalTime();
+          process_name = stepCollection[i].GetProcessName();
+
+          data_tree->Fill();
+      }
     }
     /*for( size_t i=0; i < stepCollection.size(); ++i ){
       StepInfo stepInfo = stepCollection[i];
@@ -167,6 +230,8 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
     }*/
     //PrintEventStatistics(fEnergyHe, nScattersHe);
   stepCollection.clear();
+  if_helium = 0;
+  if_farside = 0;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

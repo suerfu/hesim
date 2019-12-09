@@ -63,10 +63,15 @@ class JanisEventAction : public G4UserEventAction
     int stepID;
     int parentID;
 
+    // flags used to check whether a track passes both helium target and a specific farside detector
+    int if_helium = 0;
+    int if_farside = 0;
+
     string particle_name;
     string volume_name;
     int volume_copy_number;
     double energy;
+    double deposited_energy;
 
     G4ThreeVector position;
     G4ThreeVector momentum;

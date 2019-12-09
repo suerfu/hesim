@@ -44,6 +44,9 @@ class StepInfo
     G4double GetEnergy();
     void SetEnergy( G4double );
 
+    G4double GetDepositedEnergy();
+    void SetDepositedEnergy( G4double );
+
     G4ThreeVector GetPosition();
     void SetPosition( G4ThreeVector );
 
@@ -69,7 +72,8 @@ class StepInfo
     G4int volume_copy_number;
 
     G4double energy;
-    
+    G4double deposited_energy;
+
     G4ThreeVector position;
     G4ThreeVector momentum_direction;
 
@@ -80,4 +84,3 @@ class StepInfo
 };
 
 #endif
-
