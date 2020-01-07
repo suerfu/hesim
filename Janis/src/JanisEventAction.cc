@@ -165,7 +165,7 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
           if(volume_name=="liquid helium"){
               if_helium = 1;
           }
-          if(volume_name=="fs_head_inner"){
+          if(volume_name=="fs_head_inner" || volume_name =="fs_head_inner_1" || volume_name =="fs_head_inner_2" || volume_name =="fs_head_inner_3" || volume_name =="fs_head_inner_4" || volume_name =="fs_head_inner_5" || volume_name =="fs_head_inner_6" || volume_name =="fs_head_inner_7" || volume_name =="fs_head_inner_8"){
               if_farside = 1;
           }
       }
@@ -173,8 +173,8 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
 
     // Fill the wanted tracks
     for( size_t i=0; i < stepCollection.size(); ++i ){
-      // Just for now we do 'if true' becuase of the problems in volume_name
-      if(true){
+
+      if(if_farside==1 && if_helium==1){
 
           eventID = stepCollection[i].GetEventID();
           trackID = stepCollection[i].GetTrackID();

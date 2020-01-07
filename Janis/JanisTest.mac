@@ -4,17 +4,33 @@
 /random/setSeeds 1321 4456
 
 # Set the distance between the generator and the target, or the distance is 60 by default
-/generator/setDistance 40
+/generator/setDistance 60.8
 
 /process/list
 
+# Just to check if the volume_name works well
+/filename/setFilename test1.root
+/run/printProgress 10
+/run/beamOn 500
+
 # A 3 far-side detector test
-/filename/setFilename test0107.root
+/filename/setFilename test2.root
 /placement/addAngle1 0
 /placement/setDistance 150
 /placement/addAngle2 -30
-/placement/setDistance 200
+/placement/setDistance 140
 /placement/addAngle3 30
 /placement/setDistance 150
+/placement/addAngle4 60
+/placement/setDistance 140
+/placement/addAngle5 -60
+/placement/setDistance 150
+/placement/addAngle6 90
+/placement/setDistance 140
+/placement/addAngle7 -90
+/placement/setDistance 150
+/placement/addAngle8 45
+/placement/setDistance 140
+
 /run/printProgress 10
 /run/beamOn 500

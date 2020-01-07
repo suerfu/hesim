@@ -65,7 +65,6 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     //
     const G4VPhysicalVolume* GetLHePV() const;
 
-    void setFarSideAngle(G4double fs_angle);
     void setFarSideDistance(G4double fs_distance);
     void add1stFarSideAngle(G4double new_fs_angle_1);
     void add2ndFarSideAngle(G4double new_fs_angle_2);

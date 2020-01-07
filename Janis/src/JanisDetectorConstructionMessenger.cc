@@ -41,12 +41,6 @@ JanisDetectorConstructionMessenger::JanisDetectorConstructionMessenger(JanisDete
     DetectorPlacementDir = new G4UIdirectory("/placement/");
     DetectorPlacementDir->SetGuidance("Placement (angle and distance) of the farside detector.");
 
-    AngleCmd = new G4UIcmdWithADouble("/placement/setAngle",this);
-    AngleCmd->SetGuidance("Set the angle of the far-side detector in unit of deg.");
-    AngleCmd->SetParameterName("fs_angle", false);
-    AngleCmd->AvailableForStates(G4State_Idle);
-	AngleCmd->SetDefaultValue(0);
-
     FSDistanceCmd = new G4UIcmdWithADouble("/placement/setDistance", this);
     FSDistanceCmd->SetGuidance("Set the distance between the target and the latest added far-side detector in unit of cm.");
     FSDistanceCmd->SetParameterName("fs_distance", false);
@@ -107,7 +101,6 @@ JanisDetectorConstructionMessenger::JanisDetectorConstructionMessenger(JanisDete
 
 JanisDetectorConstructionMessenger::~JanisDetectorConstructionMessenger()
 {
-    delete AngleCmd;
     delete FSDistanceCmd;
     delete NewAngle1Cmd;
     delete NewAngle2Cmd;
@@ -124,10 +117,7 @@ JanisDetectorConstructionMessenger::~JanisDetectorConstructionMessenger()
 
 void JanisDetectorConstructionMessenger::SetNewValue(G4UIcommand* command, G4String newValue)
 {
-    if(command == AngleCmd){
-        DetectorPlacement->setFarSideAngle(AngleCmd->GetNewDoubleValue(newValue));
-
-    } else if(command == FSDistanceCmd){
+    if(command == FSDistanceCmd){
         DetectorPlacement->setFarSideDistance(FSDistanceCmd->GetNewDoubleValue(newValue));
 
     } else if(command == NewAngle1Cmd){
