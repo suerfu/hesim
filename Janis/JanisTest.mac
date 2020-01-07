@@ -23,4 +23,4 @@
 /placement/addAngle2 -6
 /placement/addAngle3 6
 /run/printProgress 10
-/run/beamOn 500
+/run/beamOn 50
