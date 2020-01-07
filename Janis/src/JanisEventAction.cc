@@ -122,7 +122,7 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
     if_helium = 0;
     if_farside = 0;
 
-    // First we want to select the tracks we are caring about
+    // Select the tracks we are caring about
     for( size_t i=0; i < stepCollection.size(); ++i ){
 
       eventID = stepCollection[i].GetEventID();
@@ -173,7 +173,7 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
 
     // Fill the wanted tracks
     for( size_t i=0; i < stepCollection.size(); ++i ){
-
+      // Just for now we do 'if true' becuase of the problems in volume_name
       if(true){
 
           eventID = stepCollection[i].GetEventID();

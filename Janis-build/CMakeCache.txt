@@ -131,7 +131,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 
 //The product will be built against the headers and libraries located
 // inside the indicated SDK.
-CMAKE_OSX_SYSROOT:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk
+CMAKE_OSX_SYSROOT:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
@@ -201,8 +201,14 @@ CMAKE_STRIP:FILEPATH=/Library/Developer/CommandLineTools/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Path to a file.
+EXPAT_INCLUDE_DIR:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include
+
+//Path to a library.
+EXPAT_LIBRARY:FILEPATH=/usr/lib/libexpat.dylib
+
 //The directory containing a CMake configuration file for Geant4.
-Geant4_DIR:PATH=/Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/Geant4-10.5.1
+Geant4_DIR:PATH=/Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/Geant4-10.6.0
 
 //Value Computed by CMake
 JanisJanis_BINARY_DIR:STATIC=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build
@@ -210,26 +216,38 @@ JanisJanis_BINARY_DIR:STATIC=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_
 //Value Computed by CMake
 JanisJanis_SOURCE_DIR:STATIC=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis
 
+//Include for OpenGL on OS X
+OPENGL_INCLUDE_DIR:PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework
+
+//OpenGL library for OS X
+OPENGL_gl_LIBRARY:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework
+
+//GLU library for OS X (usually same as OpenGL library)
+OPENGL_glu_LIBRARY:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework
+
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
+
 //The directory containing a CMake configuration file for Qt5Core.
-Qt5Core_DIR:PATH=/usr/local/opt/qt/lib/cmake/Qt5Core
+Qt5Core_DIR:PATH=/Users/lanqingyuan/anaconda3/lib/cmake/Qt5Core
 
 //The directory containing a CMake configuration file for Qt5Gui.
-Qt5Gui_DIR:PATH=/usr/local/opt/qt/lib/cmake/Qt5Gui
+Qt5Gui_DIR:PATH=/Users/lanqingyuan/anaconda3/lib/cmake/Qt5Gui
 
 //The directory containing a CMake configuration file for Qt5OpenGL.
-Qt5OpenGL_DIR:PATH=/usr/local/opt/qt/lib/cmake/Qt5OpenGL
+Qt5OpenGL_DIR:PATH=/Users/lanqingyuan/anaconda3/lib/cmake/Qt5OpenGL
 
 //The directory containing a CMake configuration file for Qt5PrintSupport.
-Qt5PrintSupport_DIR:PATH=/usr/local/opt/qt/lib/cmake/Qt5PrintSupport
+Qt5PrintSupport_DIR:PATH=/Users/lanqingyuan/anaconda3/lib/cmake/Qt5PrintSupport
 
 //The directory containing a CMake configuration file for Qt5Widgets.
-Qt5Widgets_DIR:PATH=/usr/local/opt/qt/lib/cmake/Qt5Widgets
+Qt5Widgets_DIR:PATH=/Users/lanqingyuan/anaconda3/lib/cmake/Qt5Widgets
 
 //Path to a library.
 ROOT_Core_LIBRARY:FILEPATH=/usr/local/lib/root/libCore.so
 
 //The directory containing a CMake configuration file for ROOT.
-ROOT_DIR:PATH=ROOT_DIR-NOTFOUND
+ROOT_DIR:PATH=/usr/local/share/root/cmake
 
 //Path to a library.
 ROOT_Gpad_LIBRARY:FILEPATH=/usr/local/lib/root/libGpad.so
@@ -372,7 +390,7 @@ CMAKE_C_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_FLAGS_RELWITHDEBINFO
 CMAKE_C_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Path to cache edit program executable.
-CMAKE_EDIT_COMMAND:INTERNAL=/usr/local/Cellar/cmake/3.15.2/bin/ccmake
+CMAKE_EDIT_COMMAND:INTERNAL=/usr/local/Cellar/cmake/3.15.5/bin/ccmake
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS
 CMAKE_EXE_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_EXE_LINKER_FLAGS_DEBUG
@@ -458,6 +476,42 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EXPAT_INCLUDE_DIR
+EXPAT_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: EXPAT_LIBRARY
+EXPAT_LIBRARY-ADVANCED:INTERNAL=1
+//Details about finding EXPAT
+FIND_PACKAGE_MESSAGE_DETAILS_EXPAT:INTERNAL=[/usr/lib/libexpat.dylib][/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include][v2.2.1(2.2.1)]
+//Details about finding OpenGL
+FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework][/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework][c ][v()]
+//ADVANCED property for variable: OPENGL_INCLUDE_DIR
+OPENGL_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OPENGL_gl_LIBRARY
+OPENGL_gl_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OPENGL_glu_LIBRARY
+OPENGL_glu_LIBRARY-ADVANCED:INTERNAL=1
+PC_EXPAT_CFLAGS:INTERNAL=
+PC_EXPAT_CFLAGS_I:INTERNAL=
+PC_EXPAT_CFLAGS_OTHER:INTERNAL=
+PC_EXPAT_FOUND:INTERNAL=
+PC_EXPAT_INCLUDEDIR:INTERNAL=
+PC_EXPAT_LIBDIR:INTERNAL=
+PC_EXPAT_LIBS:INTERNAL=
+PC_EXPAT_LIBS_L:INTERNAL=
+PC_EXPAT_LIBS_OTHER:INTERNAL=
+PC_EXPAT_LIBS_PATHS:INTERNAL=
+PC_EXPAT_PREFIX:INTERNAL=
+PC_EXPAT_STATIC_CFLAGS:INTERNAL=
+PC_EXPAT_STATIC_CFLAGS_I:INTERNAL=
+PC_EXPAT_STATIC_CFLAGS_OTHER:INTERNAL=
+PC_EXPAT_STATIC_LIBDIR:INTERNAL=
+PC_EXPAT_STATIC_LIBS:INTERNAL=
+PC_EXPAT_STATIC_LIBS_L:INTERNAL=
+PC_EXPAT_STATIC_LIBS_OTHER:INTERNAL=
+PC_EXPAT_STATIC_LIBS_PATHS:INTERNAL=
+PC_EXPAT_VERSION:INTERNAL=
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ROOT_Core_LIBRARY
 ROOT_Core_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ROOT_Gpad_LIBRARY
@@ -516,4 +570,5 @@ ROOT_rootmkdir_CMD-ADVANCED:INTERNAL=1
 ROOT_rootmv_CMD-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ROOT_rootrm_CMD
 ROOT_rootrm_CMD-ADVANCED:INTERNAL=1
+__pkg_config_checked_PC_EXPAT:INTERNAL=1
 

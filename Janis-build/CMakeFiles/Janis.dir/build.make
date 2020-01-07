@@ -34,10 +34,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.15.2/bin/cmake
+CMAKE_COMMAND = /usr/local/Cellar/cmake/3.15.5/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.15.2/bin/cmake -E remove -f
+RM = /usr/local/Cellar/cmake/3.15.5/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -244,19 +244,19 @@ Janis: CMakeFiles/Janis.dir/src/JanisSteppingAction.cc.o
 Janis: CMakeFiles/Janis.dir/src/JanisTrackingAction.cc.o
 Janis: CMakeFiles/Janis.dir/src/StepInfo.cc.o
 Janis: CMakeFiles/Janis.dir/build.make
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4Tree.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4GMocren.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4visHepRep.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4RayTracer.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4VRML.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4OpenGL.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4gl2ps.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4interfaces.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4persistency.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4error_propagation.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4readout.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4physicslists.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4parmodels.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4Tree.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4GMocren.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4visHepRep.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4RayTracer.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4VRML.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4OpenGL.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4gl2ps.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4interfaces.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4persistency.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4error_propagation.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4readout.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4physicslists.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4parmodels.dylib
 Janis: /usr/local/lib/root/libCore.so
 Janis: /usr/local/lib/root/libImt.so
 Janis: /usr/local/lib/root/libRIO.so
@@ -275,31 +275,32 @@ Janis: /usr/local/lib/root/libPhysics.so
 Janis: /usr/local/lib/root/libMathCore.so
 Janis: /usr/local/lib/root/libThread.so
 Janis: /usr/local/lib/root/libMultiProc.so
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4FR.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4vis_management.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4modeling.dylib
-Janis: /usr/local/opt/qt/lib/QtOpenGL.framework/QtOpenGL
-Janis: /usr/local/opt/qt/lib/QtPrintSupport.framework/QtPrintSupport
-Janis: /usr/local/opt/qt/lib/QtWidgets.framework/QtWidgets
-Janis: /usr/local/opt/qt/lib/QtGui.framework/QtGui
-Janis: /usr/local/opt/qt/lib/QtCore.framework/QtCore
-Janis: /usr/local/lib/libxerces-c.so
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4run.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4event.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4tracking.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4processes.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4analysis.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4zlib.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4FR.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4vis_management.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4modeling.dylib
+Janis: /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd
+Janis: /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd
+Janis: /Users/lanqingyuan/anaconda3/lib/libQt5OpenGL.5.9.6.dylib
+Janis: /Users/lanqingyuan/anaconda3/lib/libQt5PrintSupport.5.9.6.dylib
+Janis: /Users/lanqingyuan/anaconda3/lib/libQt5Widgets.5.9.6.dylib
+Janis: /Users/lanqingyuan/anaconda3/lib/libQt5Gui.5.9.6.dylib
+Janis: /Users/lanqingyuan/anaconda3/lib/libQt5Core.5.9.6.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4run.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4event.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4tracking.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4processes.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4analysis.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4zlib.dylib
 Janis: /usr/lib/libexpat.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4digits_hits.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4track.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4particles.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4geometry.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4materials.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4graphics_reps.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4intercoms.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4global.dylib
-Janis: /Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib/libG4clhep.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4digits_hits.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4track.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4particles.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4geometry.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4materials.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4graphics_reps.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4intercoms.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4global.dylib
+Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4clhep.dylib
 Janis: CMakeFiles/Janis.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable Janis"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Janis.dir/link.txt --verbose=$(VERBOSE)

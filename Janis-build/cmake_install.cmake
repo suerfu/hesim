@@ -40,7 +40,10 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       -delete_rpath "/usr/local/lib/root"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/Users/lanqingyuan/Documents/geant/geant4.10.05-install/lib"
+      -delete_rpath "/Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis")
+    execute_process(COMMAND /usr/bin/install_name_tool
+      -delete_rpath "/Users/lanqingyuan/anaconda3/lib"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/Library/Developer/CommandLineTools/usr/bin/strip" -u -r "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Janis")

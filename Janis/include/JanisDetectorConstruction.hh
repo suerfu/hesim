@@ -93,7 +93,6 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4double fs_placement_distance;
 
     G4LogicalVolume*   WorldLV; // pointers
-    G4LogicalVolume*   FakeWorldLV;
     G4LogicalVolume*   partitionLV;
     G4VPhysicalVolume* WorldPV;
     G4VPhysicalVolume* partitionPV1;

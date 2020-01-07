@@ -3,18 +3,20 @@
 
 /random/setSeeds 1321 4456
 
-# Set the distance between the generator and the target
+# Set the distance between the generator and the target, or the distance is 60 by default
 /generator/setDistance 40
 
 /process/list
 
-# Farside detector at (0 deg, 140 cm) by default
+# Temporarily, Farside detector at (0 deg, -40 cm) by default
+
+# test1: put the farside detector overlap with the generator to check if the volume_name behaves well
 /filename/setFilename test1.root
 
 /run/printProgress 10
-/placement/setDistance -40
 /run/beamOn 500
 
+# test2: add 3 new farside detectors to check if the volume_name behaves well
 /filename/setFilename test2.root
 
 /placement/addAngle1 0

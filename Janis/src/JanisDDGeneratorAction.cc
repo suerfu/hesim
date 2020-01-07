@@ -32,7 +32,7 @@ JanisDDGeneratorAction::JanisDDGeneratorAction()
  : G4VUserPrimaryGeneratorAction(),
    fParticleSource(0),
    primaryGeneratorMessenger(0),
-   generator_distance(0)
+   generator_distance(60)
 {
   fParticleSource = new G4ParticleGun();
 
