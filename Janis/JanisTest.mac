@@ -8,19 +8,13 @@
 
 /process/list
 
-# Temporarily, Farside detector at (0 deg, -40 cm) by default
-
-# test1: put the farside detector overlap with the generator to check if the volume_name behaves well
-/filename/setFilename test1.root
-
+# A 3 far-side detector test
+/filename/setFilename test0107.root
+/placement/addAngle1 0
+/placement/setDistance 150
+/placement/addAngle2 -30
+/placement/setDistance 200
+/placement/addAngle3 30
+/placement/setDistance 150
 /run/printProgress 10
 /run/beamOn 500
-
-# test2: add 3 new farside detectors to check if the volume_name behaves well
-/filename/setFilename test2.root
-
-/placement/addAngle1 0
-/placement/addAngle2 -6
-/placement/addAngle3 6
-/run/printProgress 10
-/run/beamOn 50

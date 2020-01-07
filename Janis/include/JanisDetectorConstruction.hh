@@ -93,10 +93,8 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4double fs_placement_distance;
 
     G4LogicalVolume*   WorldLV; // pointers
-    G4LogicalVolume*   partitionLV;
     G4VPhysicalVolume* WorldPV;
-    G4VPhysicalVolume* partitionPV1;
-    G4VPhysicalVolume* partitionPV2;
+
     G4LogicalVolume* fs_head_inner_LV;
     G4LogicalVolume* fs_head_outer_LV;
     G4VPhysicalVolume* fs_head_inner_PV;
@@ -150,6 +148,14 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps
     G4bool  fConstructed;
+    G4bool  fReady1; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady2; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady3; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady4; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady5; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady6; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady7; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady8; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
 
     JanisDetectorConstructionMessenger* fDetectorMessenger;
 

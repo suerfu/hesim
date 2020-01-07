@@ -71,7 +71,27 @@
 /gui/addIcon "Run beam on" user_icon "/run/beamOn 1" run.png
 /run/beamOn 1
 /vis/scene/notifyHandlers scene-0
-/vis/viewer/set/style s
-/vis/viewer/refresh
-/vis/viewer/set/hiddenEdge 0
-/vis/viewer/refresh
+/placement/addAngle1 5
+/run/geometryModified
+/run/beamOn 1
+/vis/scene/notifyHandlers scene-0
+/placement/setDistance 60
+/run/geometryModified
+/run/beamOn 1
+/vis/scene/notifyHandlers scene-0
+/placement/addAngle2 -45
+/run/geometryModified
+/run/beamOn 1
+/vis/scene/notifyHandlers scene-0
+/placement/setDistance 160
+/run/geometryModified
+/run/beamOn 1
+/vis/scene/notifyHandlers scene-0
+/placement/addAngle3 45
+/run/geometryModified
+/run/beamOn 1
+/vis/scene/notifyHandlers scene-0
+/placement/setDistance 100
+/run/geometryModified
+/run/beamOn 1
+/vis/scene/notifyHandlers scene-0
