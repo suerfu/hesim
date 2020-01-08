@@ -2070,7 +2070,7 @@ void JanisDetectorConstruction::add8thFarSideAngle(G4double new_fs_angle_8)
     G4Transform3D fs_head_outer_transform(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ));
     fs_head_outer_8_PV = new G4PVPlacement(fs_head_outer_transform, fs_head_outer_8_LV, name, WorldLV, false, 0, fCheckOverlaps);
 
-    name = "fs_head_inner_1";
+    name = "fs_head_inner_8";
     G4Tubs* fs_head_inner_S = new G4Tubs(name, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
     fs_head_inner_8_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name);
     fs_head_inner_8_PV = new G4PVPlacement(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ), fs_head_inner_8_LV, name, fs_head_outer_8_LV, false, 0, fCheckOverlaps);
