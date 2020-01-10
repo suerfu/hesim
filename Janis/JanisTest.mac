@@ -1,7 +1,7 @@
 /run/initialize
 /tracking/verbose 1
 
-/random/setSeeds 1921 4616
+/random/setSeeds 233 666
 
 # Set the distance between the generator and the target, or the distance is 60 by default
 /generator/setDistance 60.8
@@ -9,9 +9,10 @@
 /process/list
 
 # Set the file name
-/filename/setFilename by0107.root
+/filename/setFilename saviotry1.root
 
 # Place the far-side detectors
+# The distances are in unit of cm
 /placement/addAngle1 88.84
 /placement/setDistance 135.9
 /placement/addAngle2 -87.64
@@ -30,4 +31,4 @@
 /placement/setDistance 149.25
 
 /run/printProgress 10
-/run/beamOn 50000
+/run/beamOn 10000

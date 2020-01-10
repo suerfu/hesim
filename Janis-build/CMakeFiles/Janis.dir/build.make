@@ -278,8 +278,8 @@ Janis: /usr/local/lib/root/libMultiProc.so
 Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4FR.dylib
 Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4vis_management.dylib
 Janis: /Users/lanqingyuan/Documents/Geant/geant4.10.06-install/lib/libG4modeling.dylib
-Janis: /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd
-Janis: /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd
+Janis: /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd
+Janis: /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd
 Janis: /Users/lanqingyuan/anaconda3/lib/libQt5OpenGL.5.9.6.dylib
 Janis: /Users/lanqingyuan/anaconda3/lib/libQt5PrintSupport.5.9.6.dylib
 Janis: /Users/lanqingyuan/anaconda3/lib/libQt5Widgets.5.9.6.dylib

@@ -57,6 +57,7 @@ private:
 	G4UIdirectory* primaryGeneratorDir;
 
 	G4UIcmdWithADouble* generatorDistanceCmd;
+	G4UIcmdWithADouble* generatorAngleCmd;
 
 };
 

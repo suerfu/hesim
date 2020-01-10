@@ -32,7 +32,8 @@ JanisDDGeneratorAction::JanisDDGeneratorAction()
  : G4VUserPrimaryGeneratorAction(),
    fParticleSource(0),
    primaryGeneratorMessenger(0),
-   generator_distance(60)
+   generator_distance(60),
+   generator_angle(45)
 {
   fParticleSource = new G4ParticleGun();
 
@@ -52,6 +53,13 @@ JanisDDGeneratorAction::~JanisDDGeneratorAction()
 void JanisDDGeneratorAction::setGeneratorDistance(G4double distance)
 {
     generator_distance = distance;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDDGeneratorAction::setGeneratorAngle(G4double pmt_angle)
+{
+    generator_angle = pmt_angle * deg;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -88,7 +96,7 @@ fParticleSource->SetParticleEnergy(e1*angle*angle*angle*angle + e2*angle*angle*a
 fParticleSource->SetParticleDefinition(particleDefinition);
 
 // Set source position
- fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cm , 0., -10. * cm));
+ fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -10. * cm));
  fParticleSource->GeneratePrimaryVertex(anEvent);
 
 }

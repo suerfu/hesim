@@ -49,6 +49,7 @@ public:
   virtual void GeneratePrimaries(G4Event* event);
 
   void setGeneratorDistance(G4double);
+  void setGeneratorAngle(G4double);
 
   // set methods
   void SetRandomFlag(G4bool value);
@@ -57,6 +58,7 @@ private:
   JanisDDGeneratorMessenger* primaryGeneratorMessenger;
 
   G4double generator_distance;
+  G4double generator_angle;
 
   G4ParticleGun*  fParticleSource;
 

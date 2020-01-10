@@ -39,16 +39,23 @@ JanisDDGeneratorMessenger::JanisDDGeneratorMessenger(JanisDDGeneratorAction* gen
   : G4UImessenger(),
     primaryGenerator(generator),
     primaryGeneratorDir(0),
-    generatorDistanceCmd(0)
+    generatorDistanceCmd(0),
+    generatorAngleCmd(0)
 {
 	primaryGeneratorDir = new G4UIdirectory("/generator/");
-	primaryGeneratorDir->SetGuidance("Generator distance control.");
+	primaryGeneratorDir->SetGuidance("Generator position control.");
 
 	generatorDistanceCmd = new G4UIcmdWithADouble("/generator/setDistance", this);
 	generatorDistanceCmd->SetGuidance("Set distance between the target helium and DD generator in unit of cm");
 	generatorDistanceCmd->SetParameterName("distance", false);
-	generatorDistanceCmd->SetDefaultValue(0);
+	generatorDistanceCmd->SetDefaultValue(60);
 	generatorDistanceCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  generatorAngleCmd = new G4UIcmdWithADouble("/generator/setAngle", this);
+  generatorAngleCmd->SetGuidance("Set azimuth angle of the generator");
+	generatorAngleCmd->SetParameterName("pmt_angle", false);
+	generatorAngleCmd->SetDefaultValue(45);
+	generatorAngleCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
@@ -68,6 +75,12 @@ void JanisDDGeneratorMessenger::SetNewValue(G4UIcommand* command, G4String newVa
 		G4cout << "Setting generator distance to " << newValue << G4endl;
 		primaryGenerator->setGeneratorDistance(generatorDistanceCmd->GetNewDoubleValue(newValue));
 	}
+
+  if( command == generatorAngleCmd )
+  {
+    G4cout << "Setting generator azimuth angle to " << newValue << G4endl;
+    primaryGenerator->setGeneratorAngle(generatorAngleCmd->GetNewDoubleValue(newValue));
+  }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
