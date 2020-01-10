@@ -673,6 +673,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4RotationMatrix *fs_foot_outer_rm = new G4RotationMatrix;
     */
 
+    cryo_4k_inner_rm->rotateZ(45*deg);
+
     // Rotate the various PMTs so that they all point inward
     pmt1_rm->rotateY(90.0*deg);
     pmt2_rm->rotateY(-90.0*deg);
@@ -1011,6 +1013,13 @@ void JanisDetectorConstruction::PlacePMT(G4LogicalVolume* can_sample_inner_LV, G
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+void JanisDetectorConstruction::setPMTAngle(G4double pmt_angle)
+{
+  angle_corr = pmt_angle * deg;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
 void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 {
   G4String name_in;
@@ -1047,14 +1056,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1106,14 +1115,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_1_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1165,14 +1174,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_2_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1224,14 +1233,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_3_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1283,14 +1292,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_4_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1342,14 +1351,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_5_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1401,14 +1410,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_6_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1460,14 +1469,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_7_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1519,14 +1528,14 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_8_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1585,14 +1594,14 @@ void JanisDetectorConstruction::add1stFarSideAngle(G4double new_fs_angle_1)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4String name;
 
@@ -1652,8 +1661,8 @@ void JanisDetectorConstruction::add2ndFarSideAngle(G4double new_fs_angle_2)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
@@ -1719,14 +1728,14 @@ void JanisDetectorConstruction::add3rdFarSideAngle(G4double new_fs_angle_3)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4String name;
 
@@ -1786,14 +1795,14 @@ void JanisDetectorConstruction::add4thFarSideAngle(G4double new_fs_angle_4)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4String name;
 
@@ -1853,14 +1862,14 @@ void JanisDetectorConstruction::add5thFarSideAngle(G4double new_fs_angle_5)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4String name;
 
@@ -1920,14 +1929,14 @@ void JanisDetectorConstruction::add6thFarSideAngle(G4double new_fs_angle_6)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4String name;
 
@@ -1987,14 +1996,14 @@ void JanisDetectorConstruction::add7thFarSideAngle(G4double new_fs_angle_7)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4String name;
 
@@ -2053,14 +2062,14 @@ void JanisDetectorConstruction::add8thFarSideAngle(G4double new_fs_angle_8)
     G4double fs_head_inner_posY = 0.0*mm;
     G4double fs_head_inner_posZ = 0.0*mm;
 
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle);
+    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fs_head_outer_posZ = fs_placement_height;
 
     G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
     G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
     fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle);
+    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
 
     G4String name;
 

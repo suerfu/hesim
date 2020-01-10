@@ -86,7 +86,7 @@ G4double angle = DD_dist(d1, d2, d3, d4, d5);
 G4double theta = angle*(3.14159265358979323846/180)*radian;
 G4ThreeVector neutronDirection;
 neutronDirection.setRhoPhiTheta(1.0,phi,theta);//1 is needed because we are pointing it towards -ve z direction.
-neutronDirection.rotateY(90*deg);
+neutronDirection.rotateY(90*deg).rotateZ(-generator_angle);
 
 // set particle parameters
 fParticleSource->SetParticleMomentumDirection(neutronDirection);

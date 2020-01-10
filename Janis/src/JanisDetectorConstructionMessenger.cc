@@ -47,6 +47,12 @@ JanisDetectorConstructionMessenger::JanisDetectorConstructionMessenger(JanisDete
     FSDistanceCmd->AvailableForStates(G4State_Idle);
     FSDistanceCmd->SetDefaultValue(140);
 
+    PMTAngleCmd = new G4UIcmdWithADouble("/placement/definePMTAngle", this);
+    PMTAngleCmd->SetGuidance("Set azimuth angle of the PMTs");
+    PMTAngleCmd->SetParameterName("pmt_angle", false);
+    PMTAngleCmd->SetDefaultValue(45);
+    PMTAngleCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
     NewAngle1Cmd = new G4UIcmdWithADouble("/placement/addAngle1",this);
     NewAngle1Cmd->SetGuidance("Add the 1st far-side detector, and set the angle of the far-side detector in unit of deg.");
     NewAngle1Cmd->SetParameterName("new_fs_angle_1", false);
@@ -102,6 +108,7 @@ JanisDetectorConstructionMessenger::JanisDetectorConstructionMessenger(JanisDete
 JanisDetectorConstructionMessenger::~JanisDetectorConstructionMessenger()
 {
     delete FSDistanceCmd;
+    delete PMTAngleCmd;
     delete NewAngle1Cmd;
     delete NewAngle2Cmd;
     delete NewAngle3Cmd;
@@ -119,6 +126,9 @@ void JanisDetectorConstructionMessenger::SetNewValue(G4UIcommand* command, G4Str
 {
     if(command == FSDistanceCmd){
         DetectorPlacement->setFarSideDistance(FSDistanceCmd->GetNewDoubleValue(newValue));
+
+    } else if(command == PMTAngleCmd){
+        DetectorPlacement->setPMTAngle(PMTAngleCmd->GetNewDoubleValue(newValue));
 
     } else if(command == NewAngle1Cmd){
         DetectorPlacement->add1stFarSideAngle(NewAngle1Cmd->GetNewDoubleValue(newValue));
