@@ -121,18 +121,21 @@ void JanisDetectorConstruction::DefineMaterials()
     G4int nComponents, nAtoms;
     G4double temp;
 
-    G4Element* elH  = new G4Element(name = "Hydrogen"   , symbol = "H"  , z = 1.  , a =  1.008*g/mole);
-    G4Element* elC  = new G4Element(name = "Carbon"     , symbol = "C"  , z = 6.  , a = 12.011*g/mole);
-    G4Element* elN  = new G4Element(name = "Nitrogen"   , symbol = "N"  , z = 7.  , a = 14.007*g/mole);
-    G4Element* elO  = new G4Element(name = "Oxygen"     , symbol = "O"  , z = 8.  , a = 15.999*g/mole);
-    G4Element* elSi = new G4Element(name = "Silicon"    , symbol = "Si" , z = 14. , a = 28.086*g/mole);
-    G4Element* elP  = new G4Element(name = "Phosphorus" , symbol = "P"  , z = 15. , a = 30.974*g/mole);
-    G4Element* elS  = new G4Element(name = "Sulfur"     , symbol = "S"  , z = 16. , a = 32.065*g/mole);
-    G4Element* elCr = new G4Element(name = "Chromium"   , symbol = "Cr" , z = 24. , a = 51.996*g/mole);
-    G4Element* elMn = new G4Element(name = "Manganese"  , symbol = "Mn" , z = 25. , a = 54.938*g/mole);
-    G4Element* elFe = new G4Element(name = "Iron"       , symbol = "Fe" , z = 26. , a = 55.845*g/mole);
-    G4Element* elNi = new G4Element(name = "Nickel"     , symbol = "Ni" , z = 28. , a = 58.693*g/mole);
-    G4Element* elMo = new G4Element(name = "Molybdenum" , symbol = "Mo" , z = 42. , a = 95.94 *g/mole);
+    G4Element* elH  = new G4Element(name = "Hydrogen"   , symbol = "H"  , z = 1.  , a =   1.008*g/mole);
+    G4Element* elC  = new G4Element(name = "Carbon"     , symbol = "C"  , z = 6.  , a =  12.011*g/mole);
+    G4Element* elN  = new G4Element(name = "Nitrogen"   , symbol = "N"  , z = 7.  , a =  14.007*g/mole);
+    G4Element* elO  = new G4Element(name = "Oxygen"     , symbol = "O"  , z = 8.  , a =  15.999*g/mole);
+    G4Element* elAl = new G4Element(name = "Aluminum"   , symbol = "Al" , z = 13. , a =  26.981*g/mole);
+    G4Element* elSi = new G4Element(name = "Silicon"    , symbol = "Si" , z = 14. , a =  28.086*g/mole);
+    G4Element* elP  = new G4Element(name = "Phosphorus" , symbol = "P"  , z = 15. , a =  30.974*g/mole);
+    G4Element* elS  = new G4Element(name = "Sulfur"     , symbol = "S"  , z = 16. , a =  32.065*g/mole);
+    G4Element* elCr = new G4Element(name = "Chromium"   , symbol = "Cr" , z = 24. , a =  51.996*g/mole);
+    G4Element* elMn = new G4Element(name = "Manganese"  , symbol = "Mn" , z = 25. , a =  54.938*g/mole);
+    G4Element* elFe = new G4Element(name = "Iron"       , symbol = "Fe" , z = 26. , a =  55.845*g/mole);
+    G4Element* elNi = new G4Element(name = "Nickel"     , symbol = "Ni" , z = 28. , a =  58.693*g/mole);
+    G4Element* elCu = new G4Element(name = "Copper"     , symbol = "Cu" , z = 29. , a =  63.546*g/mole);
+    G4Element* elMo = new G4Element(name = "Molybdenum" , symbol = "Mo" , z = 42. , a =  95.940*g/mole);
+    G4Element* elSn = new G4Element(name = "Tin"        , symbol = "Sn" , z = 50. , a = 118.710*g/mole);
 
     // Liquid helium material
     // Density from (assuming 3K LHe)
@@ -145,7 +148,7 @@ void JanisDetectorConstruction::DefineMaterials()
     G4Material* Galactic  = new G4Material("galactic", z=1., a=1.01*g/mole,density= universe_mean_density,
                   kStateGas, 2.73*kelvin, 3.e-18*pascal);
 
-    //Stainless Steel Type 304
+    // Stainless Steel Type 304
     G4Material* ss_t316 = new G4Material(name = "ss_t316" , density = 8.03*g/cm3 , nComponents = 10);
     ss_t316 -> AddElement(elC  , fractionMass =   0.08*perCent);
     ss_t316 -> AddElement(elMn , fractionMass =   2.00*perCent);
@@ -162,7 +165,16 @@ void JanisDetectorConstruction::DefineMaterials()
 
     new G4Material(name = "Al",z = 13., a =  26.981538*g/mole, density = 2.70*g/cm3);
 
-    //Naphthalene
+    // PMT base FR4
+    G4Material* fr4 = new G4Material(name = "fr4" , density = 1.85*g/cm3 , nComponents = 6);
+    fr4 -> AddElement(elC  , fractionMass =   5*perCent);
+    fr4 -> AddElement(elO  , fractionMass =  28*perCent);
+    fr4 -> AddElement(elAl , fractionMass =  45*perCent);
+    fr4 -> AddElement(elSi , fractionMass =  12*perCent);
+    fr4 -> AddElement(elCu , fractionMass =   5*perCent);
+    fr4 -> AddElement(elSn , fractionMass =   5*perCent);
+
+    // Naphthalene
     G4Material* BC501A = new G4Material(name = "BC-501A" , density = 0.874*g/cm3 , nComponents = 2);
     BC501A -> AddElement(elH , nAtoms = 482);
     BC501A -> AddElement(elC  , nAtoms = 398);
@@ -175,6 +187,11 @@ void JanisDetectorConstruction::DefineMaterials()
     Generic_Acrylic -> AddElement(elH , nAtoms=8);
     Generic_Acrylic -> AddElement(elC , nAtoms=5);
     Generic_Acrylic -> AddElement(elO , nAtoms=2);
+
+    // quartz (SiO2, crystalline)
+    G4Material* Quartz = new G4Material("quartz", 2.64 *g/cm3, nComponents= 2);
+    Quartz-> AddElement(elSi, nAtoms=1);
+    Quartz-> AddElement(elO,  nAtoms=2);
 
     G4Material* Generic_PMT = new G4Material(name = "generic_pmt", 0.1*g/cm3, nComponents = 2);
     Generic_PMT -> AddMaterial(Galactic , fractionMass=80.0*perCent);
@@ -226,6 +243,9 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Material* cryo_77k_inner_material = G4Material::GetMaterial("galactic");
     G4Material* cryo_4k_inner_material = G4Material::GetMaterial("liquid_helium");
 
+    // PMT base
+    G4Material* pmt_base_material = G4Material::GetMaterial("fr4");
+
     // Far-side Detector
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -239,10 +259,10 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // PMT Related
 
-    G4Material* acrylic_cell_material = G4Material::GetMaterial("generic_acrylic");
+    G4Material* quartz_cell_material = G4Material::GetMaterial("quartz");
     G4Material* pmt_array_material = G4Material::GetMaterial("liquid_helium");
 
-    if ( ! default_material || ! acrylic_cell_material || ! liquid_helium_material ) {
+    if ( ! default_material || ! quartz_cell_material || ! liquid_helium_material ) {
       G4ExceptionDescription msg;
       msg << "Cannot retrieve materials already defined.";
       G4Exception("JanisDetectorConstruction::DefineVolumes()",
@@ -397,13 +417,19 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double liquid_helium_sizeY = 25.7*mm;
     G4double liquid_helium_sizeZ = 25.7*mm;
 
-    // Acrylic cell around liquid helium
+    // Quartz cell around liquid helium
 
-    G4double acrylic_cell_wall_thickness = 0.5*mm;
+    G4double quartz_cell_wall_thickness = 1.0*mm;
 
-    G4double acrylic_cell_exterior_sizeX = liquid_helium_sizeX+(2*acrylic_cell_wall_thickness);
-    G4double acrylic_cell_exterior_sizeY = liquid_helium_sizeY+(2*acrylic_cell_wall_thickness);
-    G4double acrylic_cell_exterior_sizeZ = liquid_helium_sizeZ+(2*acrylic_cell_wall_thickness);
+    G4double quartz_cell_exterior_sizeX = liquid_helium_sizeX+(2*quartz_cell_wall_thickness);
+    G4double quartz_cell_exterior_sizeY = liquid_helium_sizeY+(2*quartz_cell_wall_thickness);
+    G4double quartz_cell_exterior_sizeZ = liquid_helium_sizeZ+(2*quartz_cell_wall_thickness);
+
+    // PMT base
+
+    G4double pmt_base_sizeX = 46.0*mm;
+    G4double pmt_base_sizeY = 46.0*mm;
+    G4double pmt_base_sizeZ = 1.6*mm;
 
     // PMT
 
@@ -413,7 +439,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // PMT Array (Mother volume for the six PMTs)
 
-    G4double pmt_array_size_xyz = 1*mm + (pmt_sizeZ*2 + acrylic_cell_exterior_sizeZ);
+    G4double pmt_array_size_xyz = 1*mm + (pmt_sizeZ*2 + quartz_cell_exterior_sizeZ);
 
     // Far-side Detector
 
@@ -552,6 +578,31 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double cryo_4k_inner_posY = 0.0*mm;
     G4double cryo_4k_inner_posZ = 0.0*mm;
 
+    // PMT base Positions
+
+    G4double pmt_base1_posX = (pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm;
+    G4double pmt_base1_posY = 0;
+    G4double pmt_base1_posZ = -25.33*mm;
+
+    G4double pmt_base2_posX = -((pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm);
+    G4double pmt_base2_posY = 0;
+    G4double pmt_base2_posZ = -25.33*mm;
+
+    G4double pmt_base3_posX = 0;
+    G4double pmt_base3_posY = -((pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm);
+    G4double pmt_base3_posZ = -25.33*mm;
+
+    G4double pmt_base4_posX = 0;
+    G4double pmt_base4_posY = (pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm;
+    G4double pmt_base4_posZ = -25.33*mm;
+
+    G4double pmt_base5_posX = 0;
+    G4double pmt_base5_posY = 0;
+    G4double pmt_base5_posZ = -25.33*mm + ((pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm);
+
+    G4double pmt_base6_posX = 0;
+    G4double pmt_base6_posY = 0;
+    G4double pmt_base6_posZ = -25.33*mm - ((pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm);
 
     // PMT Array Position
 
@@ -561,29 +612,29 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // PMT Positions
 
-    G4double pmt1_posX = acrylic_cell_exterior_sizeX/2.0 + pmt_sizeZ/2.0*mm;
+    G4double pmt1_posX = quartz_cell_exterior_sizeX/2.0 + pmt_sizeZ/2.0*mm;
     G4double pmt1_posY = 0*mm;
     G4double pmt1_posZ = 0*mm;
 
-    G4double pmt2_posX = -(acrylic_cell_exterior_sizeX/2.0 + pmt_sizeZ/2.0)*mm;
+    G4double pmt2_posX = -(quartz_cell_exterior_sizeX/2.0 + pmt_sizeZ/2.0)*mm;
     G4double pmt2_posY = 0*mm;
     G4double pmt2_posZ = 0*mm;
 
     G4double pmt3_posX = 0*mm;
-    G4double pmt3_posY = acrylic_cell_exterior_sizeY/2.0 + pmt_sizeZ/2.0*mm;
+    G4double pmt3_posY = quartz_cell_exterior_sizeY/2.0 + pmt_sizeZ/2.0*mm;
     G4double pmt3_posZ = 0*mm;
 
     G4double pmt4_posX = 0*mm;
-    G4double pmt4_posY = -(acrylic_cell_exterior_sizeY/2.0 + pmt_sizeZ/2.0)*mm;
+    G4double pmt4_posY = -(quartz_cell_exterior_sizeY/2.0 + pmt_sizeZ/2.0)*mm;
     G4double pmt4_posZ = 0*mm;
 
     G4double pmt5_posX = 0*mm;
     G4double pmt5_posY = 0*mm;
-    G4double pmt5_posZ = acrylic_cell_exterior_sizeZ/2.0 + pmt_sizeZ/2.0*mm;
+    G4double pmt5_posZ = quartz_cell_exterior_sizeZ/2.0 + pmt_sizeZ/2.0*mm;
 
     G4double pmt6_posX = 0*mm;
     G4double pmt6_posY = 0*mm;
-    G4double pmt6_posZ = -(acrylic_cell_exterior_sizeZ/2.0 + pmt_sizeZ/2.0)*mm;
+    G4double pmt6_posZ = -(quartz_cell_exterior_sizeZ/2.0 + pmt_sizeZ/2.0)*mm;
 
 
     // Far-side Detector
@@ -650,6 +701,19 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4RotationMatrix* cryo_vacuum_inner_rm = new G4RotationMatrix;
     G4RotationMatrix* cryo_77k_inner_rm = new G4RotationMatrix;
     G4RotationMatrix* cryo_4k_inner_rm = new G4RotationMatrix;
+
+    // PMT base
+    G4RotationMatrix *pmt_base1_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt_base2_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt_base3_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt_base4_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt_base5_rm = new G4RotationMatrix;
+    G4RotationMatrix *pmt_base6_rm = new G4RotationMatrix;
+
+    pmt_base1_rm->rotateY(90.0*deg);
+    pmt_base2_rm->rotateY(90.0*deg);
+    pmt_base3_rm->rotateX(90.0*deg);
+    pmt_base4_rm->rotateX(90.0*deg);
 
     // PMT
     G4RotationMatrix *NO_ROT = new G4RotationMatrix;
@@ -811,6 +875,33 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
 
+    // PMT base
+
+    name = "pmt_base1";
+    G4VSolid* pmt_base_S = new G4Box(name, pmt_base_sizeX/2., pmt_base_sizeY/2., pmt_base_sizeZ/2.);
+    G4LogicalVolume* pmt_base1_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
+    new G4PVPlacement(pmt_base1_rm, G4ThreeVector(pmt_base1_posX,pmt_base1_posY,pmt_base1_posZ), pmt_base1_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
+    name = "pmt_base2";
+    G4LogicalVolume* pmt_base2_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
+    new G4PVPlacement(pmt_base2_rm, G4ThreeVector(pmt_base2_posX,pmt_base2_posY,pmt_base2_posZ), pmt_base2_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
+    name = "pmt_base3";
+    G4LogicalVolume* pmt_base3_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
+    new G4PVPlacement(pmt_base3_rm, G4ThreeVector(pmt_base3_posX,pmt_base3_posY,pmt_base3_posZ), pmt_base3_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
+    name = "pmt_base4";
+    G4LogicalVolume* pmt_base4_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
+    new G4PVPlacement(pmt_base4_rm, G4ThreeVector(pmt_base4_posX,pmt_base4_posY,pmt_base4_posZ), pmt_base4_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
+    name = "pmt_base5";
+    G4LogicalVolume* pmt_base5_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
+    new G4PVPlacement(pmt_base5_rm, G4ThreeVector(pmt_base5_posX,pmt_base5_posY,pmt_base5_posZ), pmt_base5_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
+    name = "pmt_base6";
+    G4LogicalVolume* pmt_base6_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
+    new G4PVPlacement(pmt_base6_rm, G4ThreeVector(pmt_base6_posX,pmt_base6_posY,pmt_base6_posZ), pmt_base6_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+
     // PMT Array (Uses function PlacePMT to place individual PMTs)
 
     name = "pmt_array";
@@ -825,19 +916,19 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt5_posX,pmt5_posY,pmt5_posZ,pmt5_rm);
     JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt6_posX,pmt6_posY,pmt6_posZ,pmt6_rm);
 
-    // Acrylic cell
+    // Quartz cell
 
-    name = "acrylic_cell";
-    G4VSolid* acrylic_cell_exterior_S = new G4Box(name, acrylic_cell_exterior_sizeX/2., acrylic_cell_exterior_sizeY/2., acrylic_cell_exterior_sizeZ/2.);
-    G4LogicalVolume* acrylic_cell_LV = new G4LogicalVolume(acrylic_cell_exterior_S, acrylic_cell_material, name);
-    new G4PVPlacement(NO_ROT,G4ThreeVector(), acrylic_cell_LV, name, pmt_array_LV, false, 0, fCheckOverlaps);
+    name = "quartz_cell";
+    G4VSolid* quartz_cell_exterior_S = new G4Box(name, quartz_cell_exterior_sizeX/2., quartz_cell_exterior_sizeY/2., quartz_cell_exterior_sizeZ/2.);
+    G4LogicalVolume* quartz_cell_LV = new G4LogicalVolume(quartz_cell_exterior_S, quartz_cell_material, name);
+    new G4PVPlacement(NO_ROT,G4ThreeVector(), quartz_cell_LV, name, pmt_array_LV, false, 0, fCheckOverlaps);
 
     // Liquid Helium
 
     name = "liquid helium";
     G4VSolid* liquid_helium_S = new G4Box(name, liquid_helium_sizeX/2., liquid_helium_sizeY/2., liquid_helium_sizeZ/2.);
     G4LogicalVolume* liquid_helium_LV = new G4LogicalVolume(liquid_helium_S, liquid_helium_material, name);
-    liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(), liquid_helium_LV, name, acrylic_cell_LV, false, 0, fCheckOverlaps);
+    liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(), liquid_helium_LV, name, quartz_cell_LV, false, 0, fCheckOverlaps);
 
     // Far-side Detector
 
@@ -897,7 +988,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // Cryostat
 
-    acrylic_cell_LV->SetVisAttributes(yellowTVA);
+    quartz_cell_LV->SetVisAttributes(yellowTVA);
     pmt_array_LV->SetVisAttributes(helium_vis);
     can_sample_inner_LV->SetVisAttributes(helium_vis);
     can_4k_inner_LV->SetVisAttributes(G4VisAttributes::Invisible);
@@ -921,6 +1012,14 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     cryo_77k_outer_LV->SetVisAttributes(container_vis);
     cryo_nitrogen_LV->SetVisAttributes(nitrogen_vis);
     cryo_4k_outer_LV->SetVisAttributes(container_vis);
+
+    // PMT bases
+    pmt_base1_LV->SetVisAttributes(greenTVA);
+    pmt_base2_LV->SetVisAttributes(greenTVA);
+    pmt_base3_LV->SetVisAttributes(greenTVA);
+    pmt_base4_LV->SetVisAttributes(greenTVA);
+    pmt_base5_LV->SetVisAttributes(greenTVA);
+    pmt_base6_LV->SetVisAttributes(greenTVA);
 
     // Far-side Detector
 
