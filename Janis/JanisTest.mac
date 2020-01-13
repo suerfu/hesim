@@ -14,7 +14,7 @@
 /process/list
 
 # Set the file name
-/filename/setFilename saviotest3.root
+/filename/setFilename saviotest1.root
 
 # Place the far-side detectors
 # The distances are in unit of cm
@@ -36,4 +36,4 @@
 /placement/setDistance 149.25
 
 /run/printProgress 10
-/run/beamOn 1000000000
+/run/beamOn 10000

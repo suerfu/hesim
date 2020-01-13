@@ -18,4 +18,4 @@
 #SBATCH --time=5:00:00
 #
 ## Command(s) to run:
-./Janis -m JanisTest2.mac
+./Janis -m JanisTest3.mac
