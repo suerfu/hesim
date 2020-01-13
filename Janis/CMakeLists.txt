@@ -56,6 +56,7 @@ set(Janis_SCRIPTS
   Janis.out
   JanisTest.mac
   JanisTest2.mac
+  JanisTest3.mac
   janis_savio_test2.sh
   icons.mac
   gui.mac
