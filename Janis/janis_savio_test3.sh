@@ -18,4 +18,4 @@
 #SBATCH --time=5:00:00
 #
 ## Command(s) to run:
-./Janis -m JanisTest3.mac
+/global/home/users/yuanlq/McKinsey_Janis_Fridge/Janis-build/Janis -m /global/home/users/yuanlq/McKinsey_Janis_Fridge/Janis-build/JanisTest3.mac
