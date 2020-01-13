@@ -25,6 +25,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/gui.mac"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/icons.mac"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/init_vis.mac"
+  "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/janis_savio_test1.sh"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/run.png"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/source_check.C"
   "/Users/lanqingyuan/Documents/GitHub/McKinsey_Janis_Fridge/Janis/vis.mac"
@@ -107,6 +108,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "Janis.out"
   "JanisTest.mac"
+  "janis_savio_test1.sh"
   "icons.mac"
   "gui.mac"
   "run.png"
