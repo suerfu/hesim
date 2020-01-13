@@ -428,7 +428,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     // PMT base
 
     G4double pmt_base_sizeX = 46.0*mm;
-    G4double pmt_base_sizeY = 46.0*mm;
+    G4double pmt_base_sizeY = 52.5*mm;
     G4double pmt_base_sizeZ = 1.6*mm;
 
     // PMT
@@ -582,27 +582,19 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     G4double pmt_base1_posX = (pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm;
     G4double pmt_base1_posY = 0;
-    G4double pmt_base1_posZ = -25.33*mm;
+    G4double pmt_base1_posZ = (-25.33+2.75)*mm;
 
     G4double pmt_base2_posX = -((pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm);
     G4double pmt_base2_posY = 0;
-    G4double pmt_base2_posZ = -25.33*mm;
+    G4double pmt_base2_posZ = (-25.33+2.75)*mm;
 
     G4double pmt_base3_posX = 0;
     G4double pmt_base3_posY = -((pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm);
-    G4double pmt_base3_posZ = -25.33*mm;
+    G4double pmt_base3_posZ = (-25.33+2.75)*mm;
 
     G4double pmt_base4_posX = 0;
     G4double pmt_base4_posY = (pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm;
-    G4double pmt_base4_posZ = -25.33*mm;
-
-    G4double pmt_base5_posX = 0;
-    G4double pmt_base5_posY = 0;
-    G4double pmt_base5_posZ = -25.33*mm + ((pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm);
-
-    G4double pmt_base6_posX = 0;
-    G4double pmt_base6_posY = 0;
-    G4double pmt_base6_posZ = -25.33*mm - ((pmt_array_size_xyz - 1)/2.0*mm + pmt_base_sizeZ + 8*mm);
+    G4double pmt_base4_posZ = (-25.33+2.75)*mm;
 
     // PMT Array Position
 
@@ -703,17 +695,17 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4RotationMatrix* cryo_4k_inner_rm = new G4RotationMatrix;
 
     // PMT base
-    G4RotationMatrix *pmt_base1_rm = new G4RotationMatrix;
-    G4RotationMatrix *pmt_base2_rm = new G4RotationMatrix;
-    G4RotationMatrix *pmt_base3_rm = new G4RotationMatrix;
-    G4RotationMatrix *pmt_base4_rm = new G4RotationMatrix;
-    G4RotationMatrix *pmt_base5_rm = new G4RotationMatrix;
-    G4RotationMatrix *pmt_base6_rm = new G4RotationMatrix;
+    G4RotationMatrix pmt_base1_rm = G4RotationMatrix();
+    G4RotationMatrix pmt_base2_rm = G4RotationMatrix();
+    G4RotationMatrix pmt_base3_rm = G4RotationMatrix();
+    G4RotationMatrix pmt_base4_rm = G4RotationMatrix();
 
-    pmt_base1_rm->rotateY(90.0*deg);
-    pmt_base2_rm->rotateY(90.0*deg);
-    pmt_base3_rm->rotateX(90.0*deg);
-    pmt_base4_rm->rotateX(90.0*deg);
+    pmt_base1_rm.rotateY(90.0*deg);
+    pmt_base1_rm.rotateX(90.0*deg);
+    pmt_base2_rm.rotateY(90.0*deg);
+    pmt_base2_rm.rotateX(90.0*deg);
+    pmt_base3_rm.rotateX(90.0*deg);
+    pmt_base4_rm.rotateX(90.0*deg);
 
     // PMT
     G4RotationMatrix *NO_ROT = new G4RotationMatrix;
@@ -880,27 +872,23 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     name = "pmt_base1";
     G4VSolid* pmt_base_S = new G4Box(name, pmt_base_sizeX/2., pmt_base_sizeY/2., pmt_base_sizeZ/2.);
     G4LogicalVolume* pmt_base1_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
-    new G4PVPlacement(pmt_base1_rm, G4ThreeVector(pmt_base1_posX,pmt_base1_posY,pmt_base1_posZ), pmt_base1_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+    G4Transform3D pmt_base1_transform(pmt_base1_rm, G4ThreeVector(pmt_base1_posX,pmt_base1_posY,pmt_base1_posZ));
+    new G4PVPlacement(pmt_base1_transform, pmt_base1_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
 
     name = "pmt_base2";
     G4LogicalVolume* pmt_base2_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
-    new G4PVPlacement(pmt_base2_rm, G4ThreeVector(pmt_base2_posX,pmt_base2_posY,pmt_base2_posZ), pmt_base2_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+    G4Transform3D pmt_base2_transform(pmt_base2_rm, G4ThreeVector(pmt_base2_posX,pmt_base2_posY,pmt_base2_posZ));
+    new G4PVPlacement(pmt_base2_transform, pmt_base2_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
 
     name = "pmt_base3";
     G4LogicalVolume* pmt_base3_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
-    new G4PVPlacement(pmt_base3_rm, G4ThreeVector(pmt_base3_posX,pmt_base3_posY,pmt_base3_posZ), pmt_base3_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+    G4Transform3D pmt_base3_transform(pmt_base3_rm, G4ThreeVector(pmt_base3_posX,pmt_base3_posY,pmt_base3_posZ));
+    new G4PVPlacement(pmt_base3_transform, pmt_base3_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
 
     name = "pmt_base4";
     G4LogicalVolume* pmt_base4_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
-    new G4PVPlacement(pmt_base4_rm, G4ThreeVector(pmt_base4_posX,pmt_base4_posY,pmt_base4_posZ), pmt_base4_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
-
-    name = "pmt_base5";
-    G4LogicalVolume* pmt_base5_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
-    new G4PVPlacement(pmt_base5_rm, G4ThreeVector(pmt_base5_posX,pmt_base5_posY,pmt_base5_posZ), pmt_base5_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
-
-    name = "pmt_base6";
-    G4LogicalVolume* pmt_base6_LV = new G4LogicalVolume(pmt_base_S, pmt_base_material, name);
-    new G4PVPlacement(pmt_base6_rm, G4ThreeVector(pmt_base6_posX,pmt_base6_posY,pmt_base6_posZ), pmt_base6_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
+    G4Transform3D pmt_base4_transform(pmt_base4_rm, G4ThreeVector(pmt_base4_posX,pmt_base4_posY,pmt_base4_posZ));
+    new G4PVPlacement(pmt_base4_transform, pmt_base4_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
 
     // PMT Array (Uses function PlacePMT to place individual PMTs)
 
@@ -1018,8 +1006,6 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     pmt_base2_LV->SetVisAttributes(greenTVA);
     pmt_base3_LV->SetVisAttributes(greenTVA);
     pmt_base4_LV->SetVisAttributes(greenTVA);
-    pmt_base5_LV->SetVisAttributes(greenTVA);
-    pmt_base6_LV->SetVisAttributes(greenTVA);
 
     // Far-side Detector
 

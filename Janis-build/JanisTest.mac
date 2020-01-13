@@ -1,7 +1,7 @@
 /run/initialize
 /tracking/verbose 1
 
-/random/setSeeds 233 666
+/random/setSeeds 14053 45012
 
 # Set the distance between the generator and the target, or the distance is 60.8 by default
 /generator/setAngle 45
