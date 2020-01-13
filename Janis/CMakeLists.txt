@@ -55,6 +55,7 @@ target_link_libraries(Janis ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 set(Janis_SCRIPTS
   Janis.out
   JanisTest.mac
+  janis_savio_test1.sh
   icons.mac
   gui.mac
   run.png
