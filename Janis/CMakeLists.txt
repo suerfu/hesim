@@ -57,7 +57,7 @@ set(Janis_SCRIPTS
   JanisTest.mac
   JanisTest2.mac
   JanisTest3.mac
-  janis_savio_test2.sh
+  janis_savio_test3.sh
   icons.mac
   gui.mac
   run.png
