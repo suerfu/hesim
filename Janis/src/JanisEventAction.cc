@@ -162,10 +162,10 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
       process_name = stepCollection[i].GetProcessName();
 
       if(trackID==1){
-          if(volume_name=="liquid helium"){
+          if(volume_name=="liquid helium" && deposited_energy!=0){
               if_helium = 1;
           }
-          if(volume_name=="fs_head_inner" || volume_name =="fs1_head_inner_1" || volume_name =="fs2_head_inner_2" || volume_name =="fs3_head_inner_3" || volume_name =="fs4_head_inner_4" || volume_name =="fs5_head_inner_5" || volume_name =="fs6_head_inner_6" || volume_name =="fs7_head_inner_7" || volume_name =="fs8_head_inner_8"){
+          if(deposited_energy!=0 && (volume_name=="fs_head_inner" || volume_name =="fs1_head_inner_1" || volume_name =="fs2_head_inner_2" || volume_name =="fs3_head_inner_3" || volume_name =="fs4_head_inner_4" || volume_name =="fs5_head_inner_5" || volume_name =="fs6_head_inner_6" || volume_name =="fs7_head_inner_7" || volume_name =="fs8_head_inner_8"){
               if_farside = 1;
           }
       }
