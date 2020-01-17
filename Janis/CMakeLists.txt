@@ -54,9 +54,14 @@ target_link_libraries(Janis ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 #
 set(Janis_SCRIPTS
   Janis.out
+  HardcodeTest.mac
   JanisTest.mac
   JanisTest2.mac
   JanisTest3.mac
+  localtest_original.mac
+  localtest_moved.mac
+  localtest_del.mac
+  localtest_modified.mac
   janis_savio_test3.sh
   icons.mac
   gui.mac

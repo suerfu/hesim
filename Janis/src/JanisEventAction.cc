@@ -65,7 +65,6 @@ JanisEventAction::JanisEventAction(JanisRunAction* input_run_action)
    global_time(0),
    process_name("")
 {
-    std::cout << "CREATE EVENT" << std::endl;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -101,32 +100,52 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
     G4cout << "---> End of event: " << eventID << G4endl;
   }
 
-    TTree* data_tree = run_action->GetDataTree();
+  G4int j = 0; // used to refresh step_ID when track changes
 
-    data_tree->Branch("eventID", &eventID, "eventID/I");
-    data_tree->Branch("trackID", &trackID, "trackID/I");
-    data_tree->Branch("stepID", &stepID, "stepID/I");
-    data_tree->Branch("parentID", &parentID, "parentID/I");
-    data_tree->Branch("particle_name", &particle_name);
-    data_tree->Branch("volume_name", &volume_name);
-    data_tree->Branch("volume_copy_number", &volume_copy_number, "volume_copy_number/I");
-    data_tree->Branch("energy", &energy, "energy/D");
-    data_tree->Branch("deposited_energy", &deposited_energy, "deposited_energy/D");
-    data_tree->Branch("position", &position, "position[3]/D");
-    data_tree->Branch("momentum", &momentum, "momentum[3]/D");
-    data_tree->Branch("global_time", &global_time, "global_time/D");
-    data_tree->Branch("process_name", &process_name);
+  if_helium = 0;
+  if_farside = 0;
 
-    G4int j = 0; // used to refresh step_ID when track changes
+  // Select the tracks we are caring about
+  for( size_t i=0; i < stepCollection.size(); ++i ){
 
-    if_helium = 0;
-    if_farside = 0;
+    trackID = stepCollection[i].GetTrackID();
+    volume_name = stepCollection[i].GetVolumeName();
+    deposited_energy = stepCollection[i].GetDepositedEnergy();
 
-    // Select the tracks we are caring about
+    if(trackID==1){
+        if(volume_name=="liquid helium" && deposited_energy!=0){
+            if_helium = 1;
+        }
+        if(deposited_energy!=0 && (volume_name=="fs_head_inner" || volume_name =="fs1_head_inner_1" || volume_name =="fs2_head_inner_2" || volume_name =="fs3_head_inner_3" || volume_name =="fs4_head_inner_4" || volume_name =="fs5_head_inner_5" || volume_name =="fs6_head_inner_6" || volume_name =="fs7_head_inner_7" || volume_name =="fs8_head_inner_8")){
+            if_farside = 1;
+        }
+    }
+  }
+
+  TTree* data_tree = run_action->GetDataTree();
+
+  data_tree->Branch("eventID", &eventID, "eventID/I");
+  data_tree->Branch("trackID", &trackID, "trackID/I");
+  data_tree->Branch("stepID", &stepID, "stepID/I");
+  data_tree->Branch("parentID", &parentID, "parentID/I");
+  data_tree->Branch("particle_name", &particle_name);
+  data_tree->Branch("volume_name", &volume_name);
+  data_tree->Branch("volume_copy_number", &volume_copy_number, "volume_copy_number/I");
+  data_tree->Branch("energy", &energy, "energy/D");
+  data_tree->Branch("deposited_energy", &deposited_energy, "deposited_energy/D");
+  data_tree->Branch("position", &position, "position[3]/D");
+  data_tree->Branch("momentum", &momentum, "momentum[3]/D");
+  data_tree->Branch("global_time", &global_time, "global_time/D");
+  data_tree->Branch("process_name", &process_name);
+  
+  // Fill the wanted tracks
+  if(if_farside==1 && if_helium==1){
+
     for( size_t i=0; i < stepCollection.size(); ++i ){
-
       eventID = stepCollection[i].GetEventID();
       trackID = stepCollection[i].GetTrackID();
+
+      // This paragraph is used to refresh step_ID when track_ID changes, which is a minor problem in step_info
       if(i!=0)
       {
           if(trackID==stepCollection[i-1].GetTrackID())
@@ -161,74 +180,10 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
       global_time = stepCollection[i].GetGlobalTime();
       process_name = stepCollection[i].GetProcessName();
 
-      if(trackID==1){
-          if(volume_name=="liquid helium" && deposited_energy!=0){
-              if_helium = 1;
-          }
-          if(deposited_energy!=0 && (volume_name=="fs_head_inner" || volume_name =="fs1_head_inner_1" || volume_name =="fs2_head_inner_2" || volume_name =="fs3_head_inner_3" || volume_name =="fs4_head_inner_4" || volume_name =="fs5_head_inner_5" || volume_name =="fs6_head_inner_6" || volume_name =="fs7_head_inner_7" || volume_name =="fs8_head_inner_8"){
-              if_farside = 1;
-          }
-      }
+      data_tree->Fill();
     }
+  }
 
-    // Fill the wanted tracks
-    for( size_t i=0; i < stepCollection.size(); ++i ){
-
-      if(if_farside==1 && if_helium==1){
-
-          eventID = stepCollection[i].GetEventID();
-          trackID = stepCollection[i].GetTrackID();
-
-          // Refresh stepID
-          if(i!=0)
-          {
-              if(trackID==stepCollection[i-1].GetTrackID())
-              {
-                  stepID = j;
-                  j++;
-              }
-              else
-              {
-                  j = 0;
-                  stepID = j;
-                  j++;
-              }
-          }
-          else
-          {
-              stepID = 0;
-              j++;
-          }
-
-          parentID = stepCollection[i].GetParentID();
-
-          particle_name = stepCollection[i].GetParticleName();
-          volume_name = stepCollection[i].GetVolumeName();
-          volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
-          energy = stepCollection[i].GetEnergy();
-          deposited_energy = stepCollection[i].GetDepositedEnergy();
-
-          position = stepCollection[i].GetPosition();
-          momentum = stepCollection[i].GetMomentumDirection();
-
-          global_time = stepCollection[i].GetGlobalTime();
-          process_name = stepCollection[i].GetProcessName();
-
-          data_tree->Fill();
-      }
-    }
-    /*for( size_t i=0; i < stepCollection.size(); ++i ){
-      StepInfo stepInfo = stepCollection[i];
-      std::cout << "eventID: " << stepInfo.GetEventID() << " trackID: " << stepInfo.GetTrackID() << " stepID: ";
-      std::cout << stepInfo.GetStepID() << " parentID: " << stepInfo.GetParentID() << " Name : ";
-      std::cout << stepInfo.GetParticleName() << " Volume: " << stepInfo.GetVolumeName() << " Copy #: ";
-      std::cout << stepInfo.GetVolumeCopyNumber() << " Energy: " << stepInfo.GetEnergy() << " Position: (";
-      std::cout << stepInfo.GetPosition().x() << ", " << stepInfo.GetPosition().y() << ", ";
-      std::cout << stepInfo.GetPosition().z() << ") Momentum: (" << stepInfo.GetMomentumDirection().x();
-      std::cout << ", " << stepInfo.GetMomentumDirection().y() <<  ", " << stepInfo.GetMomentumDirection().z();
-      std::cout << ") Time: " << stepInfo.GetGlobalTime() << " Process: " << stepInfo.GetProcessName() << std::endl;
-    }*/
-    //PrintEventStatistics(fEnergyHe, nScattersHe);
   stepCollection.clear();
   if_helium = 0;
   if_farside = 0;

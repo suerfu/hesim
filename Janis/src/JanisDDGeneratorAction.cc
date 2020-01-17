@@ -106,7 +106,7 @@ G4double JanisDDGeneratorAction::DD_dist(G4double w1, G4double w2, G4double w3, 
   G4double x;
   while(flag == FALSE){
     G4double weight = G4UniformRand()*0.04;
-    x = G4UniformRand()*5.0;
+    x = G4UniformRand()*90.0;
     G4double actual_weight = w1*x*x*x*x + w2*x*x*x + w3*x*x + w4*x + w5;
     if(weight<actual_weight){
        flag = TRUE;
