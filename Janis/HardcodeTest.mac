@@ -1,0 +1,27 @@
+/run/initialize
+/tracking/verbose 1
+
+/random/setSeeds 14053 45012
+
+# Set the distance between the generator and the target, or the distance is 60.8 by default
+/generator/setAngle 45
+/generator/setDistance 60.8
+
+# Make sure you always have this line below with the same value as the one in '/generator/setAngle'
+# This line rotates the far-side detectors an angle corresponding to the generator position
+/placement/definePMTAngle 45
+
+/process/list
+
+# Set the file name
+/filename/setFilename hardcodetest3.root
+
+# Place the far-side detectors
+# The distances are in unit of cm
+/placement/addAngle1 31.93
+/placement/setDistance 131.65
+/placement/addAngle2 -31.93
+/placement/setDistance 131.65
+
+/run/printProgress 10
+/run/beamOn 1000
