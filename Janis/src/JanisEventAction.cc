@@ -122,24 +122,25 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
     }
   }
 
-  TTree* data_tree = run_action->GetDataTree();
 
-  data_tree->Branch("eventID", &eventID, "eventID/I");
-  data_tree->Branch("trackID", &trackID, "trackID/I");
-  data_tree->Branch("stepID", &stepID, "stepID/I");
-  data_tree->Branch("parentID", &parentID, "parentID/I");
-  data_tree->Branch("particle_name", &particle_name);
-  data_tree->Branch("volume_name", &volume_name);
-  data_tree->Branch("volume_copy_number", &volume_copy_number, "volume_copy_number/I");
-  data_tree->Branch("energy", &energy, "energy/D");
-  data_tree->Branch("deposited_energy", &deposited_energy, "deposited_energy/D");
-  data_tree->Branch("position", &position, "position[3]/D");
-  data_tree->Branch("momentum", &momentum, "momentum[3]/D");
-  data_tree->Branch("global_time", &global_time, "global_time/D");
-  data_tree->Branch("process_name", &process_name);
-  
   // Fill the wanted tracks
   if(if_farside==1 && if_helium==1){
+
+    TTree* data_tree = run_action->GetDataTree();
+
+    data_tree->Branch("eventID", &eventID, "eventID/I");
+    data_tree->Branch("trackID", &trackID, "trackID/I");
+    data_tree->Branch("stepID", &stepID, "stepID/I");
+    data_tree->Branch("parentID", &parentID, "parentID/I");
+    data_tree->Branch("particle_name", &particle_name);
+    data_tree->Branch("volume_name", &volume_name);
+    data_tree->Branch("volume_copy_number", &volume_copy_number, "volume_copy_number/I");
+    data_tree->Branch("energy", &energy, "energy/D");
+    data_tree->Branch("deposited_energy", &deposited_energy, "deposited_energy/D");
+    data_tree->Branch("position", &position, "position[3]/D");
+    data_tree->Branch("momentum", &momentum, "momentum[3]/D");
+    data_tree->Branch("global_time", &global_time, "global_time/D");
+    data_tree->Branch("process_name", &process_name);
 
     for( size_t i=0; i < stepCollection.size(); ++i ){
       eventID = stepCollection[i].GetEventID();

@@ -14,7 +14,7 @@
 /process/list
 
 # Set the file name
-/filename/setFilename saviotest3.root
+/filename/setFilename savio10million.root
 
 # Place the far-side detectors
 # The distances are in unit of cm
