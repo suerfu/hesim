@@ -62,7 +62,9 @@ set(Janis_SCRIPTS
   localtest_moved.mac
   localtest_del.mac
   localtest_modified.mac
+  Savio10million.mac
   janis_savio_test3.sh
+  Savio10million.sh
   icons.mac
   gui.mac
   run.png
