@@ -54,23 +54,34 @@ target_link_libraries(Janis ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 #
 set(Janis_SCRIPTS
   Janis.out
-  HardcodeTest.mac
-  JanisTest.mac
-  JanisTest2.mac
-  JanisTest3.mac
-  localtest_original.mac
-  localtest_moved.mac
-  localtest_del.mac
-  localtest_modified.mac
-  savio10million.mac
-  janis_savio_test3.sh
-  savio10million.sh
-  icons.mac
-  gui.mac
+  /macros/HardcodeTest.mac
+  /macros/JanisTest.mac
+  /macros/JanisTest2.mac
+  /macros/JanisTest3.mac
+  /macros/localtest_original.mac
+  /macros/localtest_moved.mac
+  /macros/localtest_del.mac
+  /macros/localtest_modified.mac
+  /macros/savio10million.mac
+  /macros/localtest_gamma.mac
+  /macros/savio100million1.mac
+  /macros/savio100million2.mac
+  /macros/savio100million3.mac
+  /macros/savio100million4.mac
+  /macros/savio100million5.mac
+  /shell/janis_savio_test3.sh
+  /shell/savio10million.sh
+  /shell/savio100million1.sh
+  /shell/savio100million2.sh
+  /shell/savio100million3.sh
+  /shell/savio100million4.sh
+  /shell/savio100million5.sh
+  /macros/icons.mac
+  /macros/gui.mac
   run.png
-  init_vis.mac
-  vis.mac
-  source_check.C
+  /macros/init_vis.mac
+  /macros/vis.mac
+  /analysis/source_check.C
   )
 
 foreach(_script ${Janis_SCRIPTS})

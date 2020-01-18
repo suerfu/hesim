@@ -111,8 +111,11 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
     trackID = stepCollection[i].GetTrackID();
     volume_name = stepCollection[i].GetVolumeName();
     deposited_energy = stepCollection[i].GetDepositedEnergy();
+    particle_name = stepCollection[i].GetParticleName();
 
-    if(trackID==1){
+    // track_ID==1 means the original neutron from DD generator
+    // trackID==6 && particle_name=="gamma" means the original gamma photon from Cs-137.
+    if(trackID==1 || (trackID==6 && particle_name=="gamma")){
         if(volume_name=="liquid helium" && deposited_energy!=0){
             if_helium = 1;
         }

@@ -40,7 +40,8 @@ JanisDDGeneratorMessenger::JanisDDGeneratorMessenger(JanisDDGeneratorAction* gen
     primaryGenerator(generator),
     primaryGeneratorDir(0),
     generatorDistanceCmd(0),
-    generatorAngleCmd(0)
+    generatorAngleCmd(0),
+    generatorModeCmd(0)
 {
 	primaryGeneratorDir = new G4UIdirectory("/generator/");
 	primaryGeneratorDir->SetGuidance("Generator position control.");
@@ -56,6 +57,12 @@ JanisDDGeneratorMessenger::JanisDDGeneratorMessenger(JanisDDGeneratorAction* gen
 	generatorAngleCmd->SetParameterName("pmt_angle", false);
 	generatorAngleCmd->SetDefaultValue(45);
 	generatorAngleCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  generatorModeCmd = new G4UIcmdWithAString("/generator/setMode", this);
+  generatorModeCmd->SetGuidance("Select gammas or neutrons");
+  generatorModeCmd->SetParameterName("mode", true);
+  generatorModeCmd->SetDefaultValue("neutrons");
+  generatorModeCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
@@ -63,6 +70,7 @@ JanisDDGeneratorMessenger::JanisDDGeneratorMessenger(JanisDDGeneratorAction* gen
 JanisDDGeneratorMessenger::~JanisDDGeneratorMessenger()
 {
 	delete generatorDistanceCmd;
+  delete generatorModeCmd;
 	delete primaryGeneratorDir;
 }
 
@@ -80,6 +88,17 @@ void JanisDDGeneratorMessenger::SetNewValue(G4UIcommand* command, G4String newVa
   {
     G4cout << "Setting generator azimuth angle to " << newValue << G4endl;
     primaryGenerator->setGeneratorAngle(generatorAngleCmd->GetNewDoubleValue(newValue));
+  }
+
+  if( command == generatorModeCmd )
+  {
+    if(newValue != "gammas" && newValue != "neutrons")
+    {
+      G4cout << "\n ERROR! Bad generator mode definition: " << newValue << G4endl;
+      return;
+    }
+    G4cout << "Setting generator mode to " << newValue << G4endl;
+    primaryGenerator->SetGeneratorMode(newValue);
   }
 }
 

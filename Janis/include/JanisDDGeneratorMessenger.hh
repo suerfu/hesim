@@ -58,6 +58,7 @@ private:
 
 	G4UIcmdWithADouble* generatorDistanceCmd;
 	G4UIcmdWithADouble* generatorAngleCmd;
+	G4UIcmdWithAString* generatorModeCmd;
 
 };
 

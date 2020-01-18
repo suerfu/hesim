@@ -7,10 +7,6 @@
 #include "JanisDDGeneratorMessenger.hh"
 
 #include "G4RunManager.hh"
-//#include "G4Navigator.hh"
-//#include "G4PhysicalVolumeStore.hh"
-//#include "G4VPhysicalVolume.hh"
-//#include "G4SolidStore.hh"
 #include "G4Event.hh"
 #include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
@@ -19,11 +15,7 @@
 #include "Randomize.hh"
 #include "G4ThreeVector.hh"
 #include "G4RandomDirection.hh"
-//#include "G4Neutron.hh"
-//#include "G4TransportationManager.hh"
-//#include "G4Navigator.hh"
-#//include "G4GenericIon.hh"
-//#include "G4IonTable.hh"
+#include "G4IonTable.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -66,40 +58,59 @@ void JanisDDGeneratorAction::setGeneratorAngle(G4double pmt_angle)
 
 void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-  //Parameters of Energy_vs_Angle fitted into a 4th order polynomial
-  G4double e1 =  -3.76446665e-10;
-  G4double e2 =  3.75645182e-07;
-  G4double e3 =  -7.76735734e-05;
-  G4double e4 = 5.23749916e-04;
-  G4double e5 =  2.80130909e+00;
+  if(generator_mode == "neutrons"){
+    //Parameters of Energy_vs_Angle fitted into a 4th order polynomial
+    G4double e1 =  -3.76446665e-10;
+    G4double e2 =  3.75645182e-07;
+    G4double e3 =  -7.76735734e-05;
+    G4double e4 = 5.23749916e-04;
+    G4double e5 =  2.80130909e+00;
 
-  //Parameters of the Differential_crossection_vs_Angle fitted into a 4th order polynomial
-  G4double d1 = -2.85692044e-10 ;
-  G4double d2 = 1.00118550e-07;
-  G4double d3 = -8.89313307e-06;
-  G4double d4 = -3.25438874e-05;
-  G4double d5 = 3.97964858e-02;
+    //Parameters of the Differential_crossection_vs_Angle fitted into a 4th order polynomial
+    G4double d1 = -2.85692044e-10 ;
+    G4double d2 = 1.00118550e-07;
+    G4double d3 = -8.89313307e-06;
+    G4double d4 = -3.25438874e-05;
+    G4double d5 = 3.97964858e-02;
 
 
-G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
-G4double angle = DD_dist(d1, d2, d3, d4, d5);
-G4double theta = angle*(3.14159265358979323846/180)*radian;
-G4ThreeVector neutronDirection;
-neutronDirection.setRhoPhiTheta(1.0,phi,theta);//1 is needed because we are pointing it towards -ve z direction.
-neutronDirection.rotateY(90*deg).rotateZ(-generator_angle);
+    G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
+    G4double angle = DD_dist(d1, d2, d3, d4, d5);
+    G4double theta = angle*(3.14159265358979323846/180)*radian;
+    G4ThreeVector neutronDirection;
+    neutronDirection.setRhoPhiTheta(1.0,phi,theta);//1 is needed because we are pointing it towards -ve z direction.
+    neutronDirection.rotateY(90*deg).rotateZ(-generator_angle);
 
-// set particle parameters
-fParticleSource->SetParticleMomentumDirection(neutronDirection);
-fParticleSource->SetParticleEnergy(e1*angle*angle*angle*angle + e2*angle*angle*angle + e3*angle*angle + e4*angle + e5);
- G4ParticleDefinition* particleDefinition
-   = G4ParticleTable::GetParticleTable()->FindParticle("neutron");
-fParticleSource->SetParticleDefinition(particleDefinition);
+    // set particle parameters
+    fParticleSource->SetParticleMomentumDirection(neutronDirection);
+    fParticleSource->SetParticleEnergy(e1*angle*angle*angle*angle + e2*angle*angle*angle + e3*angle*angle + e4*angle + e5);
+    G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("neutron");
+    fParticleSource->SetParticleDefinition(particleDefinition);
 
-// Set source position
- fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -10. * cm));
- fParticleSource->GeneratePrimaryVertex(anEvent);
+    // Set source position
+    fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -10. * cm));
+    fParticleSource->GeneratePrimaryVertex(anEvent);
+  }
 
+  if(generator_mode == "gammas"){
+    G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->GetIonTable()->GetIon(55, 137, 0);
+    fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -10. * cm));
+    fParticleSource->SetParticleDefinition(particleDefinition);
+    fParticleSource->SetParticleEnergy(0.*eV);
+
+    G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
+    G4double angle = G4UniformRand()*1.0;
+    G4double theta = angle*(3.14159265358979323846/180)*radian;
+
+    G4ThreeVector gammaDirection;
+    gammaDirection.setRhoPhiTheta(1.0,phi,theta);//1 is needed because we are pointing it towards -ve z direction.
+    gammaDirection.rotateY(90*deg).rotateZ(-generator_angle);
+    fParticleSource->SetParticleMomentumDirection(gammaDirection);
+
+    fParticleSource->GeneratePrimaryVertex(anEvent);
+  }
 }
+
 G4double JanisDDGeneratorAction::DD_dist(G4double w1, G4double w2, G4double w3, G4double w4, G4double w5)
 {
   G4bool flag = FALSE;
@@ -114,3 +125,12 @@ G4double JanisDDGeneratorAction::DD_dist(G4double w1, G4double w2, G4double w3, 
   }
   return x;
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDDGeneratorAction::SetGeneratorMode(G4String mode)
+{
+  generator_mode = mode;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

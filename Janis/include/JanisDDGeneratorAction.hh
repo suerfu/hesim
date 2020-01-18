@@ -50,6 +50,7 @@ public:
 
   void setGeneratorDistance(G4double);
   void setGeneratorAngle(G4double);
+  void SetGeneratorMode(G4String);
 
   // set methods
   void SetRandomFlag(G4bool value);
@@ -59,6 +60,7 @@ private:
 
   G4double generator_distance;
   G4double generator_angle;
+  G4String generator_mode;
 
   G4ParticleGun*  fParticleSource;
 
