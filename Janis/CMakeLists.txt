@@ -76,11 +76,11 @@ set(Janis_SCRIPTS
   /shell/savio100million3.sh
   /shell/savio100million4.sh
   /shell/savio100million5.sh
-  /macros/icons.mac
-  /macros/gui.mac
+  icons.mac
+  gui.mac
   run.png
-  /macros/init_vis.mac
-  /macros/vis.mac
+  init_vis.mac
+  vis.mac
   /analysis/source_check.C
   )
 

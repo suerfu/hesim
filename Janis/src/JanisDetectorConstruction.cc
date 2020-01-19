@@ -83,11 +83,16 @@ JanisDetectorConstruction::JanisDetectorConstruction()
   fReady6(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
   fReady7(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
   fReady8(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
-  fs_head_inner_LV(0),fs_head_inner_PV(0),
-  fs_head_outer_LV(0),fs_head_outer_PV(0),
-  fs_head_outer_rm(0)
+  fNaIReady1(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady2(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady3(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady4(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady5(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady6(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady7(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady8(false)  // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
 {
-    fDetectorMessenger = new JanisDetectorConstructionMessenger(this);
+  fDetectorMessenger = new JanisDetectorConstructionMessenger(this);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -125,6 +130,7 @@ void JanisDetectorConstruction::DefineMaterials()
     G4Element* elC  = new G4Element(name = "Carbon"     , symbol = "C"  , z = 6.  , a =  12.011*g/mole);
     G4Element* elN  = new G4Element(name = "Nitrogen"   , symbol = "N"  , z = 7.  , a =  14.007*g/mole);
     G4Element* elO  = new G4Element(name = "Oxygen"     , symbol = "O"  , z = 8.  , a =  15.999*g/mole);
+    G4Element* elNa = new G4Element(name = "Sodium"     , symbol = "Na" , z = 11. , a =  22.990*g/mole);
     G4Element* elAl = new G4Element(name = "Aluminum"   , symbol = "Al" , z = 13. , a =  26.981*g/mole);
     G4Element* elSi = new G4Element(name = "Silicon"    , symbol = "Si" , z = 14. , a =  28.086*g/mole);
     G4Element* elP  = new G4Element(name = "Phosphorus" , symbol = "P"  , z = 15. , a =  30.974*g/mole);
@@ -136,6 +142,7 @@ void JanisDetectorConstruction::DefineMaterials()
     G4Element* elCu = new G4Element(name = "Copper"     , symbol = "Cu" , z = 29. , a =  63.546*g/mole);
     G4Element* elMo = new G4Element(name = "Molybdenum" , symbol = "Mo" , z = 42. , a =  95.940*g/mole);
     G4Element* elSn = new G4Element(name = "Tin"        , symbol = "Sn" , z = 50. , a = 118.710*g/mole);
+    G4Element* elI  = new G4Element(name = "Iodine"     , symbol = "I"  , z = 53. , a = 126.904*g/mole);
 
     // Liquid helium material
     // Density from (assuming 3K LHe)
@@ -182,6 +189,10 @@ void JanisDetectorConstruction::DefineMaterials()
     G4Material* Synthetic_Silica = new G4Material(name = "synthetic_silica" , density = 2.65*g/cm3 , nComponents = 2);
     Synthetic_Silica -> AddElement(elSi , nAtoms = 1);
     Synthetic_Silica -> AddElement(elO  , nAtoms = 2);
+
+    G4Material* NaI = new G4Material(name = "NaI" , density = 3.67*g/cm3 , nComponents = 2);
+    NaI -> AddElement(elNa , nAtoms = 1);
+    NaI -> AddElement(elI  , nAtoms = 1);
 
     G4Material* Generic_Acrylic = new G4Material(name = "generic_acrylic", 1.18*g/cm3, nComponents = 3);
     Generic_Acrylic -> AddElement(elH , nAtoms=8);
@@ -918,8 +929,9 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4LogicalVolume* liquid_helium_LV = new G4LogicalVolume(liquid_helium_S, liquid_helium_material, name);
     liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(), liquid_helium_LV, name, quartz_cell_LV, false, 0, fCheckOverlaps);
 
-    // Far-side Detector
+    // Default Far-side Detector
 
+    /*
     name = "fs_head_outer";
     G4Tubs* fs_head_outer_S = new G4Tubs(name, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
     fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name);
@@ -930,6 +942,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Tubs* fs_head_inner_S = new G4Tubs(name, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
     fs_head_inner_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name);
     fs_head_inner_PV = new G4PVPlacement(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ), fs_head_inner_LV, name, fs_head_outer_LV, false, 0, fCheckOverlaps);
+    */
 
     // A better model (outer only) for far-side detector, which is not necessary here
 
@@ -1009,8 +1022,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // Far-side Detector
 
-    fs_head_outer_LV->SetVisAttributes(container_vis);
-    fs_head_inner_LV->SetVisAttributes(greenTVA);
+    //fs_head_outer_LV->SetVisAttributes(container_vis);
+    //fs_head_inner_LV->SetVisAttributes(greenTVA);
     /*
     fs_neck_outer_LV->SetVisAttributes(container_vis);
     fs_body_outer_LV->SetVisAttributes(container_vis);
@@ -1109,65 +1122,6 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 {
   G4String name_in;
   G4String name_out;
-
-  if(fConstructed){
-    fs_head_inner_LV->ClearDaughters();
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    name_in = "fs_head_inner";
-    name_out = "fs_head_outer";
-
-    G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
-    G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
-
-    G4double fs_head_outer_rMin = 0.0*mm;
-    G4double fs_head_outer_rMax = 66.675*mm;
-    G4double fs_head_outer_Dz = 133.35*mm;
-    G4double fs_head_outer_SPhi = 0.0*deg;
-    G4double fs_head_outer_DPhi = 360.0*deg;
-
-    G4double fs_head_inner_rMin = 0.0*mm;
-    G4double fs_head_inner_rMax = 63.5*mm;
-    G4double fs_head_inner_Dz = 12.7*cm;
-    G4double fs_head_inner_SPhi = 0.0*deg;
-    G4double fs_head_inner_DPhi = 360.0*deg;
-
-    fs_placement_distance = fs_distance*cm;
-
-    G4double fs_placement_height = -10.0*cm;
-
-    G4double fs_head_inner_posX = 0.0*mm;
-    G4double fs_head_inner_posY = 0.0*mm;
-    G4double fs_head_inner_posZ = 0.0*mm;
-
-    G4double fs_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
-    G4double fs_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
-    G4double fs_head_outer_posZ = fs_placement_height;
-
-    G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
-    G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
-    fs_head_outer_rm.rotateY(270.0*deg);
-    fs_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
-
-    G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
-    fs_head_outer_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
-    G4Transform3D fs_head_outer_transform(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ));
-    fs_head_outer_PV = new G4PVPlacement(fs_head_outer_transform, fs_head_outer_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
-
-    G4Tubs* fs_head_inner_S = new G4Tubs(name_in, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
-    fs_head_inner_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name_in);
-    fs_head_inner_PV = new G4PVPlacement(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ), fs_head_inner_LV, name_in, fs_head_outer_LV, false, 0, fCheckOverlaps);
-
-    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
-    container_vis->SetVisibility(true);
-    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
-    fs_head_outer_LV->SetVisAttributes(container_vis);
-    fs_head_inner_LV->SetVisAttributes(greenTVA);
-
-    G4RunManager::GetRunManager()->GeometryHasBeenModified();
-    fConstructed = false;
-  }
 
   if(fReady1){
     fs_head_inner_1_LV->ClearDaughters();
@@ -1641,6 +1595,477 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     fReady8 = false;
   }
 
+  if(fNaIReady1){
+    fsNaI_head_inner_1_LV->ClearDaughters();
+    delete fsNaI_head_outer_1_PV;
+    WorldLV->RemoveDaughter(fsNaI_head_outer_1_PV);
+    delete fsNaI_head_inner_1_PV;
+    name_in = "fsNaI1_head_inner_1";
+    name_out = "fsNaI1_head_outer_1";
+
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_distance = fs_distance*cm;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name_out, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_1_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name_out);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_1_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_1_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name_in, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_1_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
+    fsNaI_head_inner_1_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_1_LV, name_in, fsNaI_head_outer_1_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_1_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_1_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady1 = false;
+  }
+
+  if(fNaIReady2){
+    fsNaI_head_inner_2_LV->ClearDaughters();
+    delete fsNaI_head_outer_2_PV;
+    WorldLV->RemoveDaughter(fsNaI_head_outer_2_PV);
+    delete fsNaI_head_inner_2_PV;
+    name_in = "fsNaI2_head_inner_2";
+    name_out = "fsNaI2_head_outer_2";
+
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_distance = fs_distance*cm;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name_out, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_2_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name_out);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_2_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_2_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name_in, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_2_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
+    fsNaI_head_inner_2_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_2_LV, name_in, fsNaI_head_outer_2_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_2_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_2_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady2 = false;
+  }
+
+  if(fNaIReady3){
+    fsNaI_head_inner_3_LV->ClearDaughters();
+    delete fsNaI_head_outer_3_PV;
+    WorldLV->RemoveDaughter(fsNaI_head_outer_3_PV);
+    delete fsNaI_head_inner_3_PV;
+    name_in = "fsNaI3_head_inner_3";
+    name_out = "fsNaI3_head_outer_3";
+
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_distance = fs_distance*cm;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name_out, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_3_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name_out);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_3_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_3_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name_in, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_3_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
+    fsNaI_head_inner_3_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_3_LV, name_in, fsNaI_head_outer_3_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_3_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_3_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady3 = false;
+  }
+
+  if(fNaIReady4){
+    fsNaI_head_inner_4_LV->ClearDaughters();
+    delete fsNaI_head_outer_4_PV;
+    WorldLV->RemoveDaughter(fsNaI_head_outer_4_PV);
+    delete fsNaI_head_inner_4_PV;
+    name_in = "fsNaI4_head_inner_4";
+    name_out = "fsNaI4_head_outer_4";
+
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_distance = fs_distance*cm;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name_out, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_4_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name_out);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_4_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_4_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name_in, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_4_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
+    fsNaI_head_inner_4_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_4_LV, name_in, fsNaI_head_outer_4_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_4_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_4_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady4 = false;
+  }
+
+  if(fNaIReady5){
+    fsNaI_head_inner_5_LV->ClearDaughters();
+    delete fsNaI_head_outer_5_PV;
+    WorldLV->RemoveDaughter(fsNaI_head_outer_5_PV);
+    delete fsNaI_head_inner_5_PV;
+    name_in = "fsNaI5_head_inner_5";
+    name_out = "fsNaI5_head_outer_5";
+
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_distance = fs_distance*cm;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name_out, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_5_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name_out);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_5_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_5_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name_in, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_5_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
+    fsNaI_head_inner_5_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_5_LV, name_in, fsNaI_head_outer_5_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_5_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_5_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady5 = false;
+  }
+
+  if(fNaIReady6){
+    fsNaI_head_inner_6_LV->ClearDaughters();
+    delete fsNaI_head_outer_6_PV;
+    WorldLV->RemoveDaughter(fsNaI_head_outer_6_PV);
+    delete fsNaI_head_inner_6_PV;
+    name_in = "fsNaI1_head_inner_6";
+    name_out = "fsNaI1_head_outer_6";
+
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_distance = fs_distance*cm;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name_out, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_6_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name_out);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_6_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_6_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name_in, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_6_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
+    fsNaI_head_inner_6_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_6_LV, name_in, fsNaI_head_outer_6_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_6_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_6_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady6 = false;
+  }
+
+  if(fNaIReady7){
+    fsNaI_head_inner_7_LV->ClearDaughters();
+    delete fsNaI_head_outer_7_PV;
+    WorldLV->RemoveDaughter(fsNaI_head_outer_7_PV);
+    delete fsNaI_head_inner_7_PV;
+    name_in = "fsNaI1_head_inner_7";
+    name_out = "fsNaI1_head_outer_7";
+
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_distance = fs_distance*cm;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name_out, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_7_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name_out);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_7_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_7_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name_in, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_7_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
+    fsNaI_head_inner_7_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_7_LV, name_in, fsNaI_head_outer_7_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_7_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_7_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady7 = false;
+  }
+
+  if(fNaIReady8){
+    fsNaI_head_inner_8_LV->ClearDaughters();
+    delete fsNaI_head_outer_8_PV;
+    WorldLV->RemoveDaughter(fsNaI_head_outer_8_PV);
+    delete fsNaI_head_inner_8_PV;
+    name_in = "fsNaI1_head_inner_8";
+    name_out = "fsNaI1_head_outer_8";
+
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_distance = fs_distance*cm;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name_out, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_8_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name_out);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_8_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_8_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name_in, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_8_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
+    fsNaI_head_inner_8_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_8_LV, name_in, fsNaI_head_outer_8_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_8_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_8_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady8 = false;
+  }
 }
 
 
@@ -1648,14 +2073,6 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
 void JanisDetectorConstruction::add1stFarSideAngle(G4double new_fs_angle_1)
 {
-    if(fConstructed){
-    fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    fConstructed = false;
-    }
-
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
     G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
@@ -1715,14 +2132,6 @@ void JanisDetectorConstruction::add1stFarSideAngle(G4double new_fs_angle_1)
 
 void JanisDetectorConstruction::add2ndFarSideAngle(G4double new_fs_angle_2)
 {
-    if(fConstructed){
-    fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    fConstructed = false;
-    }
-
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
     G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
@@ -1782,14 +2191,6 @@ void JanisDetectorConstruction::add2ndFarSideAngle(G4double new_fs_angle_2)
 
 void JanisDetectorConstruction::add3rdFarSideAngle(G4double new_fs_angle_3)
 {
-    if(fConstructed){
-    fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    fConstructed = false;
-    }
-
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
     G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
@@ -1849,14 +2250,6 @@ void JanisDetectorConstruction::add3rdFarSideAngle(G4double new_fs_angle_3)
 
 void JanisDetectorConstruction::add4thFarSideAngle(G4double new_fs_angle_4)
 {
-    if(fConstructed){
-    fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    fConstructed = false;
-    }
-
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
     G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
@@ -1916,14 +2309,6 @@ void JanisDetectorConstruction::add4thFarSideAngle(G4double new_fs_angle_4)
 
 void JanisDetectorConstruction::add5thFarSideAngle(G4double new_fs_angle_5)
 {
-    if(fConstructed){
-    fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    fConstructed = false;
-    }
-
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
     G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
@@ -1983,14 +2368,6 @@ void JanisDetectorConstruction::add5thFarSideAngle(G4double new_fs_angle_5)
 
 void JanisDetectorConstruction::add6thFarSideAngle(G4double new_fs_angle_6)
 {
-    if(fConstructed){
-    fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    fConstructed = false;
-    }
-
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
     G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
@@ -2050,14 +2427,6 @@ void JanisDetectorConstruction::add6thFarSideAngle(G4double new_fs_angle_6)
 
 void JanisDetectorConstruction::add7thFarSideAngle(G4double new_fs_angle_7)
 {
-    if(fConstructed){
-    fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    fConstructed = false;
-    }
-
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
     G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
@@ -2116,14 +2485,6 @@ void JanisDetectorConstruction::add7thFarSideAngle(G4double new_fs_angle_7)
 
 void JanisDetectorConstruction::add8thFarSideAngle(G4double new_fs_angle_8)
 {
-    if(fConstructed){
-    fs_head_inner_LV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_outer_PV;
-    WorldLV->RemoveDaughter(fs_head_outer_PV);
-    delete fs_head_inner_PV;
-    fConstructed = false;
-    }
-
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
     G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
 
@@ -2180,3 +2541,473 @@ void JanisDetectorConstruction::add8thFarSideAngle(G4double new_fs_angle_8)
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::add1stNaIFarSideAngle(G4double new_fsNaI_angle_1)
+{
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_angle = new_fsNaI_angle_1*deg;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = ((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4String name;
+
+    name = "fsNaI1_head_outer_1";
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_1_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_1_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_1_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "fsNaI1_head_inner_1";
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_1_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name);
+    fsNaI_head_inner_1_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_1_LV, name, fsNaI_head_outer_1_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_1_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_1_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady1 = true;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::add2ndNaIFarSideAngle(G4double new_fsNaI_angle_2)
+{
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_angle = new_fsNaI_angle_2*deg;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = ((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4String name;
+
+    name = "fsNaI2_head_outer_2";
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_2_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_2_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_2_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "fsNaI2_head_inner_2";
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_2_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name);
+    fsNaI_head_inner_2_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_2_LV, name, fsNaI_head_outer_2_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_2_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_2_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady2 = true;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::add3rdNaIFarSideAngle(G4double new_fsNaI_angle_3)
+{
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_angle = new_fsNaI_angle_3*deg;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = ((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4String name;
+
+    name = "fsNaI3_head_outer_3";
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_3_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_3_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_3_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "fsNaI3_head_inner_3";
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_3_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name);
+    fsNaI_head_inner_3_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_3_LV, name, fsNaI_head_outer_3_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_3_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_3_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady3 = true;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::add4thNaIFarSideAngle(G4double new_fsNaI_angle_4)
+{
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_angle = new_fsNaI_angle_4*deg;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = ((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4String name;
+
+    name = "fsNaI4_head_outer_4";
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_4_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_4_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_4_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "fsNaI4_head_inner_4";
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_4_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name);
+    fsNaI_head_inner_4_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_4_LV, name, fsNaI_head_outer_4_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_4_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_4_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady4 = true;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::add5thNaIFarSideAngle(G4double new_fsNaI_angle_5)
+{
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_angle = new_fsNaI_angle_5*deg;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = ((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4String name;
+
+    name = "fsNaI5_head_outer_5";
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_5_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_5_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_5_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "fsNaI5_head_inner_5";
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_5_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name);
+    fsNaI_head_inner_5_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_5_LV, name, fsNaI_head_outer_5_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_5_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_5_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady5 = true;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::add6thNaIFarSideAngle(G4double new_fsNaI_angle_6)
+{
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_angle = new_fsNaI_angle_6*deg;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = ((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4String name;
+
+    name = "fsNaI6_head_outer_6";
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_6_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_6_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_6_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "fsNaI6_head_inner_6";
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_6_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name);
+    fsNaI_head_inner_6_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_6_LV, name, fsNaI_head_outer_6_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_6_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_6_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady6 = true;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::add7thNaIFarSideAngle(G4double new_fsNaI_angle_7)
+{
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_angle = new_fsNaI_angle_7*deg;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = ((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4String name;
+
+    name = "fsNaI7_head_outer_7";
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_7_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_7_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_7_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "fsNaI7_head_inner_7";
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_7_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name);
+    fsNaI_head_inner_7_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_7_LV, name, fsNaI_head_outer_7_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_7_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_7_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady7 = true;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void JanisDetectorConstruction::add8thNaIFarSideAngle(G4double new_fsNaI_angle_8)
+{
+    G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+
+    G4double fsNaI_head_outer_rMin = 0.0*mm;
+    G4double fsNaI_head_outer_rMax = 28.245*mm;
+    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_SPhi = 0.0*deg;
+    G4double fsNaI_head_outer_DPhi = 360.0*deg;
+
+    G4double fsNaI_head_inner_rMin = 0.0*mm;
+    G4double fsNaI_head_inner_rMax = 25.4*mm;
+    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_SPhi = 0.0*deg;
+    G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    fs_placement_angle = new_fsNaI_angle_8*deg;
+
+    G4double fsNaI_placement_height = -10.0*cm;
+
+    G4double fsNaI_head_inner_posX = 0.0*mm;
+    G4double fsNaI_head_inner_posY = 0.0*mm;
+    G4double fsNaI_head_inner_posZ = ((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+
+    G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
+    G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
+
+    G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
+    fsNaI_head_outer_rm.rotateY(270.0*deg);
+    fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
+
+    G4String name;
+
+    name = "fsNaI5_head_outer_8";
+    G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
+    fsNaI_head_outer_8_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
+    G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
+    fsNaI_head_outer_8_PV = new G4PVPlacement(fsNaI_head_outer_transform, fsNaI_head_outer_8_LV, name, WorldLV, false, 0, fCheckOverlaps);
+
+    name = "fsNaI8_head_inner_8";
+    G4Tubs* fsNaI_head_inner_S = new G4Tubs(name, fsNaI_head_inner_rMin, fsNaI_head_inner_rMax, fsNaI_head_inner_Dz/2.0, fsNaI_head_inner_SPhi, fsNaI_head_inner_DPhi);
+    fsNaI_head_inner_8_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name);
+    fsNaI_head_inner_8_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_8_LV, name, fsNaI_head_outer_8_LV, false, 0, fCheckOverlaps);
+
+    G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+    container_vis->SetVisibility(true);
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    fsNaI_head_outer_8_LV->SetVisAttributes(container_vis);
+    fsNaI_head_inner_8_LV->SetVisAttributes(greenTVA);
+
+    G4RunManager::GetRunManager()->GeometryHasBeenModified();
+    fNaIReady8 = true;
+}

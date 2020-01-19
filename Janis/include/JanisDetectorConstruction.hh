@@ -75,6 +75,14 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     void add6thFarSideAngle(G4double new_fs_angle_6);
     void add7thFarSideAngle(G4double new_fs_angle_7);
     void add8thFarSideAngle(G4double new_fs_angle_8);
+    void add1stNaIFarSideAngle(G4double new_fsNaI_angle_1);
+    void add2ndNaIFarSideAngle(G4double new_fsNaI_angle_2);
+    void add3rdNaIFarSideAngle(G4double new_fsNaI_angle_3);
+    void add4thNaIFarSideAngle(G4double new_fsNaI_angle_4);
+    void add5thNaIFarSideAngle(G4double new_fsNaI_angle_5);
+    void add6thNaIFarSideAngle(G4double new_fsNaI_angle_6);
+    void add7thNaIFarSideAngle(G4double new_fsNaI_angle_7);
+    void add8thNaIFarSideAngle(G4double new_fsNaI_angle_8);
 
     // G4LogicalVolume* GetScoringVolume() const { return fScoringVolume; }
 
@@ -142,6 +150,46 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* fs_head_inner_8_PV;
     G4VPhysicalVolume* fs_head_outer_8_PV;
 
+    G4LogicalVolume* fsNaI_head_inner_1_LV;
+    G4LogicalVolume* fsNaI_head_outer_1_LV;
+    G4VPhysicalVolume* fsNaI_head_inner_1_PV;
+    G4VPhysicalVolume* fsNaI_head_outer_1_PV;
+
+    G4LogicalVolume* fsNaI_head_inner_2_LV;
+    G4LogicalVolume* fsNaI_head_outer_2_LV;
+    G4VPhysicalVolume* fsNaI_head_inner_2_PV;
+    G4VPhysicalVolume* fsNaI_head_outer_2_PV;
+
+    G4LogicalVolume* fsNaI_head_inner_3_LV;
+    G4LogicalVolume* fsNaI_head_outer_3_LV;
+    G4VPhysicalVolume* fsNaI_head_inner_3_PV;
+    G4VPhysicalVolume* fsNaI_head_outer_3_PV;
+
+    G4LogicalVolume* fsNaI_head_inner_4_LV;
+    G4LogicalVolume* fsNaI_head_outer_4_LV;
+    G4VPhysicalVolume* fsNaI_head_inner_4_PV;
+    G4VPhysicalVolume* fsNaI_head_outer_4_PV;
+
+    G4LogicalVolume* fsNaI_head_inner_5_LV;
+    G4LogicalVolume* fsNaI_head_outer_5_LV;
+    G4VPhysicalVolume* fsNaI_head_inner_5_PV;
+    G4VPhysicalVolume* fsNaI_head_outer_5_PV;
+
+    G4LogicalVolume* fsNaI_head_inner_6_LV;
+    G4LogicalVolume* fsNaI_head_outer_6_LV;
+    G4VPhysicalVolume* fsNaI_head_inner_6_PV;
+    G4VPhysicalVolume* fsNaI_head_outer_6_PV;
+
+    G4LogicalVolume* fsNaI_head_inner_7_LV;
+    G4LogicalVolume* fsNaI_head_outer_7_LV;
+    G4VPhysicalVolume* fsNaI_head_inner_7_PV;
+    G4VPhysicalVolume* fsNaI_head_outer_7_PV;
+
+    G4LogicalVolume* fsNaI_head_inner_8_LV;
+    G4LogicalVolume* fsNaI_head_outer_8_LV;
+    G4VPhysicalVolume* fsNaI_head_inner_8_PV;
+    G4VPhysicalVolume* fsNaI_head_outer_8_PV;
+
     void PlacePMT(G4LogicalVolume* worldLV,G4double &PMT_posX,G4double &PMT_posY,G4double &PMT_posZ,G4RotationMatrix* PMT_RM);
 
     G4VPhysicalVolume* os_body_PV;
@@ -157,6 +205,14 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4bool  fReady6; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
     G4bool  fReady7; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
     G4bool  fReady8; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fNaIReady1;
+    G4bool  fNaIReady2;
+    G4bool  fNaIReady3;
+    G4bool  fNaIReady4;
+    G4bool  fNaIReady5;
+    G4bool  fNaIReady6;
+    G4bool  fNaIReady7;
+    G4bool  fNaIReady8;
 
     JanisDetectorConstructionMessenger* fDetectorMessenger;
 
