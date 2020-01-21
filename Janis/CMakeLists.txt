@@ -82,6 +82,7 @@ set(Janis_SCRIPTS
   init_vis.mac
   vis.mac
   /analysis/source_check.C
+  /analysis/neutron_analysis.C
   )
 
 foreach(_script ${Janis_SCRIPTS})

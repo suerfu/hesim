@@ -1122,6 +1122,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 {
   G4String name_in;
   G4String name_out;
+  G4String name_scin;
 
   if(fReady1){
     fs_head_inner_1_LV->ClearDaughters();
@@ -1600,37 +1601,50 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fsNaI_head_outer_1_PV;
     WorldLV->RemoveDaughter(fsNaI_head_outer_1_PV);
     delete fsNaI_head_inner_1_PV;
+    name_scin = "fsNaI1_scintillator";
     name_in = "fsNaI1_head_inner_1";
     name_out = "fsNaI1_head_outer_1";
 
     G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
-    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("galactic");
+    G4Material* fsNaI_scintillator_material = G4Material::GetMaterial("NaI");
 
     G4double fsNaI_head_outer_rMin = 0.0*mm;
-    G4double fsNaI_head_outer_rMax = 28.245*mm;
-    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_rMax = 31.75*mm;
+    G4double fsNaI_head_outer_Dz = 57.15*mm;
     G4double fsNaI_head_outer_SPhi = 0.0*deg;
     G4double fsNaI_head_outer_DPhi = 360.0*deg;
 
     G4double fsNaI_head_inner_rMin = 0.0*mm;
-    G4double fsNaI_head_inner_rMax = 25.4*mm;
-    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_rMax = 31.24*mm;
+    G4double fsNaI_head_inner_Dz = 56.13*mm; // it doesn't actually matter since its just air
     G4double fsNaI_head_inner_SPhi = 0.0*deg;
     G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    G4double fsNaI_scintillator_rMin = 0.0*mm;
+    G4double fsNaI_scintillator_rMax = 25.4*mm;
+    G4double fsNaI_scintillator_Dz = 50.8*mm;
+    G4double fsNaI_scintillator_SPhi = 0.0*deg;
+    G4double fsNaI_scintillator_DPhi = 360.0*deg;
 
     fs_placement_distance = fs_distance*cm;
 
     G4double fsNaI_placement_height = -10.0*cm;
 
+    G4double fsNaI_scintillator_posX = 0.0*mm;
+    G4double fsNaI_scintillator_posY = 0.0*mm;
+    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
-    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+    G4double fsNaI_head_inner_posZ = 0.0*mm;
 
     G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
     G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
 
     G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix *fsNaI_scintillator_rm = new G4RotationMatrix;
     G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
     fsNaI_head_outer_rm.rotateY(270.0*deg);
     fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
@@ -1644,11 +1658,16 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     fsNaI_head_inner_1_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
     fsNaI_head_inner_1_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_1_LV, name_in, fsNaI_head_outer_1_LV, false, 0, fCheckOverlaps);
 
+    G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
+    fsNaI_scintillator_1_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
+    fsNaI_scintillator_1_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_1_LV, name_in, fsNaI_head_inner_1_LV, false, 0, fCheckOverlaps);
+
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
     G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
     fsNaI_head_outer_1_LV->SetVisAttributes(container_vis);
-    fsNaI_head_inner_1_LV->SetVisAttributes(greenTVA);
+    fsNaI_scintillator_1_LV->SetVisAttributes(greenTVA);
+    fsNaI_head_inner_1_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
     G4RunManager::GetRunManager()->GeometryHasBeenModified();
     fNaIReady1 = false;
@@ -1659,37 +1678,50 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fsNaI_head_outer_2_PV;
     WorldLV->RemoveDaughter(fsNaI_head_outer_2_PV);
     delete fsNaI_head_inner_2_PV;
+    name_scin = "fsNaI2_scintillator";
     name_in = "fsNaI2_head_inner_2";
     name_out = "fsNaI2_head_outer_2";
 
     G4Material* fsNaI_head_outer_material = G4Material::GetMaterial("Al");
-    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("NaI");
+    G4Material* fsNaI_head_inner_material = G4Material::GetMaterial("galactic");
+    G4Material* fsNaI_scintillator_material = G4Material::GetMaterial("NaI");
 
     G4double fsNaI_head_outer_rMin = 0.0*mm;
-    G4double fsNaI_head_outer_rMax = 28.245*mm;
-    G4double fsNaI_head_outer_Dz = 41.28*mm;
+    G4double fsNaI_head_outer_rMax = 31.75*mm;
+    G4double fsNaI_head_outer_Dz = 57.15*mm;
     G4double fsNaI_head_outer_SPhi = 0.0*deg;
     G4double fsNaI_head_outer_DPhi = 360.0*deg;
 
     G4double fsNaI_head_inner_rMin = 0.0*mm;
-    G4double fsNaI_head_inner_rMax = 25.4*mm;
-    G4double fsNaI_head_inner_Dz = 50.8*mm;
+    G4double fsNaI_head_inner_rMax = 31.24*mm;
+    G4double fsNaI_head_inner_Dz = 56.13*mm; // it doesn't actually matter since its just air
     G4double fsNaI_head_inner_SPhi = 0.0*deg;
     G4double fsNaI_head_inner_DPhi = 360.0*deg;
+
+    G4double fsNaI_scintillator_rMin = 0.0*mm;
+    G4double fsNaI_scintillator_rMax = 25.4*mm;
+    G4double fsNaI_scintillator_Dz = 50.8*mm;
+    G4double fsNaI_scintillator_SPhi = 0.0*deg;
+    G4double fsNaI_scintillator_DPhi = 360.0*deg;
 
     fs_placement_distance = fs_distance*cm;
 
     G4double fsNaI_placement_height = -10.0*cm;
 
+    G4double fsNaI_scintillator_posX = 0.0*mm;
+    G4double fsNaI_scintillator_posY = 0.0*mm;
+    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
-    G4double fsNaI_head_inner_posZ = -((fsNaI_head_inner_Dz - fsNaI_head_outer_Dz)/2 + 0.508) *mm;
+    G4double fsNaI_head_inner_posZ = 0.0*mm;
 
     G4double fsNaI_head_outer_posX = fs_placement_distance * cos(fs_placement_angle - angle_corr);
     G4double fsNaI_head_outer_posY = fs_placement_distance * sin(fs_placement_angle - angle_corr);
     G4double fsNaI_head_outer_posZ = fsNaI_placement_height;
 
     G4RotationMatrix *fsNaI_head_inner_rm = new G4RotationMatrix;
+    G4RotationMatrix *fsNaI_scintillator_rm = new G4RotationMatrix;
     G4RotationMatrix fsNaI_head_outer_rm = G4RotationMatrix();
     fsNaI_head_outer_rm.rotateY(270.0*deg);
     fsNaI_head_outer_rm.rotateZ(fs_placement_angle - angle_corr);
@@ -1703,11 +1735,16 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     fsNaI_head_inner_2_LV = new G4LogicalVolume(fsNaI_head_inner_S, fsNaI_head_inner_material, name_in);
     fsNaI_head_inner_2_PV = new G4PVPlacement(fsNaI_head_inner_rm, G4ThreeVector(fsNaI_head_inner_posX,fsNaI_head_inner_posY,fsNaI_head_inner_posZ), fsNaI_head_inner_2_LV, name_in, fsNaI_head_outer_2_LV, false, 0, fCheckOverlaps);
 
+    G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
+    fsNaI_scintillator_2_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
+    fsNaI_scintillator_2_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_2_LV, name_in, fsNaI_head_inner_2_LV, false, 0, fCheckOverlaps);
+
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
     G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
     fsNaI_head_outer_2_LV->SetVisAttributes(container_vis);
-    fsNaI_head_inner_2_LV->SetVisAttributes(greenTVA);
+    fsNaI_scintillator_2_LV->SetVisAttributes(greenTVA);
+    fsNaI_head_inner_2_LV->SetVisAttributes(G4VisAttributes::Invisible);
 
     G4RunManager::GetRunManager()->GeometryHasBeenModified();
     fNaIReady2 = false;

@@ -1,4 +1,3 @@
-
 //
 /// \file JanisDDGeneratorAction.cc
 /// \brief Implementation of the JanisDDGeneratorAction class

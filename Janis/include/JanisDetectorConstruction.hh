@@ -152,43 +152,59 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
 
     G4LogicalVolume* fsNaI_head_inner_1_LV;
     G4LogicalVolume* fsNaI_head_outer_1_LV;
+    G4LogicalVolume* fsNaI_scintillator_1_LV;
     G4VPhysicalVolume* fsNaI_head_inner_1_PV;
     G4VPhysicalVolume* fsNaI_head_outer_1_PV;
+    G4VPhysicalVolume* fsNaI_scintillator_1_PV;
 
     G4LogicalVolume* fsNaI_head_inner_2_LV;
     G4LogicalVolume* fsNaI_head_outer_2_LV;
+    G4LogicalVolume* fsNaI_scintillator_2_LV;
     G4VPhysicalVolume* fsNaI_head_inner_2_PV;
     G4VPhysicalVolume* fsNaI_head_outer_2_PV;
+    G4VPhysicalVolume* fsNaI_scintillator_2_PV;
 
     G4LogicalVolume* fsNaI_head_inner_3_LV;
     G4LogicalVolume* fsNaI_head_outer_3_LV;
     G4VPhysicalVolume* fsNaI_head_inner_3_PV;
     G4VPhysicalVolume* fsNaI_head_outer_3_PV;
+    G4LogicalVolume* fsNaI_scintillator_3_LV;
+    G4VPhysicalVolume* fsNaI_scintillator_3_PV;
 
     G4LogicalVolume* fsNaI_head_inner_4_LV;
     G4LogicalVolume* fsNaI_head_outer_4_LV;
     G4VPhysicalVolume* fsNaI_head_inner_4_PV;
     G4VPhysicalVolume* fsNaI_head_outer_4_PV;
+    G4LogicalVolume* fsNaI_scintillator_4_LV;
+    G4VPhysicalVolume* fsNaI_scintillator_4_PV;
 
     G4LogicalVolume* fsNaI_head_inner_5_LV;
     G4LogicalVolume* fsNaI_head_outer_5_LV;
     G4VPhysicalVolume* fsNaI_head_inner_5_PV;
     G4VPhysicalVolume* fsNaI_head_outer_5_PV;
+    G4LogicalVolume* fsNaI_scintillator_5_LV;
+    G4VPhysicalVolume* fsNaI_scintillator_5_PV;
 
     G4LogicalVolume* fsNaI_head_inner_6_LV;
     G4LogicalVolume* fsNaI_head_outer_6_LV;
     G4VPhysicalVolume* fsNaI_head_inner_6_PV;
     G4VPhysicalVolume* fsNaI_head_outer_6_PV;
+    G4LogicalVolume* fsNaI_scintillator_6_LV;
+    G4VPhysicalVolume* fsNaI_scintillator_6_PV;
 
     G4LogicalVolume* fsNaI_head_inner_7_LV;
     G4LogicalVolume* fsNaI_head_outer_7_LV;
     G4VPhysicalVolume* fsNaI_head_inner_7_PV;
     G4VPhysicalVolume* fsNaI_head_outer_7_PV;
+    G4LogicalVolume* fsNaI_scintillator_7_LV;
+    G4VPhysicalVolume* fsNaI_scintillator_7_PV;
 
     G4LogicalVolume* fsNaI_head_inner_8_LV;
     G4LogicalVolume* fsNaI_head_outer_8_LV;
     G4VPhysicalVolume* fsNaI_head_inner_8_PV;
     G4VPhysicalVolume* fsNaI_head_outer_8_PV;
+    G4LogicalVolume* fsNaI_scintillator_8_LV;
+    G4VPhysicalVolume* fsNaI_scintillator_8_PV;
 
     void PlacePMT(G4LogicalVolume* worldLV,G4double &PMT_posX,G4double &PMT_posY,G4double &PMT_posZ,G4RotationMatrix* PMT_RM);
 

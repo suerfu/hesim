@@ -167,7 +167,7 @@ struct PlotCollection{
 		hR->GetXaxis()->SetTitle("Radius [mm]");
 		hR->GetYaxis()->SetTitle("Counts");
 
-        c->SaveAs((fname + "_ProblematicRadius.png").c_str());
+    c->SaveAs((fname + "_ProblematicRadius.png").c_str());
 	}
 
 	void DrawProblematicZ(){
@@ -186,6 +186,8 @@ struct PlotCollection{
 		c->SaveAs((fname + "_ProblematicZ.png").c_str());
 	}
 };
+
+
 
 void source_check(){
 
@@ -209,7 +211,7 @@ void source_check(){
 		string file_label = it.first;
 		string filename = it.second;
 
-		TFile* f = TFile::Open(filename.c_str());
+		TFile* f = TFile::Open(filenamef());
 
 		if(!f){
 			cout << "ERROR reading file " << filename << endl;
@@ -223,8 +225,8 @@ void source_check(){
 
     	int track_ID;
     	events->SetBranchAddress("TrackID",&track_ID);
-		int step_ID;
-		events->SetBranchAddress("StepID",&step_ID);
+			int step_ID;
+			events->SetBranchAddress("StepID",&step_ID);
     	int pid;
     	events->SetBranchAddress("ParticleType",&pid);
     	int volume_ID;
@@ -256,7 +258,7 @@ void source_check(){
 
 	}
 
-    plots_1.DrawAngleDistribution();
+  plots_1.DrawAngleDistribution();
 	plots_2.DrawEnergyDistribution();
 	plots_3.DrawProblematicRadius();
 	plots_4.DrawProblematicZ();
