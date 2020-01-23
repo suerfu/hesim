@@ -30,7 +30,7 @@ using namespace std;
 void neutron_analysis_1(){
   // Read source root file
   string fname;
-  string filename = "/global/home/users/yuanlq/McKinsey_Janis_Fridge/Janis-build/analysis/savio100million1.root";
+  string filename = "/global/scratch/users/yuanlq/results/savio100million1.root";
   TFile* f = TFile::Open(filename.c_str());
   if(!f){
     cout << "ERROR reading file " << filename << endl;
