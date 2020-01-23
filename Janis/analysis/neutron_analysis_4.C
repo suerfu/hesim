@@ -27,7 +27,7 @@
 
 using namespace std;
 
-void neutron_analysis(){
+void neutron_analysis_4(){
   // Read source root file
   string fname;
   string filename = "/global/home/users/yuanlq/McKinsey_Janis_Fridge/Janis-build/analysis/savio100million4.root";
