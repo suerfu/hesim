@@ -83,7 +83,11 @@ set(Janis_SCRIPTS
   init_vis.mac
   vis.mac
   /analysis/source_check.C
-  /analysis/neutron_analysis.C
+  /analysis/neutron_analysis_1.C
+  /analysis/neutron_analysis_2.C
+  /analysis/neutron_analysis_3.C
+  /analysis/neutron_analysis_4.C
+  /analysis/neutron_analysis_5.C
   )
 
 foreach(_script ${Janis_SCRIPTS})
