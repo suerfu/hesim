@@ -76,6 +76,7 @@ set(Janis_SCRIPTS
   /shell/savio100million3.sh
   /shell/savio100million4.sh
   /shell/savio100million5.sh
+  /shell/neutron_analysis.sh
   icons.mac
   gui.mac
   run.png

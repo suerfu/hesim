@@ -30,7 +30,7 @@ using namespace std;
 void neutron_analysis(){
   // Read source root file
   string fname;
-  string filename = "savio10million.root";
+  string filename = "savio100million3.root";
   TFile* f = TFile::Open(filename.c_str());
   if(!f){
     cout << "ERROR reading file " << filename << endl;
@@ -100,8 +100,16 @@ void neutron_analysis(){
         this_eventID = eventID;
         events -> GetEntry(j);
 
+        // Loop inside the helium cube
+        while (*volume_name == "liquid helium"){
+          total_energy_deposit += deposited_energy;
+          j++;
+          events -> GetEntry(j);
+        }
+
+
         // label the tracks with different far side detector as destination
-        while (eventID == this_eventID){
+        while (eventID == this_eventID && trackID == 1 && *particle_name == "neutron"){
           if (*volume_name == "fs1_head_inner_1"){
             fs = 1;
           }
@@ -130,40 +138,36 @@ void neutron_analysis(){
           k ++;
           events -> GetEntry(k);
         }
+        cout << fs << endl;
 
-        // Loop inside the helium cube
-        while (*volume_name == "liquid helium"){
-          total_energy_deposit += deposited_energy;
-          j++;
-          events -> GetEntry(j);
+      }
+      if (total_energy_deposit > 0.0001){
+        h -> Fill(total_energy_deposit);
+
+        if (fs == 1){
+          h1 -> Fill(total_energy_deposit);
         }
-      }
-
-      h -> Fill(total_energy_deposit);
-
-      if (fs == 1){
-        h1 -> Fill(total_energy_deposit);
-      }
-      if (fs == 2){
-        h2 -> Fill(total_energy_deposit);
-      }
-      if (fs == 3){
-        h3 -> Fill(total_energy_deposit);
-      }
-      if (fs == 4){
-        h4 -> Fill(total_energy_deposit);
-      }
-      if (fs == 5){
-        h5 -> Fill(total_energy_deposit);
-      }
-      if (fs == 6){
-        h6 -> Fill(total_energy_deposit);
-      }
-      if (fs == 7){
-        h7 -> Fill(total_energy_deposit);
-      }
-      if (fs == 8){
-        h8 -> Fill(total_energy_deposit);
+        if (fs == 2){
+          h2 -> Fill(total_energy_deposit);
+        }
+        if (fs == 3){
+          h3 -> Fill(total_energy_deposit);
+        }
+        if (fs == 4){
+          h4 -> Fill(total_energy_deposit);
+        }
+        if (fs == 5){
+          h5 -> Fill(total_energy_deposit);
+        }
+        if (fs == 6){
+          h6 -> Fill(total_energy_deposit);
+        }
+        if (fs == 7){
+          h7 -> Fill(total_energy_deposit);
+        }
+        if (fs == 8){
+          h8 -> Fill(total_energy_deposit);
+        }
       }
 
     }
@@ -187,7 +191,7 @@ void neutron_analysis(){
   TCanvas* c1 = new TCanvas();
   c1 -> SetLogy();
   // output file name
-  fname = "1st far side detector";
+  fname = "1st far side detector 3";
   h1 -> Draw();
   h1->SetTitle(fname.c_str());
   // Set Axis Title
@@ -200,7 +204,7 @@ void neutron_analysis(){
   TCanvas* c2 = new TCanvas();
   c2 -> SetLogy();
   // output file name
-  fname = "2nd far side detector";
+  fname = "2nd far side detector 3";
   h2 -> Draw();
   h2->SetTitle(fname.c_str());
   // Set Axis Title
@@ -213,7 +217,7 @@ void neutron_analysis(){
   TCanvas* c3 = new TCanvas();
   c3 -> SetLogy();
   // output file name
-  fname = "3rd far side detector";
+  fname = "3rd far side detector 3";
   h3 -> Draw();
   h3->SetTitle(fname.c_str());
   // Set Axis Title
@@ -226,7 +230,7 @@ void neutron_analysis(){
   TCanvas* c4 = new TCanvas();
   c4 -> SetLogy();
   // output file name
-  fname = "4th far side detector";
+  fname = "4th far side detector 3";
   h4 -> Draw();
   h4->SetTitle(fname.c_str());
   // Set Axis Title
@@ -239,7 +243,7 @@ void neutron_analysis(){
   TCanvas* c5 = new TCanvas();
   c5 -> SetLogy();
   // output file name
-  fname = "5th far side detector";
+  fname = "5th far side detector 3";
   h5 -> Draw();
   h5->SetTitle(fname.c_str());
   // Set Axis Title
@@ -252,7 +256,7 @@ void neutron_analysis(){
   TCanvas* c6 = new TCanvas();
   c6 -> SetLogy();
   // output file name
-  fname = "6th far side detector";
+  fname = "6th far side detector 3";
   h6 -> Draw();
   h6->SetTitle(fname.c_str());
   // Set Axis Title
@@ -265,7 +269,7 @@ void neutron_analysis(){
   TCanvas* c7 = new TCanvas();
   c7 -> SetLogy();
   // output file name
-  fname = "7th far side detector";
+  fname = "7th far side detector 3";
   h7 -> Draw();
   h7->SetTitle(fname.c_str());
   // Set Axis Title
@@ -278,7 +282,7 @@ void neutron_analysis(){
   TCanvas* c8 = new TCanvas();
   c8 -> SetLogy();
   // output file name
-  fname = "8th far side detector";
+  fname = "8th far side detector 3";
   h8 -> Draw();
   h8->SetTitle(fname.c_str());
   // Set Axis Title
