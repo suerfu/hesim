@@ -225,6 +225,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     //
     G4Material* world_material = mat_man -> FindOrBuildMaterial("galactic");
+    G4Material* floor_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
 
     // Cryostat
 
@@ -293,6 +294,14 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double world_x = 5000.*cm;
     G4double world_y = 5000.*cm;
     G4double world_z = 2000.*cm;
+
+    // Floor
+
+    G4double floor_rMin = 0.0*cm;
+    G4double floor_rMax = 200.0*cm;
+    G4double floor_Dz = 30.0*cm;
+    G4double floor_SPhi = 0.0*deg;
+    G4double floor_DPhi = 360.0*deg;
 
     // Cryostat
 
@@ -466,7 +475,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4double fs_head_inner_SPhi = 0.0*deg;
     G4double fs_head_inner_DPhi = 360.0*deg;
 
-    //They are hidden because they are not necessary
+    //They are not necessary
     /*
     G4double fs_neck_outer_rMin = 0.0*mm;
     G4double fs_neck_outer_rMax = 82.55*mm;
@@ -502,6 +511,12 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     */
 
     //===============  Positions ===============//
+
+    // Floor
+
+    G4double floor_posX = 0.0*mm;
+    G4double floor_posY = 0.0*mm;
+    G4double floor_posZ = - (can_vacuum_outer_Dz + 68.9*cm + 0.5*floor_Dz); // 68.9cm is the measured distance between the bottom and the floor
 
     // Cryostat
 
@@ -682,6 +697,8 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // Cryostat
 
+    G4RotationMatrix* floor_rm = new G4RotationMatrix;
+
     G4RotationMatrix* can_sample_plate_rm = new G4RotationMatrix;
     G4RotationMatrix* can_sample_ring_rm = new G4RotationMatrix;
     G4RotationMatrix* can_sample_outer_rm = new G4RotationMatrix;
@@ -765,6 +782,13 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     WorldLV = new G4LogicalVolume(world_box, world_material, "WorldLV");
 
     WorldPV = new G4PVPlacement(0, G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0, checkOverlaps);
+
+    // Floor
+
+    name = "floor";
+    G4Tubs* floor_S = new G4Tubs(name, floor_rMin, floor_rMax, floor_Dz/2.0, floor_SPhi, floor_DPhi);
+    G4LogicalVolume* floor_LV = new G4LogicalVolume(floor_S, floor_material, name);
+    new G4PVPlacement(floor_rm, G4ThreeVector(floor_posX, floor_posY, floor_posZ), floor_LV, name, WorldLV, false, 0, fCheckOverlaps);
 
     // Cryostat
 
@@ -986,6 +1010,10 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     // World
 
     WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
+
+    // Floor
+
+    floor_LV->SetVisAttributes(container_vis);
 
     // Cryostat
 

@@ -69,6 +69,9 @@ set(Janis_SCRIPTS
   /macros/savio100million3.mac
   /macros/savio100million4.mac
   /macros/savio100million5.mac
+  /macros/withfloor_neutron.mac
+  /macros/withfloor_compton.mac
+
   /shell/janis_savio_test3.sh
   /shell/savio10million.sh
   /shell/savio100million1.sh
@@ -77,12 +80,15 @@ set(Janis_SCRIPTS
   /shell/savio100million4.sh
   /shell/savio100million5.sh
   /shell/neutron_analysis.sh
+  /shell/withfloor_neutron.sh
+  /shell/withfloor_compton./sh
   icons.mac
   gui.mac
   run.png
   init_vis.mac
   vis.mac
   /analysis/source_check.C
+  /analysis/neutron_analysis.C
   /analysis/neutron_analysis_1.C
   /analysis/neutron_analysis_2.C
   /analysis/neutron_analysis_3.C

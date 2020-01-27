@@ -92,13 +92,13 @@ void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   }
 
   if(generator_mode == "gammas"){
-    G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->GetIonTable()->GetIon(55, 137, 0);
+    G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
     fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -10. * cm));
     fParticleSource->SetParticleDefinition(particleDefinition);
-    fParticleSource->SetParticleEnergy(0.*eV);
+    fParticleSource->SetParticleEnergy(661657.*eV);
 
     G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
-    G4double angle = G4UniformRand()*1.0;
+    G4double angle = G4UniformRand()*90.0;
     G4double theta = angle*(3.14159265358979323846/180)*radian;
 
     G4ThreeVector gammaDirection;

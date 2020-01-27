@@ -148,43 +148,45 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
     for( size_t i=0; i < stepCollection.size(); ++i ){
       eventID = stepCollection[i].GetEventID();
       trackID = stepCollection[i].GetTrackID();
-
-      // This paragraph is used to refresh step_ID when track_ID changes, which is a minor problem in step_info
-      if(i!=0)
-      {
-          if(trackID==stepCollection[i-1].GetTrackID())
-          {
-              stepID = j;
-              j++;
-          }
-          else
-          {
-              j = 0;
-              stepID = j;
-              j++;
-          }
-      }
-      else
-      {
-          stepID = 0;
-          j++;
-      }
-
-      parentID = stepCollection[i].GetParentID();
-
-      particle_name = stepCollection[i].GetParticleName();
-      volume_name = stepCollection[i].GetVolumeName();
-      volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
-      energy = stepCollection[i].GetEnergy();
       deposited_energy = stepCollection[i].GetDepositedEnergy();
 
-      position = stepCollection[i].GetPosition();
-      momentum = stepCollection[i].GetMomentumDirection();
+      if (deposited_energy!=0){
+        // This paragraph is used to refresh step_ID when track_ID changes, which is a minor problem in step_info
+        if(i!=0)
+        {
+            if(trackID==stepCollection[i-1].GetTrackID())
+            {
+                stepID = j;
+                j++;
+            }
+            else
+            {
+                j = 0;
+                stepID = j;
+                j++;
+            }
+        }
+        else
+        {
+            stepID = 0;
+            j++;
+        }
 
-      global_time = stepCollection[i].GetGlobalTime();
-      process_name = stepCollection[i].GetProcessName();
+        parentID = stepCollection[i].GetParentID();
 
-      data_tree->Fill();
+        particle_name = stepCollection[i].GetParticleName();
+        volume_name = stepCollection[i].GetVolumeName();
+        volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
+        energy = stepCollection[i].GetEnergy();
+
+        position = stepCollection[i].GetPosition();
+        momentum = stepCollection[i].GetMomentumDirection();
+
+        global_time = stepCollection[i].GetGlobalTime();
+        process_name = stepCollection[i].GetProcessName();
+
+        data_tree->Fill();
+      }
     }
   }
 
