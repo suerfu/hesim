@@ -81,7 +81,7 @@ set(Janis_SCRIPTS
   /shell/savio100million5.sh
   /shell/neutron_analysis.sh
   /shell/withfloor_neutron.sh
-  /shell/withfloor_compton./sh
+  /shell/withfloor_compton.sh
   icons.mac
   gui.mac
   run.png
