@@ -1,6 +1,6 @@
 #!/bin/bash
 # Job name:
-#SBATCH --job-name=janis_savio_test1
+#SBATCH --job-name=withfloor_compton
 #
 # Account:
 #SBATCH --account=fc_hedm
@@ -15,7 +15,7 @@
 #SBATCH --cpus-per-task=1
 #
 # Wall clock limit:
-#SBATCH --time=15:00:00
+#SBATCH --time=18:00:00
 #
 ## Command(s) to run:
 /global/home/users/yuanlq/McKinsey_Janis_Fridge/Janis-build/Janis -m /global/home/users/yuanlq/McKinsey_Janis_Fridge/Janis-build/macros/withfloor_compton.mac
