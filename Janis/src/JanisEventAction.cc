@@ -119,7 +119,12 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
         if(volume_name=="liquid helium" && deposited_energy!=0){
             if_helium = 1;
         }
-        if(deposited_energy!=0 && (volume_name=="fs_head_inner" || volume_name =="fs1_head_inner_1" || volume_name =="fs2_head_inner_2" || volume_name =="fs3_head_inner_3" || volume_name =="fs4_head_inner_4" || volume_name =="fs5_head_inner_5" || volume_name =="fs6_head_inner_6" || volume_name =="fs7_head_inner_7" || volume_name =="fs8_head_inner_8")){
+        if(deposited_energy!=0 && (volume_name =="fs1_head_inner_1" || volume_name =="fs2_head_inner_2" ||
+           volume_name =="fs3_head_inner_3" || volume_name =="fs4_head_inner_4" || volume_name =="fs5_head_inner_5" ||
+           volume_name =="fs6_head_inner_6" || volume_name =="fs7_head_inner_7" || volume_name =="fs8_head_inner_8" ||
+           volume_name =="fsNaI1_scintillator"|| volume_name =="fsNaI2_scintillator"|| volume_name =="fsNaI3_scintillator"||
+           volume_name =="fsNaI4_scintillator"|| volume_name =="fsNaI5_scintillator" || volume_name =="fsNaI6_scintillator" ||
+           volume_name =="fsNaI7_scintillator"|| volume_name =="fsNaI8_scintillator")){
             if_farside = 1;
         }
     }
@@ -150,44 +155,43 @@ void JanisEventAction::EndOfEventAction(const G4Event* event)
       trackID = stepCollection[i].GetTrackID();
       deposited_energy = stepCollection[i].GetDepositedEnergy();
 
-      if (deposited_energy!=0){
-        // This paragraph is used to refresh step_ID when track_ID changes, which is a minor problem in step_info
-        if(i!=0)
-        {
-            if(trackID==stepCollection[i-1].GetTrackID())
-            {
-                stepID = j;
-                j++;
-            }
-            else
-            {
-                j = 0;
-                stepID = j;
-                j++;
-            }
-        }
-        else
-        {
-            stepID = 0;
-            j++;
-        }
-
-        parentID = stepCollection[i].GetParentID();
-
-        particle_name = stepCollection[i].GetParticleName();
-        volume_name = stepCollection[i].GetVolumeName();
-        volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
-        energy = stepCollection[i].GetEnergy();
-
-        position = stepCollection[i].GetPosition();
-        momentum = stepCollection[i].GetMomentumDirection();
-
-        global_time = stepCollection[i].GetGlobalTime();
-        process_name = stepCollection[i].GetProcessName();
-
-        data_tree->Fill();
+      // This paragraph is used to refresh step_ID when track_ID changes, which is a minor problem in step_info
+      if(i!=0)
+      {
+          if(trackID==stepCollection[i-1].GetTrackID())
+          {
+              stepID = j;
+              j++;
+          }
+          else
+          {
+              j = 0;
+              stepID = j;
+              j++;
+          }
       }
+      else
+      {
+          stepID = 0;
+          j++;
+      }
+
+      parentID = stepCollection[i].GetParentID();
+
+      particle_name = stepCollection[i].GetParticleName();
+      volume_name = stepCollection[i].GetVolumeName();
+      volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
+      energy = stepCollection[i].GetEnergy();
+
+      position = stepCollection[i].GetPosition();
+      momentum = stepCollection[i].GetMomentumDirection();
+
+      global_time = stepCollection[i].GetGlobalTime();
+      process_name = stepCollection[i].GetProcessName();
+
+      data_tree->Fill();
     }
+
   }
 
   stepCollection.clear();

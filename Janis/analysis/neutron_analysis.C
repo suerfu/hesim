@@ -31,7 +31,7 @@ using namespace std;
 void neutron_analysis(){
   // Read source root file
   string fname;
-  string filename = "../../Janis-result/NoTOF_NoFloor_neutron/savio100million1.root";
+  string filename = "../../Janis-result/mini_test/savio10million.root";
   TFile* f = TFile::Open(filename.c_str());
   if(!f){
     cout << "ERROR reading file " << filename << endl;
@@ -331,46 +331,49 @@ void neutron_analysis(){
 
   }
 
+  // Total number of GEANT events recorded
+  cout << "Total number of GEANT events recorded is " << event_fs.size() << endl;
+
   // Nscattering
 
   // Average scattering times in helium
-  cout << "Average scattering times in helium is " << Nhelium/event_fs.size() << endl;
+  cout << "Average scattering times in helium is " << Nhelium << endl;
   // Average scattering times in floor
-  cout << "Average scattering times in floor is " << Nfloor/event_fs.size() << endl;
+  cout << "Average scattering times in floor is " << Nfloor << endl;
   // Average scattering times in far side detector 1
-  cout << "Average scattering times in far side detector 1 is " << 8*Nfs1/event_fs.size() << endl;
+  cout << "Average scattering times in far side detector 1 is " << Nfs1 << endl;
   // Average scattering times in far side detector 2
-  cout << "Average scattering times in far side detector 2 is " << 8*Nfs2/event_fs.size() << endl;
+  cout << "Average scattering times in far side detector 2 is " << Nfs2 << endl;
   // Average scattering times in far side detector 3
-  cout << "Average scattering times in far side detector 3 is " << 8*Nfs3/event_fs.size() << endl;
+  cout << "Average scattering times in far side detector 3 is " << Nfs3 << endl;
   // Average scattering times in far side detector 4
-  cout << "Average scattering times in far side detector 4 is " << 8*Nfs4/event_fs.size() << endl;
+  cout << "Average scattering times in far side detector 4 is " << Nfs4 << endl;
   // Average scattering times in far side detector 5
-  cout << "Average scattering times in far side detector 5 is " << 8*Nfs5/event_fs.size() << endl;
+  cout << "Average scattering times in far side detector 5 is " << Nfs5 << endl;
   // Average scattering times in far side detector 6
-  cout << "Average scattering times in far side detector 6 is " << 8*Nfs6/event_fs.size() << endl;
+  cout << "Average scattering times in far side detector 6 is " << Nfs6 << endl;
   // Average scattering times in far side detector 7
-  cout << "Average scattering times in far side detector 7 is " << 8*Nfs7/event_fs.size() << endl;
+  cout << "Average scattering times in far side detector 7 is " << Nfs7 << endl;
   // Average scattering times in far side detector 8
-  cout << "Average scattering times in far side detector 8 is " << 8*Nfs8/event_fs.size() << endl;
+  cout << "Average scattering times in far side detector 8 is " << Nfs8 << endl;
   // Average unphysical scattering times in far side detector 1
-  cout << "Average unphysical scattering times in far side detector 1 is " << 8*NfsAbnormal1/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal1/Nfs1 << endl;
+  cout << "Average unphysical scattering times in far side detector 1 is " << NfsAbnormal1 << ", and the unphysical scattering ratio is " << NfsAbnormal1/Nfs1 << endl;
   // Average unphysical scattering times in far side detector 2
-  cout << "Average unphysical scattering times in far side detector 2 is " << 8*NfsAbnormal2/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal2/Nfs2 << endl;
+  cout << "Average unphysical scattering times in far side detector 2 is " << NfsAbnormal2 << ", and the unphysical scattering ratio is " << NfsAbnormal2/Nfs2 << endl;
   // Average unphysical scattering times in far side detector 3
-  cout << "Average unphysical scattering times in far side detector 3 is " << 8*NfsAbnormal3/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal3/Nfs3 << endl;
+  cout << "Average unphysical scattering times in far side detector 3 is " << NfsAbnormal3 << ", and the unphysical scattering ratio is " << NfsAbnormal3/Nfs3 << endl;
   // Average unphysical scattering times in far side detector 4
-  cout << "Average unphysical scattering times in far side detector 4 is " << 8*NfsAbnormal4/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal4/Nfs4 << endl;
+  cout << "Average unphysical scattering times in far side detector 4 is " << NfsAbnormal4 << ", and the unphysical scattering ratio is " << NfsAbnormal4/Nfs4 << endl;
   // Average unphysical scattering times in far side detector 5
-  cout << "Average unphysical scattering times in far side detector 5 is " << 8*NfsAbnormal5/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal5/Nfs5 << endl;
+  cout << "Average unphysical scattering times in far side detector 5 is " << NfsAbnormal5 << ", and the unphysical scattering ratio is " << NfsAbnormal5/Nfs5 << endl;
   // Average unphysical scattering times in far side detector 6
-  cout << "Average unphysical scattering times in far side detector 6 is " << 8*NfsAbnormal6/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal6/Nfs6 << endl;
+  cout << "Average unphysical scattering times in far side detector 6 is " << NfsAbnormal6 << ", and the unphysical scattering ratio is " << NfsAbnormal6/Nfs6 << endl;
   // Average unphysical scattering times in far side detector 7
-  cout << "Average unphysical scattering times in far side detector 7 is " << 8*NfsAbnormal7/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal7/Nfs7 << endl;
+  cout << "Average unphysical scattering times in far side detector 7 is " << NfsAbnormal7 << ", and the unphysical scattering ratio is " << NfsAbnormal7/Nfs7 << endl;
   // Average unphysical scattering times in far side detector 8
-  cout << "Average unphysical scattering times in far side detector 8 is " << 8*NfsAbnormal8/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal8/Nfs8 << endl;
+  cout << "Average unphysical scattering times in far side detector 8 is " << NfsAbnormal8 << ", and the unphysical scattering ratio is " << NfsAbnormal8/Nfs8 << endl;
   // Average scattering in everywhere else
-  cout << "Average scattering in everywhere else is " << Nelse/event_fs.size() << endl;
+  cout << "Average scattering in everywhere else is " << Nelse << endl;
 
   // All 8 far side detectors
   cout << "Data have been processed, now ready to plot" << endl;

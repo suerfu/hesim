@@ -1661,7 +1661,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4double fsNaI_scintillator_posX = 0.0*mm;
     G4double fsNaI_scintillator_posY = 0.0*mm;
-    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+    G4double fsNaI_scintillator_posZ = -2.615 *mm; // Uncertain
 
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
@@ -1688,7 +1688,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
     fsNaI_scintillator_1_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
-    fsNaI_scintillator_1_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_1_LV, name_in, fsNaI_head_inner_1_LV, false, 0, fCheckOverlaps);
+    fsNaI_scintillator_1_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_1_LV, name_scin, fsNaI_head_inner_1_LV, false, 0, fCheckOverlaps);
 
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
@@ -1738,7 +1738,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4double fsNaI_scintillator_posX = 0.0*mm;
     G4double fsNaI_scintillator_posY = 0.0*mm;
-    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+    G4double fsNaI_scintillator_posZ = -2.615 *mm;
 
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
@@ -1765,7 +1765,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
     fsNaI_scintillator_2_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
-    fsNaI_scintillator_2_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_2_LV, name_in, fsNaI_head_inner_2_LV, false, 0, fCheckOverlaps);
+    fsNaI_scintillator_2_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_2_LV, name_scin, fsNaI_head_inner_2_LV, false, 0, fCheckOverlaps);
 
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
@@ -1815,7 +1815,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4double fsNaI_scintillator_posX = 0.0*mm;
     G4double fsNaI_scintillator_posY = 0.0*mm;
-    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+    G4double fsNaI_scintillator_posZ = -2.615 *mm;
 
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
@@ -1842,7 +1842,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
     fsNaI_scintillator_3_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
-    fsNaI_scintillator_3_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_3_LV, name_in, fsNaI_head_inner_3_LV, false, 0, fCheckOverlaps);
+    fsNaI_scintillator_3_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_3_LV, name_scin, fsNaI_head_inner_3_LV, false, 0, fCheckOverlaps);
 
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
@@ -1892,7 +1892,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4double fsNaI_scintillator_posX = 0.0*mm;
     G4double fsNaI_scintillator_posY = 0.0*mm;
-    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+    G4double fsNaI_scintillator_posZ = -2.615 *mm;
 
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
@@ -1919,7 +1919,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
     fsNaI_scintillator_4_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
-    fsNaI_scintillator_4_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_4_LV, name_in, fsNaI_head_inner_4_LV, false, 0, fCheckOverlaps);
+    fsNaI_scintillator_4_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_4_LV, name_scin, fsNaI_head_inner_4_LV, false, 0, fCheckOverlaps);
 
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
@@ -1969,7 +1969,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4double fsNaI_scintillator_posX = 0.0*mm;
     G4double fsNaI_scintillator_posY = 0.0*mm;
-    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+    G4double fsNaI_scintillator_posZ = -2.615 *mm;
 
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
@@ -1996,7 +1996,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
     fsNaI_scintillator_5_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
-    fsNaI_scintillator_5_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_5_LV, name_in, fsNaI_head_inner_5_LV, false, 0, fCheckOverlaps);
+    fsNaI_scintillator_5_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_5_LV, name_scin, fsNaI_head_inner_5_LV, false, 0, fCheckOverlaps);
 
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
@@ -2046,7 +2046,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4double fsNaI_scintillator_posX = 0.0*mm;
     G4double fsNaI_scintillator_posY = 0.0*mm;
-    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+    G4double fsNaI_scintillator_posZ = -2.615 *mm;
 
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
@@ -2073,7 +2073,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
     fsNaI_scintillator_6_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
-    fsNaI_scintillator_6_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_6_LV, name_in, fsNaI_head_inner_6_LV, false, 0, fCheckOverlaps);
+    fsNaI_scintillator_6_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_6_LV, name_scin, fsNaI_head_inner_6_LV, false, 0, fCheckOverlaps);
 
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
@@ -2123,7 +2123,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4double fsNaI_scintillator_posX = 0.0*mm;
     G4double fsNaI_scintillator_posY = 0.0*mm;
-    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+    G4double fsNaI_scintillator_posZ = -2.615 *mm;
 
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
@@ -2150,7 +2150,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
     fsNaI_scintillator_7_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
-    fsNaI_scintillator_7_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_7_LV, name_in, fsNaI_head_inner_7_LV, false, 0, fCheckOverlaps);
+    fsNaI_scintillator_7_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_7_LV, name_scin, fsNaI_head_inner_7_LV, false, 0, fCheckOverlaps);
 
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
@@ -2200,7 +2200,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4double fsNaI_scintillator_posX = 0.0*mm;
     G4double fsNaI_scintillator_posY = 0.0*mm;
-    G4double fsNaI_scintillator_posZ = -3.175 *mm;
+    G4double fsNaI_scintillator_posZ = -2.615 *mm;
 
     G4double fsNaI_head_inner_posX = 0.0*mm;
     G4double fsNaI_head_inner_posY = 0.0*mm;
@@ -2227,7 +2227,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
 
     G4Tubs* fsNaI_scintillator_S = new G4Tubs(name_in, fsNaI_scintillator_rMin, fsNaI_scintillator_rMax, fsNaI_scintillator_Dz/2.0, fsNaI_scintillator_SPhi, fsNaI_scintillator_DPhi);
     fsNaI_scintillator_8_LV = new G4LogicalVolume(fsNaI_scintillator_S, fsNaI_scintillator_material, name_scin);
-    fsNaI_scintillator_8_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_8_LV, name_in, fsNaI_head_inner_8_LV, false, 0, fCheckOverlaps);
+    fsNaI_scintillator_8_PV = new G4PVPlacement(fsNaI_scintillator_rm, G4ThreeVector(fsNaI_scintillator_posX,fsNaI_scintillator_posY,fsNaI_scintillator_posZ), fsNaI_scintillator_8_LV, name_scin, fsNaI_head_inner_8_LV, false, 0, fCheckOverlaps);
 
     G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
     container_vis->SetVisibility(true);
@@ -3163,7 +3163,7 @@ void JanisDetectorConstruction::add8thNaIFarSideAngle(G4double new_fsNaI_angle_8
 
     G4String name;
 
-    name = "fsNaI5_head_outer_8";
+    name = "fsNaI8_head_outer_8";
     G4Tubs* fsNaI_head_outer_S = new G4Tubs(name, fsNaI_head_outer_rMin, fsNaI_head_outer_rMax, fsNaI_head_outer_Dz/2.0, fsNaI_head_outer_SPhi, fsNaI_head_outer_DPhi);
     fsNaI_head_outer_8_LV = new G4LogicalVolume(fsNaI_head_outer_S, fsNaI_head_outer_material, name);
     G4Transform3D fsNaI_head_outer_transform(fsNaI_head_outer_rm, G4ThreeVector(fsNaI_head_outer_posX,fsNaI_head_outer_posY,fsNaI_head_outer_posZ));
