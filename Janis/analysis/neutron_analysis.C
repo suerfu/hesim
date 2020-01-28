@@ -67,16 +67,35 @@ void neutron_analysis(){
   string *process_name = 0;
   events -> SetBranchAddress("process_name", &process_name);
 
-  // Setting up a new figure
-  TH1D *h = new TH1D("","", 100, 0, 3);
-  TH1D *h1 = new TH1D("","", 100, 0, 3);
-  TH1D *h2 = new TH1D("","", 100, 0, 3);
-  TH1D *h3 = new TH1D("","", 100, 0, 3);
-  TH1D *h4 = new TH1D("","", 100, 0, 3);
-  TH1D *h5 = new TH1D("","", 100, 0, 3);
-  TH1D *h6 = new TH1D("","", 100, 0, 3);
-  TH1D *h7 = new TH1D("","", 100, 0, 3);
-  TH1D *h8 = new TH1D("","", 100, 0, 3);
+  // energy deposit in helium (mixed)
+  TH1D *h1 = new TH1D("h1","mixed", 100, 0, 3);
+  TH1D *h2 = new TH1D("h2","mixed", 100, 0, 3);
+  TH1D *h3 = new TH1D("h3","mixed", 100, 0, 3);
+  TH1D *h4 = new TH1D("h4","mixed", 100, 0, 3);
+  TH1D *h5 = new TH1D("h5","mixed", 100, 0, 3);
+  TH1D *h6 = new TH1D("h6","mixed", 100, 0, 3);
+  TH1D *h7 = new TH1D("h7","mixed", 100, 0, 3);
+  TH1D *h8 = new TH1D("h8","mixed", 100, 0, 3);
+
+  // energy deposit in helium (NR only)
+  TH1D *g1 = new TH1D("g1","NR only", 100, 0, 3);
+  TH1D *g2 = new TH1D("g2","NR only", 100, 0, 3);
+  TH1D *g3 = new TH1D("g3","NR only", 100, 0, 3);
+  TH1D *g4 = new TH1D("g4","NR only", 100, 0, 3);
+  TH1D *g5 = new TH1D("g5","NR only", 100, 0, 3);
+  TH1D *g6 = new TH1D("g6","NR only", 100, 0, 3);
+  TH1D *g7 = new TH1D("g7","NR only", 100, 0, 3);
+  TH1D *g8 = new TH1D("g8","NR only", 100, 0, 3);
+
+  // tof
+  TH1D *t1 = new TH1D("","", 100, 0, 200);
+  TH1D *t2 = new TH1D("","", 100, 0, 200);
+  TH1D *t3 = new TH1D("","", 100, 0, 200);
+  TH1D *t4 = new TH1D("","", 100, 0, 200);
+  TH1D *t5 = new TH1D("","", 100, 0, 200);
+  TH1D *t6 = new TH1D("","", 100, 0, 200);
+  TH1D *t7 = new TH1D("","", 100, 0, 200);
+  TH1D *t8 = new TH1D("","", 100, 0, 200);
 
   // Setting up variables to sum over the same track
   double total_energy_deposit;
@@ -178,8 +197,10 @@ void neutron_analysis(){
         events -> GetEntry(j);
 
         // Loop inside the helium cube to sum energy for multiple scattering
+
         while (*volume_name == "liquid helium"){
 
+          // Compare the Edep in helium and initial energy of alphas and exclude the alphas that match to avoid double count
           if (*particle_name == "neutron" && deposited_energy != 0){
             neutron_Edep[n] = deposited_energy;
             n++;
@@ -294,35 +315,66 @@ void neutron_analysis(){
       // Filling the deposit to histograms, excluding double counted alphas
       events -> GetEntry(i);
       tof = fs_time - he_time;
-      if (!(double_count && *particle_name=="alpha") && tof < 130){
+      if (!(double_count && *particle_name=="alpha")){
         fs = event_fs[eventID];
 
         if (total_energy_deposit > 0.0001){
-          h -> Fill(total_energy_deposit);
 
           if (fs == 1){
             h1 -> Fill(total_energy_deposit);
+            t1 -> Fill(tof);
+            if (*particle_name== "neutron"){
+              g1 -> Fill(total_energy_deposit);
+            }
           }
           if (fs == 2){
             h2 -> Fill(total_energy_deposit);
+            t2 -> Fill(tof);
+            if (*particle_name== "neutron"){
+              g2 -> Fill(total_energy_deposit);
+            }
           }
           if (fs == 3){
             h3 -> Fill(total_energy_deposit);
+            t3 -> Fill(tof);
+            if (*particle_name== "neutron"){
+              g3 -> Fill(total_energy_deposit);
+            }
           }
           if (fs == 4){
             h4 -> Fill(total_energy_deposit);
+            t4 -> Fill(tof);
+            if (*particle_name== "neutron"){
+              g4 -> Fill(total_energy_deposit);
+            }
           }
           if (fs == 5){
             h5 -> Fill(total_energy_deposit);
+            t5 -> Fill(tof);
+            if (*particle_name== "neutron"){
+              g5 -> Fill(total_energy_deposit);
+            }
           }
           if (fs == 6){
             h6 -> Fill(total_energy_deposit);
+            t6 -> Fill(tof);
+            if (*particle_name== "neutron"){
+              g6 -> Fill(total_energy_deposit);
+            }
           }
           if (fs == 7){
             h7 -> Fill(total_energy_deposit);
+            t7 -> Fill(tof);
+            if (*particle_name== "neutron"){
+              g7 -> Fill(total_energy_deposit);
+            }
           }
           if (fs == 8){
             h8 -> Fill(total_energy_deposit);
+            t8 -> Fill(tof);
+            if (*particle_name== "neutron"){
+              g8 -> Fill(total_energy_deposit);
+            }
           }
         }
       }
@@ -357,47 +409,32 @@ void neutron_analysis(){
   // Average scattering times in far side detector 8
   cout << "Average scattering times in far side detector 8 is " << Nfs8 << endl;
   // Average unphysical scattering times in far side detector 1
-  cout << "Average unphysical scattering times in far side detector 1 is " << NfsAbnormal1 << ", and the unphysical scattering ratio is " << NfsAbnormal1/Nfs1 << endl;
+  cout << "Average unphysical scattering times in far side detector 1 is " << NfsAbnormal1/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal1/Nfs1 << endl;
   // Average unphysical scattering times in far side detector 2
-  cout << "Average unphysical scattering times in far side detector 2 is " << NfsAbnormal2 << ", and the unphysical scattering ratio is " << NfsAbnormal2/Nfs2 << endl;
+  cout << "Average unphysical scattering times in far side detector 2 is " << NfsAbnormal2/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal2/Nfs2 << endl;
   // Average unphysical scattering times in far side detector 3
-  cout << "Average unphysical scattering times in far side detector 3 is " << NfsAbnormal3 << ", and the unphysical scattering ratio is " << NfsAbnormal3/Nfs3 << endl;
+  cout << "Average unphysical scattering times in far side detector 3 is " << NfsAbnormal3/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal3/Nfs3 << endl;
   // Average unphysical scattering times in far side detector 4
-  cout << "Average unphysical scattering times in far side detector 4 is " << NfsAbnormal4 << ", and the unphysical scattering ratio is " << NfsAbnormal4/Nfs4 << endl;
+  cout << "Average unphysical scattering times in far side detector 4 is " << NfsAbnormal4/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal4/Nfs4 << endl;
   // Average unphysical scattering times in far side detector 5
-  cout << "Average unphysical scattering times in far side detector 5 is " << NfsAbnormal5 << ", and the unphysical scattering ratio is " << NfsAbnormal5/Nfs5 << endl;
+  cout << "Average unphysical scattering times in far side detector 5 is " << NfsAbnormal5/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal5/Nfs5 << endl;
   // Average unphysical scattering times in far side detector 6
-  cout << "Average unphysical scattering times in far side detector 6 is " << NfsAbnormal6 << ", and the unphysical scattering ratio is " << NfsAbnormal6/Nfs6 << endl;
+  cout << "Average unphysical scattering times in far side detector 6 is " << NfsAbnormal6/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal6/Nfs6 << endl;
   // Average unphysical scattering times in far side detector 7
-  cout << "Average unphysical scattering times in far side detector 7 is " << NfsAbnormal7 << ", and the unphysical scattering ratio is " << NfsAbnormal7/Nfs7 << endl;
+  cout << "Average unphysical scattering times in far side detector 7 is " << NfsAbnormal7/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal7/Nfs7 << endl;
   // Average unphysical scattering times in far side detector 8
-  cout << "Average unphysical scattering times in far side detector 8 is " << NfsAbnormal8 << ", and the unphysical scattering ratio is " << NfsAbnormal8/Nfs8 << endl;
+  cout << "Average unphysical scattering times in far side detector 8 is " << NfsAbnormal8/event_fs.size() << ", and the unphysical scattering ratio is " << NfsAbnormal8/Nfs8 << endl;
   // Average scattering in everywhere else
-  cout << "Average scattering in everywhere else is " << Nelse << endl;
+  cout << "Average scattering in everywhere else is " << Nelse/event_fs.size() << endl;
 
   // All 8 far side detectors
   cout << "Data have been processed, now ready to plot" << endl;
-
-  TCanvas* c = new TCanvas();
-
-  cout << "New TCavas c constructed" << endl;
-
-  c -> SetLogy();
-  // output file name
-  fname = "(No TOF No floor) All 8 far side detectors 1";
-  h -> Draw();
-  h->SetTitle(fname.c_str());
-  // Set Axis Title
-  h->GetXaxis()->SetTitle("energy deposit (MeV)");
-  h->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  c->SaveAs((fname + ".png").c_str());
 
   // 1st far side detector
   TCanvas* c1 = new TCanvas();
   c1 -> SetLogy();
   // output file name
-  fname = "(No TOF No floor) 1st far side detector 1";
+  fname = "(No floor) 1st far-side channel Edep in helium (mixed)";
   h1 -> Draw();
   h1->SetTitle(fname.c_str());
   // Set Axis Title
@@ -406,11 +443,35 @@ void neutron_analysis(){
   // Save the figure
   c1->SaveAs((fname + ".png").c_str());
 
+  TCanvas* d1 = new TCanvas();
+  d1 -> SetLogy();
+  // output file name
+  fname = "(No floor) 1st far-side channel Edep in helium (NR only)";
+  g1 -> Draw();
+  g1->SetTitle(fname.c_str());
+  // Set Axis Title
+  g1->GetXaxis()->SetTitle("energy deposit (MeV)");
+  g1->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  d1->SaveAs((fname + ".png").c_str());
+
+  TCanvas* b1 = new TCanvas();
+  b1 -> SetLogy();
+  // output file name
+  fname = "(No floor) 1st far-side channel ToF (mixed)";
+  t1 -> Draw();
+  t1->SetTitle(fname.c_str());
+  // Set Axis Title
+  t1->GetXaxis()->SetTitle("Time of Fly (ns)");
+  t1->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  b1->SaveAs((fname + ".png").c_str());
+
   // 2nd far side detector
   TCanvas* c2 = new TCanvas();
   c2 -> SetLogy();
   // output file name
-  fname = "(No TOF No floor) 2nd far side detector 1";
+  fname = "(No floor) 2nd far-side channel Edep in helium (mixed)";
   h2 -> Draw();
   h2->SetTitle(fname.c_str());
   // Set Axis Title
@@ -419,11 +480,35 @@ void neutron_analysis(){
   // Save the figure
   c2->SaveAs((fname + ".png").c_str());
 
+  TCanvas* d2 = new TCanvas();
+  d2 -> SetLogy();
+  // output file name
+  fname = "(No floor) 2nd far-side channel Edep in helium (NR only)";
+  g2 -> Draw();
+  g2->SetTitle(fname.c_str());
+  // Set Axis Title
+  g2->GetXaxis()->SetTitle("energy deposit (MeV)");
+  g2->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  d2->SaveAs((fname + ".png").c_str());
+
+  TCanvas* b2 = new TCanvas();
+  b2 -> SetLogy();
+  // output file name
+  fname = "(No floor) 2nd far-side channel ToF (mixed)";
+  t2 -> Draw();
+  t2->SetTitle(fname.c_str());
+  // Set Axis Title
+  t2->GetXaxis()->SetTitle("Time of Fly (ns)");
+  t2->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  b2->SaveAs((fname + ".png").c_str());
+
   // 3rd far side detector
   TCanvas* c3 = new TCanvas();
   c3 -> SetLogy();
   // output file name
-  fname = "(No TOF No floor) 3rd far side detector 1";
+  fname = "(No floor) 3rd far-side channel Edep in helium (mixed)";
   h3 -> Draw();
   h3->SetTitle(fname.c_str());
   // Set Axis Title
@@ -432,11 +517,35 @@ void neutron_analysis(){
   // Save the figure
   c3->SaveAs((fname + ".png").c_str());
 
+  TCanvas* d3 = new TCanvas();
+  d3 -> SetLogy();
+  // output file name
+  fname = "(No floor) 3rd far-side channel Edep in helium (NR only)";
+  g3 -> Draw();
+  g3->SetTitle(fname.c_str());
+  // Set Axis Title
+  g3->GetXaxis()->SetTitle("energy deposit (MeV)");
+  g3->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  d3->SaveAs((fname + ".png").c_str());
+
+  TCanvas* b3 = new TCanvas();
+  b3 -> SetLogy();
+  // output file name
+  fname = "(No floor) 3rd far-side channel ToF (mixed)";
+  t3 -> Draw();
+  t3->SetTitle(fname.c_str());
+  // Set Axis Title
+  t3->GetXaxis()->SetTitle("Time of Fly (ns)");
+  t3->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  b3->SaveAs((fname + ".png").c_str());
+
   // 4th far side detector
   TCanvas* c4 = new TCanvas();
   c4 -> SetLogy();
   // output file name
-  fname = "(No TOF No floor) 4th far side detector 1";
+  fname = "(No floor) 4th far-side channel Edep in helium (mixed)";
   h4 -> Draw();
   h4->SetTitle(fname.c_str());
   // Set Axis Title
@@ -445,11 +554,35 @@ void neutron_analysis(){
   // Save the figure
   c4->SaveAs((fname + ".png").c_str());
 
+  TCanvas* d4 = new TCanvas();
+  d4 -> SetLogy();
+  // output file name
+  fname = "(No floor) 4th far-side channel Edep in helium (NR only)";
+  g4 -> Draw();
+  g4->SetTitle(fname.c_str());
+  // Set Axis Title
+  g4->GetXaxis()->SetTitle("energy deposit (MeV)");
+  g4->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  d4->SaveAs((fname + ".png").c_str());
+
+  TCanvas* b4 = new TCanvas();
+  b4 -> SetLogy();
+  // output file name
+  fname = "(No floor) 4th far-side channel ToF (mixed)";
+  t4 -> Draw();
+  t4->SetTitle(fname.c_str());
+  // Set Axis Title
+  t4->GetXaxis()->SetTitle("Time of Fly (ns)");
+  t4->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  b4->SaveAs((fname + ".png").c_str());
+
   // 5th far side detector
   TCanvas* c5 = new TCanvas();
   c5 -> SetLogy();
   // output file name
-  fname = "(No TOF No floor) 5th far side detector 1";
+  fname = "(No floor) 5th far-side channel Edep in helium (mixed)";
   h5 -> Draw();
   h5->SetTitle(fname.c_str());
   // Set Axis Title
@@ -458,11 +591,35 @@ void neutron_analysis(){
   // Save the figure
   c5->SaveAs((fname + ".png").c_str());
 
+  TCanvas* d5 = new TCanvas();
+  d5 -> SetLogy();
+  // output file name
+  fname = "(No floor) 5th far-side channel Edep in helium (NR only)";
+  g5 -> Draw();
+  g5->SetTitle(fname.c_str());
+  // Set Axis Title
+  g5->GetXaxis()->SetTitle("energy deposit (MeV)");
+  g5->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  d5->SaveAs((fname + ".png").c_str());
+
+  TCanvas* b5 = new TCanvas();
+  b5 -> SetLogy();
+  // output file name
+  fname = "(No floor) 5th far-side channel ToF (mixed)";
+  t5 -> Draw();
+  t5->SetTitle(fname.c_str());
+  // Set Axis Title
+  t5->GetXaxis()->SetTitle("Time of Fly (ns)");
+  t5->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  b5->SaveAs((fname + ".png").c_str());
+
   // 6th far side detector
   TCanvas* c6 = new TCanvas();
   c6 -> SetLogy();
   // output file name
-  fname = "(No TOF No floor) 6th far side detector 1";
+  fname = "(No floor) 6th far-side channel Edep in helium (mixed)";
   h6 -> Draw();
   h6->SetTitle(fname.c_str());
   // Set Axis Title
@@ -471,11 +628,35 @@ void neutron_analysis(){
   // Save the figure
   c6->SaveAs((fname + ".png").c_str());
 
+  TCanvas* d6 = new TCanvas();
+  d6 -> SetLogy();
+  // output file name
+  fname = "(No floor) 6th far-side channel Edep in helium (NR only)";
+  g6 -> Draw();
+  g6->SetTitle(fname.c_str());
+  // Set Axis Title
+  g6->GetXaxis()->SetTitle("energy deposit (MeV)");
+  g6->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  d6->SaveAs((fname + ".png").c_str());
+
+  TCanvas* b6 = new TCanvas();
+  b6 -> SetLogy();
+  // output file name
+  fname = "(No floor) 6th far-side channel ToF (mixed)";
+  t6 -> Draw();
+  t6->SetTitle(fname.c_str());
+  // Set Axis Title
+  t6->GetXaxis()->SetTitle("Time of Fly (ns)");
+  t6->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  b6->SaveAs((fname + ".png").c_str());
+
   // 7th far side detector
   TCanvas* c7 = new TCanvas();
   c7 -> SetLogy();
   // output file name
-  fname = "(No TOF No floor) 7th far side detector 1";
+  fname = "(No floor) 7th far-side channel Edep in helium (mixed)";
   h7 -> Draw();
   h7->SetTitle(fname.c_str());
   // Set Axis Title
@@ -484,11 +665,35 @@ void neutron_analysis(){
   // Save the figure
   c7->SaveAs((fname + ".png").c_str());
 
+  TCanvas* d7 = new TCanvas();
+  d7 -> SetLogy();
+  // output file name
+  fname = "(No floor) 7th far-side channel Edep in helium (NR only)";
+  g7 -> Draw();
+  g7->SetTitle(fname.c_str());
+  // Set Axis Title
+  g7->GetXaxis()->SetTitle("energy deposit (MeV)");
+  g7->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  d7->SaveAs((fname + ".png").c_str());
+
+  TCanvas* b7 = new TCanvas();
+  b7 -> SetLogy();
+  // output file name
+  fname = "(No floor) 7th far-side channel ToF (mixed)";
+  t7 -> Draw();
+  t7->SetTitle(fname.c_str());
+  // Set Axis Title
+  t7->GetXaxis()->SetTitle("Time of Fly (ns)");
+  t7->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  b1->SaveAs((fname + ".png").c_str());
+
   // 8th far side detector
   TCanvas* c8 = new TCanvas();
   c8 -> SetLogy();
   // output file name
-  fname = "(No TOF No floor) 8th far side detector 1";
+  fname = "(No floor) 8th far-side channel Edep in helium (mixed)";
   h8 -> Draw();
   h8->SetTitle(fname.c_str());
   // Set Axis Title
@@ -496,4 +701,28 @@ void neutron_analysis(){
   h8->GetYaxis()->SetTitle("Counts");
   // Save the figure
   c8->SaveAs((fname + ".png").c_str());
+
+  TCanvas* d8 = new TCanvas();
+  d8 -> SetLogy();
+  // output file name
+  fname = "(No floor) 8th far-side channel Edep in helium (NR only)";
+  g8 -> Draw();
+  g8->SetTitle(fname.c_str());
+  // Set Axis Title
+  g8->GetXaxis()->SetTitle("energy deposit (MeV)");
+  g8->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  d8->SaveAs((fname + ".png").c_str());
+
+  TCanvas* b8 = new TCanvas();
+  b8 -> SetLogy();
+  // output file name
+  fname = "(No floor) 8th far-side channel ToF (mixed)";
+  t8 -> Draw();
+  t8->SetTitle(fname.c_str());
+  // Set Axis Title
+  t8->GetXaxis()->SetTitle("Time of Fly (ns)");
+  t8->GetYaxis()->SetTitle("Counts");
+  // Save the figure
+  b8->SaveAs((fname + ".png").c_str());
 }
