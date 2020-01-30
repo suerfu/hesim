@@ -143,14 +143,6 @@ void neutron_analysis(){
   int Nfs6;
   int Nfs7;
   int Nfs8;
-  int NfsAbnormal1; // channel 1 scattering from another fs detector
-  int NfsAbnormal2; // channel 2 scattering from another fs detector
-  int NfsAbnormal3; // channel 3 scattering from another fs detector
-  int NfsAbnormal4; // channel 4 scattering from another fs detector
-  int NfsAbnormal5; // channel 5 scattering from another fs detector
-  int NfsAbnormal6; // channel 6 scattering from another fs detector
-  int NfsAbnormal7; // channel 7 scattering from another fs detector
-  int NfsAbnormal8; // channel 8 scattering from another fs detector
 
   int Nfloor; // Counter of scatterings in the floor
 
@@ -195,14 +187,6 @@ void neutron_analysis(){
       Nfs6 = 0;
       Nfs7 = 0;
       Nfs8 = 0;
-      NfsAbnormal1 = 0;
-      NfsAbnormal2 = 0;
-      NfsAbnormal3 = 0;
-      NfsAbnormal4 = 0;
-      NfsAbnormal5 = 0;
-      NfsAbnormal6 = 0;
-      NfsAbnormal7 = 0;
-      NfsAbnormal8 = 0;
     }
     */
     /* Trying to save the variables below to a root. Problematic
@@ -301,15 +285,10 @@ void neutron_analysis(){
         // label the tracks with different far side detector as destination
         // while the step is still in the first track
         // original neutron only (excluded alpha and other particles)
-        // The logic here to determine NfsAbnormal is to see if a neutron scatters in a fs which is not the same as its fs label
         event_fs[eventID] = 0; // which means that it hasn't been assigned
 
         while (eventID == this_eventID && trackID == 1){
           if (*volume_name == "fs1_head_inner_1"){
-            if (event_fs[eventID] != 0 && event_fs[eventID] != 1 && deposited_energy!=0){
-              NfsAbnormal1 += 1;
-              cout << "NfsAbnormal1 = " << NfsAbnormal1 << endl;
-            }
             // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 1;
@@ -317,70 +296,49 @@ void neutron_analysis(){
             }
           }
           if (*volume_name == "fs2_head_inner_2"){
-            if (event_fs[eventID] != 0 && event_fs[eventID] != 2 && deposited_energy!=0){
-              NfsAbnormal2 += 1;
-              cout << "NfsAbnormal2 = " << NfsAbnormal2 << endl;
-            }
+            // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 2;
               fs_time = global_time;
             }
           }
           if (*volume_name == "fs3_head_inner_3"){
-            if (event_fs[eventID] != 0 && event_fs[eventID] != 3 && deposited_energy!=0){
-              NfsAbnormal3 += 1;
-              cout << "NfsAbnormal3 = " << NfsAbnormal3 << endl;
-            }
+            // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 3;
               fs_time = global_time;
             }
           }
           if (*volume_name == "fs4_head_inner_4"){
-            if (event_fs[eventID] != 0 && event_fs[eventID] != 4 && deposited_energy!=0){
-              NfsAbnormal4 += 1;
-              cout << "NfsAbnormal4 = " << NfsAbnormal4 << endl;
-            }
+            // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 4;
               fs_time = global_time;
             }
           }
           if (*volume_name == "fs5_head_inner_5"){
-            if (event_fs[eventID] != 0 && event_fs[eventID] != 5 && deposited_energy!=0){
-              NfsAbnormal5 += 1;
-              cout << "NfsAbnormal5 = " << NfsAbnormal5 << endl;
-            }
+            // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 5;
               fs_time = global_time;
             }
           }
           if (*volume_name == "fs6_head_inner_6"){
-            if (event_fs[eventID] != 0 && event_fs[eventID] != 6 && deposited_energy!=0){
-              NfsAbnormal6 += 1;
-              cout << "NfsAbnormal6 = " << NfsAbnormal6 << endl;
-            }
+            // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 6;
               fs_time = global_time;
             }
           }
           if (*volume_name == "fs7_head_inner_7"){
-            if (event_fs[eventID] != 0 && event_fs[eventID] != 7 && deposited_energy!=0){
-              NfsAbnormal7 += 1;
-              cout << "NfsAbnormal7 = " << NfsAbnormal7 << endl;
-            }
+            // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 7;
               fs_time = global_time;
             }
           }
           if (*volume_name == "fs8_head_inner_8"){
-            if (event_fs[eventID] != 0 && event_fs[eventID] != 8 && deposited_energy!=0){
-              NfsAbnormal8 += 1;
-              cout << "NfsAbnormal8 = " << NfsAbnormal8 << endl;
-            }
+            // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 8;
               fs_time = global_time;
@@ -500,14 +458,6 @@ void neutron_analysis(){
           Nfs6 = 0;
           Nfs7 = 0;
           Nfs8 = 0;
-          NfsAbnormal1 = 0;
-          NfsAbnormal2 = 0;
-          NfsAbnormal3 = 0;
-          NfsAbnormal4 = 0;
-          NfsAbnormal5 = 0;
-          NfsAbnormal6 = 0;
-          NfsAbnormal7 = 0;
-          NfsAbnormal8 = 0;
 
         }
       }
