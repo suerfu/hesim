@@ -89,6 +89,7 @@ set(Janis_SCRIPTS
   vis.mac
   /analysis/source_check.C
   /analysis/neutron_analysis.C
+  /analysis/gamma_analysis.C
   /analysis/neutron_analysis_1.C
   /analysis/neutron_analysis_2.C
   /analysis/neutron_analysis_3.C

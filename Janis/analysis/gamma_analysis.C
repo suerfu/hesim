@@ -28,10 +28,10 @@
 
 using namespace std;
 
-void neutron_analysis(){
+void gamma_analysis(){
   // Read source root file
   string fname;
-  string filename = "../../Janis-result/NoTOF_NoFloor_neutron/savio100million1.root";
+  string filename = "../../Janis-result/WithFloor_gamma/withfloor_compton.root";
   TFile* f = TFile::Open(filename.c_str());
   if(!f){
     cout << "ERROR reading file " << filename << endl;
@@ -77,27 +77,7 @@ void neutron_analysis(){
   TH1D *h7 = new TH1D("h7","mixed", 100, 0, 3);
   TH1D *h8 = new TH1D("h8","mixed", 100, 0, 3);
 
-  // energy deposit in helium (NR only)
-  TH1D *g1 = new TH1D("g1","NR only", 100, 0, 3);
-  TH1D *g2 = new TH1D("g2","NR only", 100, 0, 3);
-  TH1D *g3 = new TH1D("g3","NR only", 100, 0, 3);
-  TH1D *g4 = new TH1D("g4","NR only", 100, 0, 3);
-  TH1D *g5 = new TH1D("g5","NR only", 100, 0, 3);
-  TH1D *g6 = new TH1D("g6","NR only", 100, 0, 3);
-  TH1D *g7 = new TH1D("g7","NR only", 100, 0, 3);
-  TH1D *g8 = new TH1D("g8","NR only", 100, 0, 3);
-
-  // tof
-  TH1D *t1 = new TH1D("","", 100, 0, 200);
-  TH1D *t2 = new TH1D("","", 100, 0, 200);
-  TH1D *t3 = new TH1D("","", 100, 0, 200);
-  TH1D *t4 = new TH1D("","", 100, 0, 200);
-  TH1D *t5 = new TH1D("","", 100, 0, 200);
-  TH1D *t6 = new TH1D("","", 100, 0, 200);
-  TH1D *t7 = new TH1D("","", 100, 0, 200);
-  TH1D *t8 = new TH1D("","", 100, 0, 200);
-
-  // neutron scattering times in helium
+  // gamma scattering times in helium
   TH1D *he1 = new TH1D("","", 6, 1, 6);
   TH1D *he2 = new TH1D("","", 6, 1, 6);
   TH1D *he3 = new TH1D("","", 6, 1, 6);
@@ -107,7 +87,7 @@ void neutron_analysis(){
   TH1D *he7 = new TH1D("","", 6, 1, 6);
   TH1D *he8 = new TH1D("","", 6, 1, 6);
 
-  // neutron scattering times in non-cylindricaly symmetric volumes
+  // gamma scattering times in non-cylindricaly symmetric volumes
   TH1D *sq1 = new TH1D("","", 10, 0, 10);
   TH1D *sq2 = new TH1D("","", 10, 0, 10);
   TH1D *sq3 = new TH1D("","", 10, 0, 10);
@@ -124,15 +104,6 @@ void neutron_analysis(){
   int this_eventID; // The current event ID
   int fs; // which far side detector has it pass
   bool new_event = false;
-
-  double neutron_Edep[10]; // Used to compare with alpha_E to avoid double count in case that alpha take all the recoil energy from the original neutron
-  double alpha_E[10]; // Used to compare with neutron_Edep to avoid double count in case that alpha take all the recoil energy from the original neutron
-  int n; // index for the neutron_Edep
-  int a; // index for alpha_E
-  bool double_count; // whether we should avoid recording this alpha's energy deposit
-  double he_time;
-  double fs_time;
-  double tof; // Time of flight:
 
   // Scattering counters
   int Nfs1;
@@ -156,9 +127,9 @@ void neutron_analysis(){
 
   int Nfs;
   int Nhelium; // neutron only
-  int NelseCy; // Counter of neutron scatterings in other volumes with cylindrical symmetry
-  int NelseSq; // Counter of neutron scatterings in other volumes without cylindrical symmetry
-  int NelseShell; // Far side neutron scintillator metal shell
+  int NelseCy; // Counter of gamma scatterings in other volumes with cylindrical symmetry
+  int NelseSq; // Counter of gamma scatterings in other volumes without cylindrical symmetry
+  int NelseShell; // Far side gamma scintillator metal shell
 
   int processed_eventID; // new eventID for processed events. Note that a old event maybe seperated into several processed events
 
@@ -179,51 +150,17 @@ void neutron_analysis(){
     } else{
       new_event = false;
     }
-    /*
-    if (new_event){
-      cout << processed_eventID << endl;
-      Nfs = 0;
-      Nhelium = 0;
-      NelseCy = 0;
-      NelseSq = 0;
-
-      Nfs1 = 0;
-      Nfs2 = 0;
-      Nfs3 = 0;
-      Nfs4 = 0;
-      Nfs5 = 0;
-      Nfs6 = 0;
-      Nfs7 = 0;
-      Nfs8 = 0;
-      NfsAbnormal1 = 0;
-      NfsAbnormal2 = 0;
-      NfsAbnormal3 = 0;
-      NfsAbnormal4 = 0;
-      NfsAbnormal5 = 0;
-      NfsAbnormal6 = 0;
-      NfsAbnormal7 = 0;
-      NfsAbnormal8 = 0;
-    }
-    */
-    /* Trying to save the variables below to a root. Problematic
-    // if (new_event and not the first processed_event) or (the last entry of this data set), print the interested variables of last processed event
-    if ((new_event && processed_eventID!=1) || i+1==nentries){
-      cout << "processed_eventID: " <<processed_eventID << "total energy deposit in helium cube: " <<
-    }
-    */
 
     total_energy_deposit = 0;
     fs = 0;
-    n = 0;
-    a = 0;
 
     // Count Nscattering
-    if (deposited_energy!=0 && *particle_name == "neutron"){
+    if (deposited_energy!=0 && *particle_name == "gamma"){
       if (*volume_name=="liquid helium"){
         Nhelium += 1;
       }
 
-      else if (*volume_name=="fs1_head_inner_1"){
+      else if (*volume_name=="fs1_head_inner_1r"){
         Nfs1 += 1;
       } else if (*volume_name=="fs2_head_inner_2"){
         Nfs2 += 1;
@@ -268,7 +205,6 @@ void neutron_analysis(){
     // All the stepID for index i below should be the first step in helium cube
     if (*volume_name == "liquid helium" && deposited_energy==0){
       total_energy_deposit += deposited_energy;
-      he_time = global_time;
 
       if (i != nentries - 2){
         j = i + 1;
@@ -279,16 +215,6 @@ void neutron_analysis(){
         // Loop inside the helium cube to sum energy for multiple scattering
 
         while (*volume_name == "liquid helium"){
-
-          // Compare the Edep in helium and initial energy of alphas and exclude the alphas that match to avoid double count
-          if (*particle_name == "neutron" && deposited_energy != 0){
-            neutron_Edep[n] = deposited_energy;
-            n++;
-          }
-          if (*particle_name == "alpha" && energy != 0){
-            alpha_E[a] = energy;
-            a++;
-          }
 
           total_energy_deposit += deposited_energy;
           j++;
@@ -305,7 +231,7 @@ void neutron_analysis(){
         event_fs[eventID] = 0; // which means that it hasn't been assigned
 
         while (eventID == this_eventID && trackID == 1){
-          if (*volume_name == "fs1_head_inner_1"){
+          if (*volume_name == "fsNaI1_scintillator"){
             if (event_fs[eventID] != 0 && event_fs[eventID] != 1 && deposited_energy!=0){
               NfsAbnormal1 += 1;
               cout << "NfsAbnormal1 = " << NfsAbnormal1 << endl;
@@ -313,77 +239,69 @@ void neutron_analysis(){
             // First step in far side detector
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 1;
-              fs_time = global_time;
             }
           }
-          if (*volume_name == "fs2_head_inner_2"){
+          if (*volume_name == "fsNaI2_scintillator"){
             if (event_fs[eventID] != 0 && event_fs[eventID] != 2 && deposited_energy!=0){
               NfsAbnormal2 += 1;
               cout << "NfsAbnormal2 = " << NfsAbnormal2 << endl;
             }
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 2;
-              fs_time = global_time;
             }
           }
-          if (*volume_name == "fs3_head_inner_3"){
+          if (*volume_name == "fsNaI3_scintillator"){
             if (event_fs[eventID] != 0 && event_fs[eventID] != 3 && deposited_energy!=0){
               NfsAbnormal3 += 1;
               cout << "NfsAbnormal3 = " << NfsAbnormal3 << endl;
             }
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 3;
-              fs_time = global_time;
             }
           }
-          if (*volume_name == "fs4_head_inner_4"){
+          if (*volume_name == "fsNaI4_scintillator"){
             if (event_fs[eventID] != 0 && event_fs[eventID] != 4 && deposited_energy!=0){
               NfsAbnormal4 += 1;
               cout << "NfsAbnormal4 = " << NfsAbnormal4 << endl;
             }
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 4;
-              fs_time = global_time;
             }
           }
-          if (*volume_name == "fs5_head_inner_5"){
+          if (*volume_name == "fsNaI5_scintillator"){
             if (event_fs[eventID] != 0 && event_fs[eventID] != 5 && deposited_energy!=0){
               NfsAbnormal5 += 1;
               cout << "NfsAbnormal5 = " << NfsAbnormal5 << endl;
             }
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 5;
-              fs_time = global_time;
             }
           }
-          if (*volume_name == "fs6_head_inner_6"){
+          if (*volume_name == "fsNaI6_scintillator"){
             if (event_fs[eventID] != 0 && event_fs[eventID] != 6 && deposited_energy!=0){
               NfsAbnormal6 += 1;
               cout << "NfsAbnormal6 = " << NfsAbnormal6 << endl;
             }
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 6;
-              fs_time = global_time;
             }
           }
-          if (*volume_name == "fs7_head_inner_7"){
+          if (*volume_name == "fsNaI7_scintillator"){
             if (event_fs[eventID] != 0 && event_fs[eventID] != 7 && deposited_energy!=0){
               NfsAbnormal7 += 1;
               cout << "NfsAbnormal7 = " << NfsAbnormal7 << endl;
             }
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 7;
-              fs_time = global_time;
             }
           }
-          if (*volume_name == "fs8_head_inner_8"){
+          if (*volume_name == "fsNaI8_scintillator"){
             if (event_fs[eventID] != 0 && event_fs[eventID] != 8 && deposited_energy!=0){
               NfsAbnormal8 += 1;
               cout << "NfsAbnormal8 = " << NfsAbnormal8 << endl;
             }
             if (event_fs[eventID] == 0){
               event_fs[eventID] = 8;
-              fs_time = global_time;
             }
           }
 
@@ -392,22 +310,12 @@ void neutron_analysis(){
         }
       }
 
-      // Compare the energy deposit of neutron one by one to the alphas' initial energy. If anyone matches, than it is considered double-counted
-      for (int b = 0; b < 10; b++){
-        for (int c = 0; c < 10; c++){
-          if (neutron_Edep[b]==alpha_E[c] && neutron_Edep[b]!=0){
-            double_count = true;
-          }
-        }
-      }
-
       // Filling the deposit to histograms, excluding double counted alphas
       events -> GetEntry(i);
-      tof = fs_time - he_time;
 
       // Note that we may fill data with the same eventID several times. This is event (wanted scatterings) based not eventID based
-      if (!(double_count && *particle_name=="alpha")){
-        fs = event_fs[eventID];
+      if (true){
+
 
         // 0.0001MeV energy limit is determined by detection efficiency. (suggested by Junsong)
         if (total_energy_deposit > 0.0001){
@@ -416,75 +324,43 @@ void neutron_analysis(){
           //cout<<Nhelium<<endl;
           if (fs == 1){
             h1 -> Fill(total_energy_deposit);
-            t1 -> Fill(tof);
             he1 -> Fill(Nhelium);
             sq1 -> Fill(NelseSq);
-            if (*particle_name== "neutron"){
-              g1 -> Fill(total_energy_deposit);
-            }
           }
           if (fs == 2){
             h2 -> Fill(total_energy_deposit);
-            t2 -> Fill(tof);
             he2 -> Fill(Nhelium);
             sq2 -> Fill(NelseSq);
-            if (*particle_name== "neutron"){
-              g2 -> Fill(total_energy_deposit);
-            }
           }
           if (fs == 3){
             h3 -> Fill(total_energy_deposit);
-            t3 -> Fill(tof);
             he3 -> Fill(Nhelium);
             sq3 -> Fill(NelseSq);
-            if (*particle_name== "neutron"){
-              g3 -> Fill(total_energy_deposit);
-            }
           }
           if (fs == 4){
             h4 -> Fill(total_energy_deposit);
-            t4 -> Fill(tof);
             he4 -> Fill(Nhelium);
             sq4 -> Fill(NelseSq);
-            if (*particle_name== "neutron"){
-              g4 -> Fill(total_energy_deposit);
-            }
           }
           if (fs == 5){
             h5 -> Fill(total_energy_deposit);
-            t5 -> Fill(tof);
             he5 -> Fill(Nhelium);
             sq5 -> Fill(NelseSq);
-            if (*particle_name== "neutron"){
-              g5 -> Fill(total_energy_deposit);
-            }
           }
           if (fs == 6){
             h6 -> Fill(total_energy_deposit);
-            t6 -> Fill(tof);
             he6 -> Fill(Nhelium);
             sq6 -> Fill(NelseSq);
-            if (*particle_name== "neutron"){
-              g6 -> Fill(total_energy_deposit);
-            }
           }
           if (fs == 7){
             h7 -> Fill(total_energy_deposit);
-            t7 -> Fill(tof);
             he7 -> Fill(Nhelium);
             sq7 -> Fill(NelseSq);
-            if (*particle_name== "neutron"){
-              g7 -> Fill(total_energy_deposit);
-            }
           }
           if (fs == 8){
             h8 -> Fill(total_energy_deposit);
-            t8 -> Fill(tof);
             he8 -> Fill(Nhelium);
             sq8 -> Fill(NelseSq);
-            if (*particle_name== "neutron"){
-              g8 -> Fill(total_energy_deposit);
-            }
           }
 
           Nfs = 0;
@@ -538,30 +414,6 @@ void neutron_analysis(){
   // Save the figure
   c1->SaveAs((fname + ".png").c_str());
 
-  TCanvas* d1 = new TCanvas();
-  d1 -> SetLogy();
-  // output file name
-  fname = "(No floor) 1st far-side channel Edep in helium (NR only)";
-  g1 -> Draw();
-  g1->SetTitle(fname.c_str());
-  // Set Axis Title
-  g1->GetXaxis()->SetTitle("energy deposit (MeV)");
-  g1->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  d1->SaveAs((fname + ".png").c_str());
-
-  TCanvas* b1 = new TCanvas();
-  b1 -> SetLogy();
-  // output file name
-  fname = "(No floor) 1st far-side channel ToF (mixed)";
-  t1 -> Draw();
-  t1->SetTitle(fname.c_str());
-  // Set Axis Title
-  t1->GetXaxis()->SetTitle("Time of Fly (ns)");
-  t1->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  b1->SaveAs((fname + ".png").c_str());
-
   TCanvas* e1 = new TCanvas();
   // output file name
   fname = "(No floor) 1st far-side channel in-helium neutron scattering #";
@@ -598,30 +450,6 @@ void neutron_analysis(){
   // Save the figure
   c2->SaveAs((fname + ".png").c_str());
 
-  TCanvas* d2 = new TCanvas();
-  d2 -> SetLogy();
-  // output file name
-  fname = "(No floor) 2nd far-side channel Edep in helium (NR only)";
-  g2 -> Draw();
-  g2->SetTitle(fname.c_str());
-  // Set Axis Title
-  g2->GetXaxis()->SetTitle("energy deposit (MeV)");
-  g2->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  d2->SaveAs((fname + ".png").c_str());
-
-  TCanvas* b2 = new TCanvas();
-  b2 -> SetLogy();
-  // output file name
-  fname = "(No floor) 2nd far-side channel ToF (mixed)";
-  t2 -> Draw();
-  t2->SetTitle(fname.c_str());
-  // Set Axis Title
-  t2->GetXaxis()->SetTitle("Time of Fly (ns)");
-  t2->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  b2->SaveAs((fname + ".png").c_str());
-
   TCanvas* e2 = new TCanvas();
   // output file name
   fname = "(No floor) 2nd far-side channel in-helium neutron scattering #";
@@ -656,30 +484,6 @@ void neutron_analysis(){
   h3->GetYaxis()->SetTitle("Counts");
   // Save the figure
   c3->SaveAs((fname + ".png").c_str());
-
-  TCanvas* d3 = new TCanvas();
-  d3 -> SetLogy();
-  // output file name
-  fname = "(No floor) 3rd far-side channel Edep in helium (NR only)";
-  g3 -> Draw();
-  g3->SetTitle(fname.c_str());
-  // Set Axis Title
-  g3->GetXaxis()->SetTitle("energy deposit (MeV)");
-  g3->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  d3->SaveAs((fname + ".png").c_str());
-
-  TCanvas* b3 = new TCanvas();
-  b3 -> SetLogy();
-  // output file name
-  fname = "(No floor) 3rd far-side channel ToF (mixed)";
-  t3 -> Draw();
-  t3->SetTitle(fname.c_str());
-  // Set Axis Title
-  t3->GetXaxis()->SetTitle("Time of Fly (ns)");
-  t3->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  b3->SaveAs((fname + ".png").c_str());
 
   TCanvas* e3 = new TCanvas();
   // output file name
@@ -716,30 +520,6 @@ void neutron_analysis(){
   // Save the figure
   c4->SaveAs((fname + ".png").c_str());
 
-  TCanvas* d4 = new TCanvas();
-  d4 -> SetLogy();
-  // output file name
-  fname = "(No floor) 4th far-side channel Edep in helium (NR only)";
-  g4 -> Draw();
-  g4->SetTitle(fname.c_str());
-  // Set Axis Title
-  g4->GetXaxis()->SetTitle("energy deposit (MeV)");
-  g4->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  d4->SaveAs((fname + ".png").c_str());
-
-  TCanvas* b4 = new TCanvas();
-  b4 -> SetLogy();
-  // output file name
-  fname = "(No floor) 4th far-side channel ToF (mixed)";
-  t4 -> Draw();
-  t4->SetTitle(fname.c_str());
-  // Set Axis Title
-  t4->GetXaxis()->SetTitle("Time of Fly (ns)");
-  t4->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  b4->SaveAs((fname + ".png").c_str());
-
   TCanvas* e4 = new TCanvas();
   // output file name
   fname = "(No floor) 4th far-side channel in-helium neutron scattering #";
@@ -774,30 +554,6 @@ void neutron_analysis(){
   h5->GetYaxis()->SetTitle("Counts");
   // Save the figure
   c5->SaveAs((fname + ".png").c_str());
-
-  TCanvas* d5 = new TCanvas();
-  d5 -> SetLogy();
-  // output file name
-  fname = "(No floor) 5th far-side channel Edep in helium (NR only)";
-  g5 -> Draw();
-  g5->SetTitle(fname.c_str());
-  // Set Axis Title
-  g5->GetXaxis()->SetTitle("energy deposit (MeV)");
-  g5->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  d5->SaveAs((fname + ".png").c_str());
-
-  TCanvas* b5 = new TCanvas();
-  b5 -> SetLogy();
-  // output file name
-  fname = "(No floor) 5th far-side channel ToF (mixed)";
-  t5 -> Draw();
-  t5->SetTitle(fname.c_str());
-  // Set Axis Title
-  t5->GetXaxis()->SetTitle("Time of Fly (ns)");
-  t5->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  b5->SaveAs((fname + ".png").c_str());
 
   TCanvas* e5 = new TCanvas();
   // output file name
@@ -834,30 +590,6 @@ void neutron_analysis(){
   // Save the figure
   c6->SaveAs((fname + ".png").c_str());
 
-  TCanvas* d6 = new TCanvas();
-  d6 -> SetLogy();
-  // output file name
-  fname = "(No floor) 6th far-side channel Edep in helium (NR only)";
-  g6 -> Draw();
-  g6->SetTitle(fname.c_str());
-  // Set Axis Title
-  g6->GetXaxis()->SetTitle("energy deposit (MeV)");
-  g6->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  d6->SaveAs((fname + ".png").c_str());
-
-  TCanvas* b6 = new TCanvas();
-  b6 -> SetLogy();
-  // output file name
-  fname = "(No floor) 6th far-side channel ToF (mixed)";
-  t6 -> Draw();
-  t6->SetTitle(fname.c_str());
-  // Set Axis Title
-  t6->GetXaxis()->SetTitle("Time of Fly (ns)");
-  t6->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  b6->SaveAs((fname + ".png").c_str());
-
   TCanvas* e6 = new TCanvas();
   // output file name
   fname = "(No floor) 6th far-side channel in-helium neutron scattering #";
@@ -893,30 +625,6 @@ void neutron_analysis(){
   // Save the figure
   c7->SaveAs((fname + ".png").c_str());
 
-  TCanvas* d7 = new TCanvas();
-  d7 -> SetLogy();
-  // output file name
-  fname = "(No floor) 7th far-side channel Edep in helium (NR only)";
-  g7 -> Draw();
-  g7->SetTitle(fname.c_str());
-  // Set Axis Title
-  g7->GetXaxis()->SetTitle("energy deposit (MeV)");
-  g7->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  d7->SaveAs((fname + ".png").c_str());
-
-  TCanvas* b7 = new TCanvas();
-  b7 -> SetLogy();
-  // output file name
-  fname = "(No floor) 7th far-side channel ToF (mixed)";
-  t7 -> Draw();
-  t7->SetTitle(fname.c_str());
-  // Set Axis Title
-  t7->GetXaxis()->SetTitle("Time of Fly (ns)");
-  t7->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  b1->SaveAs((fname + ".png").c_str());
-
   TCanvas* e7 = new TCanvas();
   // output file name
   fname = "(No floor) 7th far-side channel in-helium neutron scattering #";
@@ -951,30 +659,6 @@ void neutron_analysis(){
   h8->GetYaxis()->SetTitle("Counts");
   // Save the figure
   c8->SaveAs((fname + ".png").c_str());
-
-  TCanvas* d8 = new TCanvas();
-  d8 -> SetLogy();
-  // output file name
-  fname = "(No floor) 8th far-side channel Edep in helium (NR only)";
-  g8 -> Draw();
-  g8->SetTitle(fname.c_str());
-  // Set Axis Title
-  g8->GetXaxis()->SetTitle("energy deposit (MeV)");
-  g8->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  d8->SaveAs((fname + ".png").c_str());
-
-  TCanvas* b8 = new TCanvas();
-  b8 -> SetLogy();
-  // output file name
-  fname = "(No floor) 8th far-side channel ToF (mixed)";
-  t8 -> Draw();
-  t8->SetTitle(fname.c_str());
-  // Set Axis Title
-  t8->GetXaxis()->SetTitle("Time of Fly (ns)");
-  t8->GetYaxis()->SetTitle("Counts");
-  // Save the figure
-  b8->SaveAs((fname + ".png").c_str());
 
   TCanvas* e8 = new TCanvas();
   // output file name
