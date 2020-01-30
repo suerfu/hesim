@@ -160,26 +160,27 @@ void gamma_analysis(){
         Nhelium += 1;
       }
 
-      else if (*volume_name=="fs1_head_inner_1r"){
+      else if (*volume_name=="fsNaI1_scintillator"){
         Nfs1 += 1;
-      } else if (*volume_name=="fs2_head_inner_2"){
+      } else if (*volume_name=="fsNaI2_scintillator"){
         Nfs2 += 1;
-      } else if (*volume_name=="fs3_head_inner_3"){
+      } else if (*volume_name=="fsNaI3_scintillator"){
         Nfs3 += 1;
-      } else if (*volume_name=="fs4_head_inner_4"){
+      } else if (*volume_name=="fsNaI4_scintillator"){
         Nfs4 += 1;
-      } else if (*volume_name=="fs5_head_inner_5"){
+      } else if (*volume_name=="fsNaI5_scintillator"){
         Nfs5 += 1;
-      } else if (*volume_name=="fs6_head_inner_6"){
+      } else if (*volume_name=="fsNaI6_scintillator"){
         Nfs6 += 1;
-      } else if (*volume_name=="fs7_head_inner_7"){
+      } else if (*volume_name=="fsNaI7_scintillator"){
         Nfs7 += 1;
-      } else if (*volume_name=="fs8_head_inner_8"){
+      } else if (*volume_name=="fsNaI8_scintillator"){
         Nfs8 += 1;
       }
 
       else if (*volume_name=="floor"){
         Nfloor += 1;
+        cout<<"unexpected count of floor"
       }
 
       else if (*volume_name == "pmt" || *volume_name == "pmt_Body" || *volume_name == "pmt_Window" ||
@@ -405,7 +406,7 @@ void gamma_analysis(){
   TCanvas* c1 = new TCanvas();
   c1 -> SetLogy();
   // output file name
-  fname = "(No floor) 1st far-side channel Edep in helium (mixed)";
+  fname = "1st far-side channel Edep in helium (mixed)";
   h1 -> Draw();
   h1->SetTitle(fname.c_str());
   // Set Axis Title
@@ -416,7 +417,7 @@ void gamma_analysis(){
 
   TCanvas* e1 = new TCanvas();
   // output file name
-  fname = "(No floor) 1st far-side channel in-helium neutron scattering #";
+  fname = "1st far-side channel in-helium gamma scattering #";
   he1 -> Draw();
   he1->SetTitle(fname.c_str());
   // Set Axis Title
@@ -427,7 +428,7 @@ void gamma_analysis(){
 
   TCanvas* f1 = new TCanvas();
   // output file name
-  fname = "(No floor) 1st far-side channel in-square neutron scattering #";
+  fname = "1st far-side channel in-square gamma scattering #";
   sq1 -> Draw();
   sq1->SetTitle(fname.c_str());
   // Set Axis Title
@@ -441,7 +442,7 @@ void gamma_analysis(){
   TCanvas* c2 = new TCanvas();
   c2 -> SetLogy();
   // output file name
-  fname = "(No floor) 2nd far-side channel Edep in helium (mixed)";
+  fname = "2nd far-side channel Edep in helium (mixed)";
   h2 -> Draw();
   h2->SetTitle(fname.c_str());
   // Set Axis Title
@@ -452,7 +453,7 @@ void gamma_analysis(){
 
   TCanvas* e2 = new TCanvas();
   // output file name
-  fname = "(No floor) 2nd far-side channel in-helium neutron scattering #";
+  fname = "2nd far-side channel in-helium gamma scattering #";
   he2 -> Draw();
   he2->SetTitle(fname.c_str());
   // Set Axis Title
@@ -463,7 +464,7 @@ void gamma_analysis(){
 
   TCanvas* f2 = new TCanvas();
   // output file name
-  fname = "(No floor) 2nd far-side channel in-square neutron scattering #";
+  fname = "2nd far-side channel in-square gamma scattering #";
   sq2 -> Draw();
   sq2->SetTitle(fname.c_str());
   // Set Axis Title
@@ -476,7 +477,7 @@ void gamma_analysis(){
   TCanvas* c3 = new TCanvas();
   c3 -> SetLogy();
   // output file name
-  fname = "(No floor) 3rd far-side channel Edep in helium (mixed)";
+  fname = "3rd far-side channel Edep in helium (mixed)";
   h3 -> Draw();
   h3->SetTitle(fname.c_str());
   // Set Axis Title
@@ -487,7 +488,7 @@ void gamma_analysis(){
 
   TCanvas* e3 = new TCanvas();
   // output file name
-  fname = "(No floor) 3rd far-side channel in-helium neutron scattering #";
+  fname = "3rd far-side channel in-helium gamma scattering #";
   he3 -> Draw();
   he3->SetTitle(fname.c_str());
   // Set Axis Title
@@ -498,7 +499,7 @@ void gamma_analysis(){
 
   TCanvas* f3 = new TCanvas();
   // output file name
-  fname = "(No floor) 3rd far-side channel in-square neutron scattering #";
+  fname = "3rd far-side channel in-square gamma scattering #";
   sq3 -> Draw();
   sq3->SetTitle(fname.c_str());
   // Set Axis Title
@@ -511,7 +512,7 @@ void gamma_analysis(){
   TCanvas* c4 = new TCanvas();
   c4 -> SetLogy();
   // output file name
-  fname = "(No floor) 4th far-side channel Edep in helium (mixed)";
+  fname = "4th far-side channel Edep in helium (mixed)";
   h4 -> Draw();
   h4->SetTitle(fname.c_str());
   // Set Axis Title
@@ -522,7 +523,7 @@ void gamma_analysis(){
 
   TCanvas* e4 = new TCanvas();
   // output file name
-  fname = "(No floor) 4th far-side channel in-helium neutron scattering #";
+  fname = "4th far-side channel in-helium gamma scattering #";
   he4 -> Draw();
   he4->SetTitle(fname.c_str());
   // Set Axis Title
@@ -533,7 +534,7 @@ void gamma_analysis(){
 
   TCanvas* f4 = new TCanvas();
   // output file name
-  fname = "(No floor) 4th far-side channel in-square neutron scattering #";
+  fname = "4th far-side channel in-square gamma scattering #";
   sq4 -> Draw();
   sq4->SetTitle(fname.c_str());
   // Set Axis Title
@@ -546,7 +547,7 @@ void gamma_analysis(){
   TCanvas* c5 = new TCanvas();
   c5 -> SetLogy();
   // output file name
-  fname = "(No floor) 5th far-side channel Edep in helium (mixed)";
+  fname = "5th far-side channel Edep in helium (mixed)";
   h5 -> Draw();
   h5->SetTitle(fname.c_str());
   // Set Axis Title
@@ -557,7 +558,7 @@ void gamma_analysis(){
 
   TCanvas* e5 = new TCanvas();
   // output file name
-  fname = "(No floor) 1st far-side channel in-helium neutron scattering #";
+  fname = "1st far-side channel in-helium gamma scattering #";
   he5 -> Draw();
   he5->SetTitle(fname.c_str());
   // Set Axis Title
@@ -568,7 +569,7 @@ void gamma_analysis(){
 
   TCanvas* f5 = new TCanvas();
   // output file name
-  fname = "(No floor) 5th far-side channel in-square neutron scattering #";
+  fname = "5th far-side channel in-square gamma scattering #";
   sq5 -> Draw();
   sq5->SetTitle(fname.c_str());
   // Set Axis Title
@@ -581,7 +582,7 @@ void gamma_analysis(){
   TCanvas* c6 = new TCanvas();
   c6 -> SetLogy();
   // output file name
-  fname = "(No floor) 6th far-side channel Edep in helium (mixed)";
+  fname = "6th far-side channel Edep in helium (mixed)";
   h6 -> Draw();
   h6->SetTitle(fname.c_str());
   // Set Axis Title
@@ -592,7 +593,7 @@ void gamma_analysis(){
 
   TCanvas* e6 = new TCanvas();
   // output file name
-  fname = "(No floor) 6th far-side channel in-helium neutron scattering #";
+  fname = "6th far-side channel in-helium gamma scattering #";
   he6 -> Draw();
   he6->SetTitle(fname.c_str());
   // Set Axis Title
@@ -603,7 +604,7 @@ void gamma_analysis(){
 
   TCanvas* f6 = new TCanvas();
   // output file name
-  fname = "(No floor) 6th far-side channel in-square neutron scattering #";
+  fname = "6th far-side channel in-square gamma scattering #";
   sq6 -> Draw();
   sq6->SetTitle(fname.c_str());
   // Set Axis Title
@@ -616,7 +617,7 @@ void gamma_analysis(){
   TCanvas* c7 = new TCanvas();
   c7 -> SetLogy();
   // output file name
-  fname = "(No floor) 7th far-side channel Edep in helium (mixed)";
+  fname = "7th far-side channel Edep in helium (mixed)";
   h7 -> Draw();
   h7->SetTitle(fname.c_str());
   // Set Axis Title
@@ -627,7 +628,7 @@ void gamma_analysis(){
 
   TCanvas* e7 = new TCanvas();
   // output file name
-  fname = "(No floor) 7th far-side channel in-helium neutron scattering #";
+  fname = "7th far-side channel in-helium gamma scattering #";
   he7 -> Draw();
   he7->SetTitle(fname.c_str());
   // Set Axis Title
@@ -638,7 +639,7 @@ void gamma_analysis(){
 
   TCanvas* f7 = new TCanvas();
   // output file name
-  fname = "(No floor) 7th far-side channel in-square neutron scattering #";
+  fname = "7th far-side channel in-square gamma scattering #";
   sq7 -> Draw();
   sq7->SetTitle(fname.c_str());
   // Set Axis Title
@@ -651,7 +652,7 @@ void gamma_analysis(){
   TCanvas* c8 = new TCanvas();
   c8 -> SetLogy();
   // output file name
-  fname = "(No floor) 8th far-side channel Edep in helium (mixed)";
+  fname = "8th far-side channel Edep in helium (mixed)";
   h8 -> Draw();
   h8->SetTitle(fname.c_str());
   // Set Axis Title
@@ -662,7 +663,7 @@ void gamma_analysis(){
 
   TCanvas* e8 = new TCanvas();
   // output file name
-  fname = "(No floor) 8th far-side channel in-helium neutron scattering #";
+  fname = "8th far-side channel in-helium gamma scattering #";
   he8 -> Draw();
   he8->SetTitle(fname.c_str());
   // Set Axis Title
@@ -673,7 +674,7 @@ void gamma_analysis(){
 
   TCanvas* f8 = new TCanvas();
   // output file name
-  fname = "(No floor) 8th far-side channel in-square neutron scattering #";
+  fname = "8th far-side channel in-square gamma scattering #";
   sq8 -> Draw();
   sq8->SetTitle(fname.c_str());
   // Set Axis Title
