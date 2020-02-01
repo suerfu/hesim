@@ -1,3 +1,40 @@
+/*
+neutron_analysis.C
+  roughly process the original simulation data
+
+Input: .root
+  raw simulation result in root file
+
+Output: .png; .root(not implemented yet)
+  (5*8 = 40 png files) histograms for all 8 far side channels:
+
+    energy deposit in helium target (mixed)
+      Summed all energy deposit in the same track inside helium target, given the time resolution of the PMTs
+      In principle included all kinds of particles, except for the alpha particles which may lead to double count
+
+    energy deposit in helium target (NR discriminated)
+      based on energy deposit in helium target (mixed). select neutron particles
+
+    time of fly distribution
+      starts when the particle (may be not neutron) first scatters in helium
+      ends when the same particle first scatters inside far side detector
+
+    Nscatterings in non-circular symmetric obstacles
+      *volume_name == "pmt" || *volume_name == "pmt_Body" || *volume_name == "pmt_Window" ||
+               *volume_name == "pmt_interior" || *volume_name == "pmt_array" || *volume_name == "quartz_cell" ||
+               *volume_name == "pmt_base1" || *volume_name == "pmt_base2" || *volume_name == "pmt_base3" ||
+               *volume_name == "pmt_base4")
+
+    Nscatterings in the helium cube
+
+  (not implemented) A root file containing data in such organization, based on tracks of GEANT:
+
+    eventID trackID total_energy_deposit(mixed: without NR discrimination) Nfs1 ... Nfs8 Nfloor Nhelium
+    NelseCy(circular symmetric obstacles) NelseSq(non-circular symmetric obstacles) NelseShell(shell of far side detectors)
+
+    The variables above should all be available now. The work to do should be just filling them into a root file.
+*/
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -163,25 +200,6 @@ void neutron_analysis(){
 
     events -> GetEntry(i);
 
-    /*
-    if (new_event){
-      cout << processed_eventID << endl;
-      Nfs = 0;
-      Nhelium = 0;
-      NelseCy = 0;
-      NelseSq = 0;
-
-      Nfs1 = 0;
-      Nfs2 = 0;
-      Nfs3 = 0;
-      Nfs4 = 0;
-      Nfs5 = 0;
-      Nfs6 = 0;
-      Nfs7 = 0;
-      Nfs8 = 0;
-    }
-    */
-
     total_energy_deposit = 0;
     fs = 0;
     n = 0;
@@ -222,6 +240,7 @@ void neutron_analysis(){
         NelseSq += 1;
       }
 
+      // The volumes listed below are the shells of far side detectors.
       else if (!(*volume_name == "fs1_head_outer_1" || *volume_name == "fs2_head_outer_2" || *volume_name == "fs3_head_outer_3" ||
                 *volume_name == "fs4_head_outer_4" || *volume_name == "fs5_head_outer_5" || *volume_name == "fs6_head_outer_6" ||
                 *volume_name == "fs7_head_outer_7" || *volume_name == "fs8_head_outer_8")){
@@ -247,6 +266,10 @@ void neutron_analysis(){
         events -> GetEntry(j);
 
         // Loop inside the helium cube to sum energy for multiple scattering
+
+        memset(neutron_Edep, 0, sizeof(neutron_Edep));
+        memset(alpha_E, 0, sizeof(alpha_E));
+        double_count = false;
 
         while (*volume_name == "liquid helium"){
 
@@ -356,8 +379,6 @@ void neutron_analysis(){
         // 0.0001MeV energy limit is determined by detection efficiency. (suggested by Junsong)
         if (total_energy_deposit > 0.0001){
 
-          // problematic sq: we may have double-counted them
-          //cout<<Nhelium<<endl;
           if (fs == 1){
             h1 -> Fill(total_energy_deposit);
             t1 -> Fill(tof);
