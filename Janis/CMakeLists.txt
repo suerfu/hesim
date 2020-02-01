@@ -54,34 +54,17 @@ target_link_libraries(Janis ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 #
 set(Janis_SCRIPTS
   Janis.out
-  /macros/HardcodeTest.mac
-  /macros/JanisTest.mac
-  /macros/JanisTest2.mac
-  /macros/JanisTest3.mac
-  /macros/localtest_original.mac
-  /macros/localtest_moved.mac
-  /macros/localtest_del.mac
-  /macros/localtest_modified.mac
   /macros/savio10million.mac
-  /macros/localtest_gamma.mac
   /macros/savio100million1.mac
-  /macros/savio100million2.mac
-  /macros/savio100million3.mac
-  /macros/savio100million4.mac
-  /macros/savio100million5.mac
   /macros/withfloor_neutron.mac
   /macros/withfloor_compton.mac
 
-  /shell/janis_savio_test3.sh
   /shell/savio10million.sh
   /shell/savio100million1.sh
-  /shell/savio100million2.sh
-  /shell/savio100million3.sh
-  /shell/savio100million4.sh
-  /shell/savio100million5.sh
   /shell/neutron_analysis.sh
   /shell/withfloor_neutron.sh
   /shell/withfloor_compton.sh
+
   icons.mac
   gui.mac
   run.png
@@ -89,12 +72,6 @@ set(Janis_SCRIPTS
   vis.mac
   /analysis/source_check.C
   /analysis/neutron_analysis.C
-  /analysis/gamma_analysis.C
-  /analysis/neutron_analysis_1.C
-  /analysis/neutron_analysis_2.C
-  /analysis/neutron_analysis_3.C
-  /analysis/neutron_analysis_4.C
-  /analysis/neutron_analysis_5.C
   )
 
 foreach(_script ${Janis_SCRIPTS})

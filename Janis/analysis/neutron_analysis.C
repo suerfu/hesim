@@ -123,7 +123,6 @@ void neutron_analysis(){
   int k; // used for looping in the same track
   int this_eventID; // The current event ID
   int fs; // which far side detector has it pass
-  bool new_event = false;
 
   double neutron_Edep[10]; // Used to compare with alpha_E to avoid double count in case that alpha take all the recoil energy from the original neutron
   double alpha_E[10]; // Used to compare with neutron_Edep to avoid double count in case that alpha take all the recoil energy from the original neutron
@@ -164,13 +163,6 @@ void neutron_analysis(){
 
     events -> GetEntry(i);
 
-    // To see whether this is a start of a new event
-    if (trackID == 1 && stepID == 0){
-      new_event = true;
-      processed_eventID += 1;
-    } else{
-      new_event = false;
-    }
     /*
     if (new_event){
       cout << processed_eventID << endl;
@@ -187,12 +179,6 @@ void neutron_analysis(){
       Nfs6 = 0;
       Nfs7 = 0;
       Nfs8 = 0;
-    }
-    */
-    /* Trying to save the variables below to a root. Problematic
-    // if (new_event and not the first processed_event) or (the last entry of this data set), print the interested variables of last processed event
-    if ((new_event && processed_eventID!=1) || i+1==nentries){
-      cout << "processed_eventID: " <<processed_eventID << "total energy deposit in helium cube: " <<
     }
     */
 
@@ -251,9 +237,9 @@ void neutron_analysis(){
     // if the first step in helium, no matter what kind of particle
     // All the stepID for index i below should be the first step in helium cube
     if (*volume_name == "liquid helium" && deposited_energy==0){
-      total_energy_deposit += deposited_energy;
       he_time = global_time;
 
+      // In case of the last entry, which may lead to index problem.
       if (i != nentries - 2){
         j = i + 1;
         k = i + 1;
