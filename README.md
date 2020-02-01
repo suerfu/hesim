@@ -1,4 +1,16 @@
 # McKinsey_Janis_Fridge
+
+## Brief Documentation
+The brief documentation for users who already have knowledge in GEANT, root and the light yield measurement experiment is in the link below. Don't hesitate to ask for access if necessary, please.
+
+https://docs.google.com/presentation/d/1XVVvk1fUp9ltZ9JOY8lGnXmUlc1viKG-4jQx4Zgf-EY/edit#slide=id.g7d26b4542d_0_173
+
+Please don't hesitate to email Lanqing who wrote this for any question. The codes are awkward, Lanqing will try to relieve you pain.
+
+Lanqing Yuan: yuanlq@berkeley.edu; yuanlq@shanghaitech.edu.cn (Please cc this one)
+
+(below is a plan for this simulation project, written in Aug, 2019)
+
 ## Introduction
 In dark matter direct detection experiments, it is calibration signals from the detector to sources which produce low-energy neutron recoils that build a bridge between super-sensitive detectors and capture of possible dark matter. Scintillation response can be used to derive the deposited energy on an event-by-event basis, with both type of interaction in the detector and recoil energy as contributing factors. 4-Helium is a good material for neutron recoil, and successful neutron recoil calibration requires an understanding of the particle source as well as the activities inside it, which can be obtained by a combination of experiment data with Monte Carlo simulations.
 
