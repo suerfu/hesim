@@ -76,7 +76,7 @@ StepInfo::StepInfo( const G4Step* step )
     G4double pre_energy;
     if(eventID>=1){
         pre_energy = preStep->GetKineticEnergy();
-        deposited_energy = pre_energy - energy;
+        deposited_energy = pre_energy - energy; // BUG: this is not deposited energy, as it counts energy lost to new particles
     }else{
         deposited_energy = 0;
     }

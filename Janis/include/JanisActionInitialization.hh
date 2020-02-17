@@ -32,13 +32,14 @@
 #define JanisActionInitialization_h 1
 
 #include "G4VUserActionInitialization.hh"
+#include "globals.hh"
 
 class JanisDetectorConstruction;
 
 class JanisActionInitialization : public G4VUserActionInitialization
 {
   public:
-    JanisActionInitialization(JanisDetectorConstruction*);
+    JanisActionInitialization(JanisDetectorConstruction*, G4String fname);
     virtual ~JanisActionInitialization();
 
     virtual void BuildForMaster() const;
@@ -46,6 +47,7 @@ class JanisActionInitialization : public G4VUserActionInitialization
 
   private:
   	JanisDetectorConstruction* fDetConstruction;
+    G4String fname;
 };
 
 #endif

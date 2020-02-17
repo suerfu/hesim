@@ -39,8 +39,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 JanisActionInitialization::JanisActionInitialization
-							(JanisDetectorConstruction* detConstruction)
- : G4VUserActionInitialization(),
+							(JanisDetectorConstruction* detConstruction, G4String s)
+ : G4VUserActionInitialization(), fname(s),
  fDetConstruction(detConstruction)
 {}
 
@@ -62,6 +62,7 @@ void JanisActionInitialization::Build() const
 {
   SetUserAction(new JanisDDGeneratorAction);
   JanisRunAction* runAction = new JanisRunAction;
+  runAction->setOutputFileName( fname );
   SetUserAction(runAction);
   JanisEventAction* eventAction = new JanisEventAction(runAction);
   SetUserAction(eventAction);

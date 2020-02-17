@@ -73,12 +73,15 @@ int main(int argc,char** argv)
 
   G4String macro;
   G4String session;
+
+  G4String filename = "default.root";
 #ifdef G4MULTITHREADED
   G4int nThreads = 0;
 #endif
   for ( G4int i=1; i<argc; i=i+2 ) {
     if      ( G4String(argv[i]) == "-m" ) macro = argv[i+1];
     else if ( G4String(argv[i]) == "-u" ) session = argv[i+1];
+    else if ( G4String(argv[i]) == "-f" ) filename = G4String(argv[i+1]);
 #ifdef G4MULTITHREADED
     else if ( G4String(argv[i]) == "-t" ) {
       nThreads = G4UIcommand::ConvertToInt(argv[i+1]);
@@ -100,6 +103,13 @@ int main(int argc,char** argv)
   // Choose the Random engine
   //
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
+  G4long seeds[2];
+  time_t systime = time(NULL);
+  seeds[0] = (long) systime;
+  seeds[1] = (long) (systime*G4UniformRand());
+  G4Random::setTheSeeds(seeds);
+
+  G4cout << "Seeds for random generator are " << seeds[0] << ", " << seeds[1] << G4endl;
 
   // Construct the default run manager
   //
@@ -121,14 +131,14 @@ int main(int argc,char** argv)
   runManager->SetUserInitialization(physicsList);
 
   JanisActionInitialization* actionInitialization
-     = new JanisActionInitialization(detConstruction);
+     = new JanisActionInitialization(detConstruction, filename);
   runManager->SetUserInitialization(actionInitialization);
 
   // Initialize visualization
-  G4VisManager* visManager = new G4VisExecutive;
+//  G4VisManager* visManager = new G4VisExecutive;
   // G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.
   // G4VisManager* visManager = new G4VisExecutive("Quiet");
-  visManager->Initialize();
+//  visManager->Initialize();
 
   // Get the pointer to the User Interface manager
   G4UImanager* UImanager = G4UImanager::GetUIpointer();
@@ -155,7 +165,7 @@ int main(int argc,char** argv)
   // owned and deleted by the run manager, so they should not be deleted
   // in the main() program !
 
-  delete visManager;
+//  delete visManager;
   delete runManager;
 }
 
