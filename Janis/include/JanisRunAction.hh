@@ -1,29 +1,3 @@
-//
-// ********************************************************************
-// * License and Disclaimer                                           *
-// *                                                                  *
-// * The  Geant4 software  is  copyright of the Copyright Holders  of *
-// * the Geant4 Collaboration.  It is provided  under  the terms  and *
-// * conditions of the Geant4 Software License,  included in the file *
-// * LICENSE and available at  http://cern.ch/geant4/license .  These *
-// * include a list of copyright holders.                             *
-// *                                                                  *
-// * Neither the authors of this software system, nor their employing *
-// * institutes,nor the agencies providing financial support for this *
-// * work  make  any representation or  warranty, express or implied, *
-// * regarding  this  software system or assume any liability for its *
-// * use.  Please see the license in the file  LICENSE  and URL above *
-// * for the full disclaimer and the limitation of liability.         *
-// *                                                                  *
-// * This  code  implementation is the result of  the  scientific and *
-// * technical work of the GEANT4 collaboration.                      *
-// * By using,  copying,  modifying or  distributing the software (or *
-// * any work based  on the software)  you  agree  to acknowledge its *
-// * use  in  resulting  scientific  publications,  and indicate your *
-// * acceptance of all terms of the Geant4 Software license.          *
-// ********************************************************************
-//
-//
 
 /// \file JanisRunAction.hh
 /// \brief Definition of the JanisRunAction class
@@ -36,28 +10,68 @@
 
 #include "TFile.h"
 #include "TTree.h"
+#include "TMacro.h"
+
+#include <vector>
+#include <sstream>
 
 class G4Run;
 class JanisRunActionMessenger;
 
-class JanisRunAction : public G4UserRunAction
-{
-  public:
+class JanisRunAction : public G4UserRunAction {
+
+public:
+
     JanisRunAction();
     virtual ~JanisRunAction();
 
     virtual void setOutputFileName(G4String newname);
+
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
 
+    void AddMacro( G4String s){
+        macros.push_back( s );
+        /*
+        if( output_file!=0 ){
+            TMacro m( s.c_str());
+            m.Write();
+        }
+        else{
+            G4cout << "Warning: no output file is created yet. Macro not added." << G4endl;
+        }
+        */
+    }
+    void AddRandomSeeds( long seeds[], int len){
+        for( int i=0; i<len; i++)
+            random_seeds.push_back( seeds[i]);
+        /*
+        if( output_file!=0 ){
+            std::stringstream ss;
+            for( int i=0; i<len; i++)
+                ss << seeds[i] << '\t';
+            TMacro m( "rand_seed_array");
+            m.AddLine( ss.str().c_str());
+        }
+        else{
+            G4cout << "Warning: no output file is created yet. Macro not added." << G4endl;
+        }
+        */
+    }
+
     TTree* GetDataTree();
 
-  private:
-    G4String output_name = "default_output_filename.root";
+private:
+
+    G4String output_name = "";
+    
     TFile* output_file;
     TTree* data_tree;
 
-    JanisRunActionMessenger* fRunActionMessenger;
+    std::vector< G4String > macros;
+    std::vector< long > random_seeds;
+
+    //JanisRunActionMessenger* fRunActionMessenger;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

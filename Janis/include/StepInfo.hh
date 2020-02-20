@@ -41,10 +41,13 @@ class StepInfo
     G4int GetVolumeCopyNumber();
     void SetVolumeCopyNumber( G4int );
 
-    G4double GetEnergy();
-    void SetEnergy( G4double );
+    G4double GetEki();
+    void SetEki( G4double );
 
-    G4double GetDepositedEnergy();
+    G4double GetEkf();
+    void SetEkf( G4double );
+
+     G4double GetDepositedEnergy();
     void SetDepositedEnergy( G4double );
 
     G4ThreeVector GetPosition();
@@ -71,7 +74,8 @@ class StepInfo
     G4String volume_name;
     G4int volume_copy_number;
 
-    G4double energy;
+    G4double energy_i;
+    G4double energy_f;
     G4double deposited_energy;
 
     G4ThreeVector position;

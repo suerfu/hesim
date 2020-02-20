@@ -1,30 +1,3 @@
-//
-// ********************************************************************
-// * License and Disclaimer                                           *
-// *                                                                  *
-// * The  Geant4 software  is  copyright of the Copyright Holders  of *
-// * the Geant4 Collaboration.  It is provided  under  the terms  and *
-// * conditions of the Geant4 Software License,  included in the file *
-// * LICENSE and available at  http://cern.ch/geant4/license .  These *
-// * include a list of copyright holders.                             *
-// *                                                                  *
-// * Neither the authors of this software system, nor their employing *
-// * institutes,nor the agencies providing financial support for this *
-// * work  make  any representation or  warranty, express or implied, *
-// * regarding  this  software system or assume any liability for its *
-// * use.  Please see the license in the file  LICENSE  and URL above *
-// * for the full disclaimer and the limitation of liability.         *
-// *                                                                  *
-// * This  code  implementation is the result of  the  scientific and *
-// * technical work of the GEANT4 collaboration.                      *
-// * By using,  copying,  modifying or  distributing the software (or *
-// * any work based  on the software)  you  agree  to acknowledge its *
-// * use  in  resulting  scientific  publications,  and indicate your *
-// * acceptance of all terms of the Geant4 Software license.          *
-// ********************************************************************
-//
-//
-
 
 // $Id: Janis.cc $
 //
@@ -33,6 +6,12 @@
 
 #include "JanisDetectorConstruction.hh"
 #include "JanisActionInitialization.hh"
+
+#include "JanisDDGeneratorAction.hh"
+#include "JanisRunAction.hh"
+#include "JanisEventAction.hh"
+#include "JanisTrackingAction.hh"
+#include "JanisSteppingAction.hh"
 
 #ifdef G4MULTITHREADED
 #include "G4MTRunManager.hh"
@@ -122,41 +101,62 @@ int main(int argc,char** argv)
   G4RunManager * runManager = new G4RunManager;
 #endif
 
-  // Set mandatory initialization classes
-  //
+  // Geometry
   JanisDetectorConstruction* detConstruction = new JanisDetectorConstruction();
   runManager->SetUserInitialization(detConstruction);
-
+  
+  // Physics list
   G4VModularPhysicsList* physicsList = new Shielding;
   runManager->SetUserInitialization(physicsList);
-
+  
+  // avoid using ActionInitialization for now
+  /*
   JanisActionInitialization* actionInitialization
-     = new JanisActionInitialization(detConstruction, filename);
-  runManager->SetUserInitialization(actionInitialization);
+     = new JanisActionInitialization( detConstruction, filename);
+  runManager->SetUserInitialization( actionInitialization );
+  */
 
-  // Initialize visualization
-//  G4VisManager* visManager = new G4VisExecutive;
-  // G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.
-  // G4VisManager* visManager = new G4VisExecutive("Quiet");
-//  visManager->Initialize();
+  // Primary generator
+  runManager->SetUserAction( new JanisDDGeneratorAction);
+
+  // Run action
+  JanisRunAction* runAction = new JanisRunAction;
+  runAction->setOutputFileName( filename );
+  runAction->AddRandomSeeds( seeds, 2);
+  runManager->SetUserAction( runAction );
+
+  // Event action
+  JanisEventAction* eventAction = new JanisEventAction(runAction);
+  runManager->SetUserAction( eventAction );
+
+  // Tracking and stepping
+  runManager->SetUserAction(new JanisTrackingAction(eventAction));
+  runManager->SetUserAction(new JanisSteppingAction(detConstruction, eventAction));
 
   // Get the pointer to the User Interface manager
   G4UImanager* UImanager = G4UImanager::GetUIpointer();
 
   // Process macro or start UI session
-  //
+  
   if ( macro.size() ) {
     // batch mode
+    // actionInitialization
+    runAction->AddMacro( macro );
     G4String command = "/control/execute ";
     UImanager->ApplyCommand(command+macro);
   }
   else  {
     // interactive mode : define UI session
+    G4VisManager* visManager = new G4VisExecutive;
+    visManager->Initialize();
+
     UImanager->ApplyCommand("/control/execute init_vis.mac");
     if (ui->IsGUI()) {
       UImanager->ApplyCommand("/control/execute gui.mac");
     }
     ui->SessionStart();
+
+    delete visManager;
     delete ui;
   }
 
@@ -165,7 +165,6 @@ int main(int argc,char** argv)
   // owned and deleted by the run manager, so they should not be deleted
   // in the main() program !
 
-//  delete visManager;
   delete runManager;
 }
 

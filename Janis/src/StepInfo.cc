@@ -27,7 +27,8 @@ StepInfo::StepInfo()
     particle_name(""),
     volume_name(""),
     volume_copy_number(0),
-    energy(0),
+    energy_i(0),
+    energy_f(0),
     deposited_energy(0),
     position(0),
     momentum_direction(0),
@@ -46,48 +47,55 @@ StepInfo::StepInfo( const G4Step* step )
     particle_name(""),
     volume_name(""),
     volume_copy_number(0),
-    energy(0),
+    energy_i(0),
+    energy_f(0),
     deposited_energy(0),
     position(0),
     momentum_direction(0),
     global_time(0),
     process_name("")
 {
+    G4StepPoint* postStep = step->GetPostStepPoint();
+    G4StepPoint* preStep = step->GetPreStepPoint();
+    G4Track* track = step->GetTrack();
 
-  G4StepPoint* postStep = step->GetPostStepPoint();
-  G4StepPoint* preStep = step->GetPreStepPoint();
-  G4Track* track = step->GetTrack();
+    eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
+    trackID = track->GetTrackID();
+    stepID = track->GetStepNumber();
+    parentID = track->GetParentID();
 
-  eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
-  trackID = track->GetTrackID();
-  parentID = track->GetParentID();
+    particle_name = track->GetParticleDefinition()->GetParticleName();
 
-  particle_name = track->GetParticleDefinition()->GetParticleName();
+    if(!postStep->GetPhysicalVolume()){
+        volume_name = "OutOfWorld";
+        volume_copy_number = 0;
+    }
+    else {
+        volume_name = postStep->GetPhysicalVolume()->GetName();
+        volume_copy_number = postStep->GetPhysicalVolume()->GetCopyNo();
+    }
 
-  if(!postStep->GetPhysicalVolume()){
-    volume_name = "OutOfWorld";
-    volume_copy_number = 0;
-  } else {
-    volume_name = postStep->GetPhysicalVolume()->GetName();
-    volume_copy_number = postStep->GetPhysicalVolume()->GetCopyNo();
-  }
-
-    energy = postStep->GetKineticEnergy();
+    energy_i = preStep->GetKineticEnergy();
+    energy_f = postStep->GetKineticEnergy();
     G4double pre_energy;
+    /*
     if(eventID>=1){
         pre_energy = preStep->GetKineticEnergy();
-        deposited_energy = pre_energy - energy; // BUG: this is not deposited energy, as it counts energy lost to new particles
+        deposited_energy = pre_energy - energy;
     }else{
         deposited_energy = 0;
-    }
+    }*/
+    deposited_energy = step->GetTotalEnergyDeposit();
+
     position = postStep->GetPosition();
     momentum_direction = postStep->GetMomentumDirection();
     global_time = postStep->GetGlobalTime();
 
     if(!postStep->GetProcessDefinedStep()){
-    process_name = "initStep";
-    } else {
-    process_name = postStep->GetProcessDefinedStep()->GetProcessName();
+        process_name = "initStep";
+    } 
+    else {
+        process_name = postStep->GetProcessDefinedStep()->GetProcessName();
     }
 }
 
@@ -196,16 +204,30 @@ void StepInfo::SetVolumeCopyNumber( G4int new_copy_number )
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4double StepInfo::GetEnergy()
+G4double StepInfo::GetEki()
 {
-  return energy;
+  return energy_i;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void StepInfo::SetEnergy( G4double new_energy )
+void StepInfo::SetEki( G4double new_energy )
 {
-  energy = new_energy;
+  energy_i = new_energy;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+G4double StepInfo::GetEkf()
+{
+  return energy_f;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void StepInfo::SetEkf( G4double new_energy )
+{
+  energy_f = new_energy;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
