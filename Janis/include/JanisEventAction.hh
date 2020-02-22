@@ -61,6 +61,14 @@ private:
     G4ThreeVector position;
     G4ThreeVector momentum;
 
+    double x;
+    double y;
+    double z;
+
+    double px;
+    double py;
+    double pz;
+
     double global_time;
 };
 

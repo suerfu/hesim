@@ -43,5 +43,7 @@
 
 /run/printProgress 1000000
 #/run/beamOn 4000000000
-/run/beamOn 1000000000
+/run/beamOn 3000000000
+
+#/run/beamOn 720000000
 

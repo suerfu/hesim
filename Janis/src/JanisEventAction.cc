@@ -36,6 +36,12 @@ JanisEventAction::JanisEventAction( JanisRunAction* input_run_action )
    edep(0),
    position(0),
    momentum(0),
+   x(0),
+   y(0),
+   z(0),
+   px(0),
+   py(0),
+   pz(0),
    global_time(0),
    process_name(""),
    tmp_particle_name(""),
@@ -77,21 +83,25 @@ void JanisEventAction::BeginOfEventAction(const G4Event*){
             data_tree->Branch("stepID", &stepID, "stepID/I");
 
             // information about its idenity
-            data_tree->Branch("particle_name", particle_name, "particle_name[16]/C");
+            data_tree->Branch("particle", particle_name, "particle[16]/C");
             data_tree->Branch("parentID", &parentID, "parentID/I");
 
             // geometric information
-            data_tree->Branch("volume_name", volume_name, "volume_name[16]/C");
-            data_tree->Branch("volume_copy_number", &volume_copy_number, "volume_copy_number/I");
-            data_tree->Branch("position", &position, "position[3]/D");
-            data_tree->Branch("momentum", &momentum, "momentum[3]/D");
+            data_tree->Branch("volume", volume_name, "volume[16]/C");
+            data_tree->Branch("copy_n", &volume_copy_number, "copy_n/I");
+            data_tree->Branch("x", &x, "x/D");
+            data_tree->Branch("y", &y, "y/D");
+            data_tree->Branch("z", &z, "z/D");
+            data_tree->Branch("px", &px, "px/D");
+            data_tree->Branch("py", &py, "py/D");
+            data_tree->Branch("pz", &pz, "pz/D");
 
             // dynamic information
-            data_tree->Branch("global_time", &global_time, "global_time/D");
+            data_tree->Branch("t", &global_time, "t/D");
             data_tree->Branch("Eki", &Eki, "Eki/D"); // initial kinetic energy before the step
             data_tree->Branch("Ekf", &Ekf, "Ekf/D"); // final kinetic energy after the step
-            data_tree->Branch("edep", &edep, "edep/D"); // energy deposit calculated by Geant4
-            data_tree->Branch("proc_name", process_name, "proc_name[16]/C");
+            data_tree->Branch("Edep", &edep, "Edep/D"); // energy deposit calculated by Geant4
+            data_tree->Branch("process", process_name, "process[16]/C");
         }
     }
 }
@@ -122,7 +132,6 @@ void JanisEventAction::EndOfEventAction(const G4Event* event){
 
             if( tmp_volume_name=="liquid helium" && edep!=0){
                 if_helium = 1;
-                if_farside = 1;
             }
             if(edep!=0 && ( tmp_volume_name.find("NaI")==0 || tmp_volume_name.find("LS")==0) ){
                 // the volume name start with NaI or LS
@@ -138,25 +147,6 @@ void JanisEventAction::EndOfEventAction(const G4Event* event){
                 trackID = stepCollection[i].GetTrackID();
                 stepID = stepCollection[i].GetStepID();
                 edep = stepCollection[i].GetDepositedEnergy();
-
-                // This paragraph is used to refresh step_ID when track_ID changes, which is a minor problem in step_info
-                /*
-                if( i!=0 ){
-                    if( trackID==stepCollection[i-1].GetTrackID() ){
-                        stepID = j;
-                        j++;
-                    }
-                    else{
-                        j = 0;
-                        stepID = j;
-                        j++;
-                    }
-                }
-                else{
-                    stepID = 0;
-                    j++;
-                }
-                */
 
                 parentID = stepCollection[i].GetParentID();
 
@@ -175,16 +165,25 @@ void JanisEventAction::EndOfEventAction(const G4Event* event){
                 position = stepCollection[i].GetPosition();
                 momentum = stepCollection[i].GetMomentumDirection();
 
+                x = position.x();
+                y = position.y();
+                z = position.z();
+
+                px = momentum.x();
+                py = momentum.y();
+                pz = momentum.z();
+
                 global_time = stepCollection[i].GetGlobalTime();
 
                 data_tree->Fill();
             }
         }
+
+        if_helium = 0;
+        if_farside = 0;
     }
 
     stepCollection.clear();
-    if_helium = 0;
-    if_farside = 1;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

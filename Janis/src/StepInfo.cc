@@ -61,7 +61,7 @@ StepInfo::StepInfo( const G4Step* step )
 
     eventID = G4EventManager::GetEventManager()->GetConstCurrentEvent()->GetEventID();
     trackID = track->GetTrackID();
-    stepID = track->GetStepNumber();
+    stepID = track->GetCurrentStepNumber();
     parentID = track->GetParentID();
 
     particle_name = track->GetParticleDefinition()->GetParticleName();
@@ -77,8 +77,8 @@ StepInfo::StepInfo( const G4Step* step )
 
     energy_i = preStep->GetKineticEnergy();
     energy_f = postStep->GetKineticEnergy();
-    G4double pre_energy;
     /*
+    G4double pre_energy;
     if(eventID>=1){
         pre_energy = preStep->GetKineticEnergy();
         deposited_energy = pre_energy - energy;

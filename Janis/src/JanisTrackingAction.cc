@@ -26,7 +26,13 @@ JanisTrackingAction::JanisTrackingAction(JanisEventAction* eventAction)
 
 void JanisTrackingAction::PreUserTrackingAction(const G4Track* track)
 {
-
+/*
+    G4cout << "User tracking: \n";
+    G4cout << "   Track ID: " << track->GetTrackID()<<"\n";
+    G4cout << "   Step ID : " << track->GetCurrentStepNumber()<<"\n";
+    G4cout << "   Name    : " << track->GetParticleDefinition()->GetParticleName() << "\n";
+//    G4cout << "   Process : " << step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName() << G4endl;
+*/
   //if(!track->GetVolume()) std::cout << "HELP!!!" << std::endl;
 
   // We have to set up the initStep by hand
@@ -39,8 +45,8 @@ void JanisTrackingAction::PreUserTrackingAction(const G4Track* track)
   stepInfo.SetParticleName(track->GetParticleDefinition()->GetParticleName());
   stepInfo.SetVolumeName(track->GetVolume()->GetName());
   stepInfo.SetVolumeCopyNumber(track->GetVolume()->GetCopyNo());
-  stepInfo.SetEKi(track->GetKineticEnergy());
-  stepInfo.SetEKf(track->GetKineticEnergy());
+  stepInfo.SetEki(track->GetKineticEnergy());
+  stepInfo.SetEkf(track->GetKineticEnergy());
   stepInfo.SetPosition(track->GetPosition());
   stepInfo.SetMomentumDirection(track->GetMomentumDirection());
   stepInfo.SetGlobalTime(track->GetGlobalTime());
