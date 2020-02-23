@@ -14,13 +14,14 @@ struct track_info{
     int trackID;
     int stepID;
     int parentID;
-    std::string* particle_name = 0;
-    std::string* volume_name = 0;
+    char particle_name[16];
+    char volume_name[16];
     int volume_copy_number;
-    double energy;
+    double Eki;
+    double Ekf;
     double edep;
     double gtime;
-    std::string* proc_name = 0;
+    char proc_name[16];
 };
 
 
@@ -94,13 +95,14 @@ int main( int argc, char* argv[]){
         events -> SetBranchAddress("trackID", &data.trackID);
         events -> SetBranchAddress("stepID", &data.stepID);
         events -> SetBranchAddress("parentID", &data.parentID);
-        events -> SetBranchAddress("particle_name", &data.particle_name);
-        events -> SetBranchAddress("volume_name", &data.volume_name);
-        events -> SetBranchAddress("volume_copy_number", &data.volume_copy_number);
-        events -> SetBranchAddress("energy", &data.energy);
-        events -> SetBranchAddress("deposited_energy", &data.edep);
-        events -> SetBranchAddress("global_time", &data.gtime);
-        events -> SetBranchAddress("process_name", &data.proc_name);
+        events -> SetBranchAddress("particle", &data.particle_name);
+        events -> SetBranchAddress("volume", &data.volume_name);
+//        events -> SetBranchAddress("volume_copy_nr", &data.volume_copy_number);
+        events -> SetBranchAddress("Eki", &data.Eki);
+        events -> SetBranchAddress("Ekf", &data.Ekf);
+        events -> SetBranchAddress("Edep", &data.edep);
+        events -> SetBranchAddress("t", &data.gtime);
+        events -> SetBranchAddress("process", &data.proc_name);
 
         cout << nentries << " events in the event tree.\n";
 
@@ -114,7 +116,7 @@ int main( int argc, char* argv[]){
             if( i%1000==0 )
                 cout << "processed " << i << " entries" << endl;
 
-            if( data.parentID==0 && *data.proc_name=="initStep" ){
+            if( data.parentID==0 && strncmp( data.proc_name, "initStep", 8)==0 ){
                 if( i!=0 ){
                     //cout << "filling tree at i=" << i << endl;
                     tree->Fill();
@@ -140,13 +142,13 @@ int main( int argc, char* argv[]){
                 wdata.evtID = data.eventID;
             }
 
-            if( *data.volume_name=="liquid helium" ){
+            if( strncmp( data.volume_name, "liquid helium", 13)==0 ){
                 wdata.edep_he += data.edep;
                 if( wdata.time_he<0 || wdata.time_he>data.gtime )
                     wdata.time_he = data.gtime;
             }
-            else if( data.volume_name->find("NaI")==0 ){
-                int index = (*data.volume_name)[3] - '1';
+            else if( strncmp( data.volume_name, "NaI", 3)==0 ){
+                int index = (data.volume_name)[3] - '1';
                 //cout << " index is " << index << endl;
                 wdata.edep_nai[index] += data.edep;
                 if( wdata.time_nai[index]<0 || wdata.time_nai[index]>data.gtime )
