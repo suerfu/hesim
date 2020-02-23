@@ -28,8 +28,8 @@ JanisEventAction::JanisEventAction( JanisRunAction* input_run_action )
    trackID(0),
    stepID(0),
    parentID(0),
-   particle_name(""),
-   volume_name(""),
+   //particle_name(""),
+   //volume_name(""),
    volume_copy_number(0),
    Eki(0),
    Ekf(0),
@@ -43,7 +43,7 @@ JanisEventAction::JanisEventAction( JanisRunAction* input_run_action )
    py(0),
    pz(0),
    global_time(0),
-   process_name(""),
+   //process_name("")
    tmp_particle_name(""),
    tmp_volume_name(""),
    tmp_process_name("")
