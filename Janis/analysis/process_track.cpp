@@ -65,6 +65,12 @@ int main( int argc, char* argv[]){
         return -1;
     }
 
+    string output_name = argv[argc-1];
+    TFile* outfile = new TFile( output_name.c_str(), "RECREATE");
+    if( !outfile ){
+        cout << "Error creating file " << output_name << endl;
+        return -2;
+    }
 
     TTree* tree = new TTree( "events", "MC simulation for Compton scattering");
     event_info wdata;   // data for writing
@@ -112,9 +118,11 @@ int main( int argc, char* argv[]){
         int evt_counter = -1;
         for( unsigned int i=0; i<nentries; i++){
             //cout << i << endl;
+            /*
             events->GetEntry(i);
             if( i%1000==0 )
                 cout << "processed " << i << " entries" << endl;
+            */
 
             if( data.parentID==0 && strncmp( data.proc_name, "initStep", 8)==0 ){
                 if( i!=0 ){
@@ -181,14 +189,8 @@ int main( int argc, char* argv[]){
         infile->Close();
     }
 
-    string output_name = argv[argc-1];
-    TFile* outfile = new TFile( output_name.c_str(), "RECREATE");
-    if( !outfile ){
-        cout << "Error creating file " << output_name << endl;
-        return -2;
-    }
     cout << "last step\n";
-    //outfile->cd();
+    outfile->cd();
     tree->Write();
     cout << "tree written\n";
     outfile->Close();
