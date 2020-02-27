@@ -53,24 +53,11 @@ target_link_libraries(Janis ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 # relies on these scripts being in the current working directory.
 #
 set(Janis_SCRIPTS
-  /macros/savio10million.mac
-  /macros/savio100million1.mac
-  /macros/withfloor_neutron.mac
-  /macros/withfloor_compton.mac
-
-#  /shell/savio10million.sh
-#  /shell/savio100million1.sh
-#  /shell/neutron_analysis.sh
-#  /shell/withfloor_neutron.sh
-#  /shell/withfloor_compton.sh
-
-#  icons.mac
+  /macros/compton1.mac
+  /macros/compton2.mac
   gui.mac
-#  run.png
   init_vis.mac
   vis.mac
-#  /analysis/source_check.C
-#  /analysis/neutron_analysis.C
   )
 
 foreach(_script ${Janis_SCRIPTS})
