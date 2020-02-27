@@ -10,6 +10,7 @@
 #include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
 #include "G4ParticleDefinition.hh"
+#include "G4GeneralParticleSource.hh"
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
 #include "G4ThreeVector.hh"
@@ -27,6 +28,8 @@ JanisDDGeneratorAction::JanisDDGeneratorAction()
    generator_angle(45)
 {
   fParticleSource = new G4ParticleGun();
+  fgps = new G4GeneralParticleSource();
+    // GPS must be initialized here.
 
   primaryGeneratorMessenger = new JanisDDGeneratorMessenger(this);
 }
@@ -58,6 +61,7 @@ void JanisDDGeneratorAction::setGeneratorAngle(G4double pmt_angle)
 void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
   if(generator_mode == "neutrons"){
+
     //Parameters of Energy_vs_Angle fitted into a 4th order polynomial
     G4double e1 =  -3.76446665e-10;
     G4double e2 =  3.75645182e-07;
@@ -73,9 +77,9 @@ void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     G4double d5 = 3.97964858e-02;
 
 
-    G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
+    G4double phi = G4UniformRand()*360*degree;
     G4double angle = DD_dist(d1, d2, d3, d4, d5);
-    G4double theta = angle*(3.14159265358979323846/180)*radian;
+    G4double theta = angle*degree;//*(3.14159265358979323846/180)*radian;
     G4ThreeVector neutronDirection;
     neutronDirection.setRhoPhiTheta(1.0,phi,theta);//1 is needed because we are pointing it towards -ve z direction.
     neutronDirection.rotateY(90*deg).rotateZ(-generator_angle);
@@ -91,16 +95,24 @@ void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     fParticleSource->GeneratePrimaryVertex(anEvent);
   }
 
+    else{
+        fgps->GeneratePrimaryVertex(anEvent);
+    }
+
+    
+    /*
   else if(generator_mode == "gammas"){
     G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
     fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -9.5322*cm));
         // the z-distance of the source is at the same height as the helium cell
         // -9.5322 * cm is obtained by sequentially adding the z-position of parent geometries (using G4cout to print coordinate).
 
+    G4cerr << "Source position is " << G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -9.5322*cm) << G4endl;
+
     fParticleSource->SetParticleDefinition(particleDefinition);
     fParticleSource->SetParticleEnergy(661657.*eV);
 
-    G4double phi = G4UniformRand()*2*3.14159265358979323846*radian;
+    G4double phi = G4UniformRand()*360*degree;
     G4double angle = G4UniformRand()*90.0;
     G4double theta = angle*(3.14159265358979323846/180)*radian;
 
@@ -111,6 +123,7 @@ void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
     fParticleSource->GeneratePrimaryVertex(anEvent);
   }
+  */
 }
 
 G4double JanisDDGeneratorAction::DD_dist(G4double w1, G4double w2, G4double w3, G4double w4, G4double w5)

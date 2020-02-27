@@ -68,6 +68,19 @@ JanisDetectorConstruction::JanisDetectorConstruction()
   fNaIReady8(false)  // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
 {
   fDetectorMessenger = new JanisDetectorConstructionMessenger(this);
+
+  mylar_surf_density = 0.009 * g/cm2;
+  mylar_thickness = 0.0254 * cm;
+  mylar_density = mylar_surf_density /mylar_thickness;
+
+  src_dia = 2.38 * cm;
+  src_thickness = 0.076 * cm;
+  src_active_dia = 0.3 * cm;
+
+  kapton_surf_density = 0.0009 * g/cm2;
+  kapton_thickness = src_thickness - mylar_thickness;
+  kapton_density = kapton_surf_density /  kapton_thickness;
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -183,6 +196,19 @@ void JanisDetectorConstruction::DefineMaterials()
     Generic_PMT -> AddMaterial(Galactic , fractionMass=80.0*perCent);
     Generic_PMT -> AddMaterial(ss_t316 , fractionMass=20.0*perCent);
 
+    // By Suerfu on 2020-02-27
+    // Materials used on Cs137 radioactive source
+    G4Material* mylar_material = new G4Material( name = "mylar", mylar_density, nComponents = 3);
+    mylar_material->AddElement(elC, nAtoms=10);
+    mylar_material->AddElement(elH, nAtoms=8);
+    mylar_material->AddElement(elO, nAtoms=4);
+
+    G4Material* kapton_material = new G4Material( name = "kapton", kapton_density, nComponents = 4);
+    kapton_material->AddElement(elC, nAtoms=22);
+    kapton_material->AddElement(elH, nAtoms=10);
+    kapton_material->AddElement(elN, nAtoms=2);
+    kapton_material->AddElement(elO, nAtoms=5);
+
     // Print materials
     G4cout << *(G4Material::GetMaterialTable()) << G4endl;
 }
@@ -242,6 +268,9 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     G4Material* quartz_cell_material = G4Material::GetMaterial("quartz");
     G4Material* pmt_array_material = G4Material::GetMaterial("liquid_helium");
+
+    G4Material* source_material = G4Material::GetMaterial("kapton");
+    G4Material* src_window_material = G4Material::GetMaterial("mylar");
 
     if ( ! default_material || ! quartz_cell_material || ! liquid_helium_material ) {
       G4ExceptionDescription msg;
@@ -925,6 +954,25 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     fs_leg_outer_LV->SetVisAttributes(container_vis);
     fs_foot_outer_LV->SetVisAttributes(container_vis);
     */
+
+    // Radioactive source
+    G4ThreeVector source_pos = G4ThreeVector(-176.07*mm,176.07*mm,-95.322*mm);
+    G4RotationMatrix* source_rot = new G4RotationMatrix();
+    source_rot->rotateX( (360-90)*degree);
+    source_rot->rotateY( (360-45)*degree);
+
+    G4Tubs* source_solid = new G4Tubs("source solid", 0, src_dia/2, src_thickness/2, 0, 360*degree);
+    G4LogicalVolume* source_log = new G4LogicalVolume( source_solid, source_material, "source logic" );
+        // WARNING: note that this source position is hard-coded
+        // since at the time of geometry construction, we do not know if it is gamma or neutron, and where gamma is originating from.
+    new G4PVPlacement( source_rot, source_pos , source_log, "source", WorldLV, false, 0, 0);
+
+    G4Tubs* src_window_solid = new G4Tubs("source window solid", 0, src_dia/2, mylar_thickness/2, 0, 360*degree);
+    G4LogicalVolume* src_window_log = new G4LogicalVolume( src_window_solid, src_window_material, "source window logic" );
+    new G4PVPlacement( 0, G4ThreeVector(0, 0, src_thickness/2-mylar_thickness/2), src_window_log, "source window", source_log, false, 0, 0);
+
+    G4cerr << "Source position is at " << source_pos + (src_thickness/2-mylar_thickness)*G4ThreeVector(1,-1,0)/G4ThreeVector(1,-1,0).mag() << G4endl;
+
     fConstructed = true;
 
     return WorldPV;
