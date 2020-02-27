@@ -53,7 +53,7 @@ int main(int argc,char** argv)
   G4String macro;
   G4String session;
 
-  G4String filename = "default.root";
+  G4String filename = "";
 #ifdef G4MULTITHREADED
   G4int nThreads = 0;
 #endif

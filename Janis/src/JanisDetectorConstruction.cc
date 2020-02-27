@@ -701,42 +701,48 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4Tubs* can_vacuum_outer_S = new G4Tubs(name, can_vacuum_outer_rMin, can_vacuum_outer_rMax, can_vacuum_outer_Dz/2.0, can_vacuum_outer_SPhi, can_vacuum_outer_DPhi);
     G4LogicalVolume* can_vacuum_outer_LV = new G4LogicalVolume(can_vacuum_outer_S, can_vacuum_outer_material, name);
     new G4PVPlacement(can_vacuum_outer_rm, G4ThreeVector(can_vacuum_outer_posX,can_vacuum_outer_posY,can_vacuum_outer_posZ), can_vacuum_outer_LV, name, WorldLV, false, 0, fCheckOverlaps);
+    G4cerr << "vacuum can outer at " << G4ThreeVector(can_vacuum_outer_posX,can_vacuum_outer_posY,can_vacuum_outer_posZ)/cm << G4endl;
 
     name = "can_vacuum_inner";
     G4Tubs* can_vacuum_inner_S = new G4Tubs(name, can_vacuum_inner_rMin, can_vacuum_inner_rMax, can_vacuum_inner_Dz/2.0, can_vacuum_inner_SPhi, can_vacuum_inner_DPhi);
     G4LogicalVolume* can_vacuum_inner_LV = new G4LogicalVolume(can_vacuum_inner_S, can_vacuum_inner_material, name);
     new G4PVPlacement(can_vacuum_inner_rm, G4ThreeVector(can_vacuum_inner_posX,can_vacuum_inner_posY,can_vacuum_inner_posZ), can_vacuum_inner_LV, name, can_vacuum_outer_LV, false, 0, fCheckOverlaps);
+    G4cerr << "vacuum can inner at " << G4ThreeVector(can_vacuum_inner_posX,can_vacuum_inner_posY,can_vacuum_inner_posZ)/cm << G4endl;
 
     name = "can_77k_outer";
     G4Tubs* can_77k_outer_S = new G4Tubs(name, can_77k_outer_rMin, can_77k_outer_rMax, can_77k_outer_Dz/2.0, can_77k_outer_SPhi, can_77k_outer_DPhi);
     G4LogicalVolume* can_77k_outer_LV = new G4LogicalVolume(can_77k_outer_S, can_77k_outer_material, name);
     new G4PVPlacement(can_77k_outer_rm, G4ThreeVector(can_77k_outer_posX,can_77k_outer_posY,can_77k_outer_posZ), can_77k_outer_LV, name, can_vacuum_inner_LV, false, 0, fCheckOverlaps);
+    G4cerr << "77K outer at " << G4ThreeVector(can_77k_outer_posX,can_77k_outer_posY,can_77k_outer_posZ)/cm << G4endl;
 
     name = "can_77k_inner";
     G4Tubs* can_77k_inner_S = new G4Tubs(name, can_77k_inner_rMin, can_77k_inner_rMax, can_77k_inner_Dz/2.0, can_77k_inner_SPhi, can_77k_inner_DPhi);
     G4LogicalVolume* can_77k_inner_LV = new G4LogicalVolume(can_77k_inner_S, can_77k_inner_material, name);
     new G4PVPlacement(can_77k_inner_rm, G4ThreeVector(can_77k_inner_posX,can_77k_inner_posY,can_77k_inner_posZ), can_77k_inner_LV, name, can_77k_outer_LV, false, 0, fCheckOverlaps);
+    G4cerr << "77K can inner at " << G4ThreeVector(can_77k_inner_posX,can_77k_inner_posY,can_77k_inner_posZ)/cm << G4endl;
 
     name = "can_4k_outer";
     G4Tubs* can_4k_outer_S = new G4Tubs(name, can_4k_outer_rMin, can_4k_outer_rMax, can_4k_outer_Dz/2.0, can_4k_outer_SPhi, can_4k_outer_DPhi);
     G4LogicalVolume* can_4k_outer_LV = new G4LogicalVolume(can_4k_outer_S, can_4k_outer_material, name);
     new G4PVPlacement(can_4k_outer_rm, G4ThreeVector(can_4k_outer_posX,can_4k_outer_posY,can_4k_outer_posZ), can_4k_outer_LV, name, can_77k_inner_LV, false, 0, fCheckOverlaps);
+    G4cerr << "can 4K outer at " << G4ThreeVector(can_4k_outer_posX,can_4k_outer_posY,can_4k_outer_posZ)/cm << G4endl;
 
     name = "can_4k_inner";
     G4Tubs* can_4k_inner_S = new G4Tubs(name, can_4k_inner_rMin, can_4k_inner_rMax, can_4k_inner_Dz/2.0, can_4k_inner_SPhi, can_4k_inner_DPhi);
     G4LogicalVolume* can_4k_inner_LV = new G4LogicalVolume(can_4k_inner_S, can_4k_inner_material, name);
     new G4PVPlacement(can_4k_inner_rm, G4ThreeVector(can_4k_inner_posX,can_4k_inner_posY,can_4k_inner_posZ), can_4k_inner_LV, name, can_4k_outer_LV, false, 0, fCheckOverlaps);
+    G4cerr << "4K can inner at " << G4ThreeVector(can_4k_inner_posX,can_4k_inner_posY,can_4k_inner_posZ)/cm << G4endl;
 
     name = "can_sample_outer";
     G4Tubs* can_sample_outer_S = new G4Tubs(name, can_sample_outer_rMin, can_sample_outer_rMax, can_sample_outer_Dz/2.0, can_sample_outer_SPhi, can_sample_outer_DPhi);
     G4LogicalVolume* can_sample_outer_LV = new G4LogicalVolume(can_sample_outer_S, can_sample_outer_material, name);
     new G4PVPlacement(can_sample_outer_rm, G4ThreeVector(can_sample_outer_posX,can_sample_outer_posY,can_sample_outer_posZ), can_sample_outer_LV, name, can_4k_inner_LV, false, 0, fCheckOverlaps);
-
+    G4cerr << "can sample outer at " << G4ThreeVector(can_sample_outer_posX,can_sample_outer_posY,can_sample_outer_posZ)/cm << G4endl;
     name = "can_sample_inner";
     G4Tubs* can_sample_inner_S = new G4Tubs(name, can_sample_inner_rMin, can_sample_inner_rMax, can_sample_inner_Dz/2.0, can_sample_inner_SPhi, can_sample_inner_DPhi);
     G4LogicalVolume* can_sample_inner_LV = new G4LogicalVolume(can_sample_inner_S, can_sample_inner_material, name);
     new G4PVPlacement(can_sample_inner_rm, G4ThreeVector(can_sample_inner_posX,can_sample_inner_posY,can_sample_inner_posZ), can_sample_inner_LV, name, can_sample_outer_LV, false, 0, fCheckOverlaps);
-
+    G4cerr << "can sample inner at " << G4ThreeVector(can_sample_inner_posX,can_sample_inner_posY,can_sample_inner_posZ)/cm << G4endl;
     name = "can_sample_ring";
     G4Tubs* can_sample_ring_S = new G4Tubs(name, can_sample_ring_rMin, can_sample_ring_rMax, can_sample_ring_Dz/2.0, can_sample_ring_SPhi, can_sample_ring_DPhi);
     G4LogicalVolume* can_sample_ring_LV = new G4LogicalVolume(can_sample_ring_S, can_sample_ring_material, name);
@@ -836,7 +842,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4VSolid* pmt_array_S = new G4Box(name, pmt_array_size_xyz/2., pmt_array_size_xyz/2., pmt_array_size_xyz/2.);
     G4LogicalVolume* pmt_array_LV = new G4LogicalVolume(pmt_array_S, pmt_array_material, name);
     new G4PVPlacement(pmt_array_rm, G4ThreeVector(pmt_array_posX,pmt_array_posY,pmt_array_posZ), pmt_array_LV, name, can_sample_inner_LV, false, 0, fCheckOverlaps);
-
+    G4cerr << "pmt array at " << G4ThreeVector(pmt_array_posX,pmt_array_posY,pmt_array_posZ)/cm << G4endl;
     JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt1_posX,pmt1_posY,pmt1_posZ,pmt1_rm);
     JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt2_posX,pmt2_posY,pmt2_posZ,pmt2_rm);
     JanisDetectorConstruction::PlacePMT(pmt_array_LV,pmt3_posX,pmt3_posY,pmt3_posZ,pmt3_rm);

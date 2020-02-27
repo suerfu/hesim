@@ -21,7 +21,8 @@
 
 JanisRunAction::JanisRunAction() : G4UserRunAction(), 
     output_file( 0 ),
-    data_tree( 0 )/*, fRunActionMessenger(0)*/
+    data_tree( 0 ),
+    output_name ("")/*, fRunActionMessenger(0)*/
 {
     // set printing event number per each event 
     // fRunActionMessenger = new JanisRunActionMessenger(this);

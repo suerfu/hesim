@@ -110,7 +110,7 @@ void JanisEventAction::BeginOfEventAction(const G4Event*){
 
 void JanisEventAction::EndOfEventAction(const G4Event* event){
 
-    if( data_tree ){
+    if( data_tree!=0 ){
 
         // Print per event (modulo n)
         G4int evtID = event->GetEventID();

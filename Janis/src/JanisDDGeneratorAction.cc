@@ -87,14 +87,16 @@ void JanisDDGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     fParticleSource->SetParticleDefinition(particleDefinition);
 
     // Set source position
-    fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -10. * cm));
+    fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -9.5322 * cm));
     fParticleSource->GeneratePrimaryVertex(anEvent);
   }
 
   else if(generator_mode == "gammas"){
     G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("gamma");
-    fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -10.*cm));
+    fParticleSource->SetParticlePosition(G4ThreeVector(- generator_distance * cos(generator_angle) * cm , generator_distance * sin(generator_angle) * cm, -9.5322*cm));
         // the z-distance of the source is at the same height as the helium cell
+        // -9.5322 * cm is obtained by sequentially adding the z-position of parent geometries (using G4cout to print coordinate).
+
     fParticleSource->SetParticleDefinition(particleDefinition);
     fParticleSource->SetParticleEnergy(661657.*eV);
 
