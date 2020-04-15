@@ -49,6 +49,8 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     void add6thFarSideAngle(G4double new_fs_angle_6);
     void add7thFarSideAngle(G4double new_fs_angle_7);
     void add8thFarSideAngle(G4double new_fs_angle_8);
+    void add9thFarSideAngle(G4double new_fs_angle_9);
+    void add10thFarSideAngle(G4double new_fs_angle_10);
     void add1stNaIFarSideAngle(G4double new_fsNaI_angle_1);
     void add2ndNaIFarSideAngle(G4double new_fsNaI_angle_2);
     void add3rdNaIFarSideAngle(G4double new_fsNaI_angle_3);
@@ -124,6 +126,16 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4VPhysicalVolume* fs_head_inner_8_PV;
     G4VPhysicalVolume* fs_head_outer_8_PV;
 
+    G4LogicalVolume* fs_head_inner_9_LV;
+    G4LogicalVolume* fs_head_outer_9_LV;
+    G4VPhysicalVolume* fs_head_inner_9_PV;
+    G4VPhysicalVolume* fs_head_outer_9_PV;
+
+    G4LogicalVolume* fs_head_inner_10_LV;
+    G4LogicalVolume* fs_head_outer_10_LV;
+    G4VPhysicalVolume* fs_head_inner_10_PV;
+    G4VPhysicalVolume* fs_head_outer_10_PV;
+
     G4LogicalVolume* fsNaI_head_inner_1_LV;
     G4LogicalVolume* fsNaI_head_outer_1_LV;
     G4LogicalVolume* fsNaI_scintillator_1_LV;
@@ -195,6 +207,8 @@ class JanisDetectorConstruction : public G4VUserDetectorConstruction
     G4bool  fReady6; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
     G4bool  fReady7; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
     G4bool  fReady8; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady9; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+    G4bool  fReady10; // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
     G4bool  fNaIReady1;
     G4bool  fNaIReady2;
     G4bool  fNaIReady3;

@@ -55,9 +55,11 @@ target_link_libraries(Janis ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 set(Janis_SCRIPTS
   /macros/compton1.mac
   /macros/compton2.mac
+  /macros/neutron1.mac
   gui.mac
   init_vis.mac
   vis.mac
+  icons.mac
   )
 
 foreach(_script ${Janis_SCRIPTS})

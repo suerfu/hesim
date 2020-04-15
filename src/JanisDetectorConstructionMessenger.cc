@@ -77,6 +77,18 @@ JanisDetectorConstructionMessenger::JanisDetectorConstructionMessenger(JanisDete
     NewAngle8Cmd->AvailableForStates(G4State_Idle);
     NewAngle8Cmd->SetDefaultValue(0);
 
+    NewAngle9Cmd = new G4UIcmdWithADouble("/placement/addAngle9",this);
+    NewAngle9Cmd->SetGuidance("Add the 9th far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle9Cmd->SetParameterName("new_fs_angle_9", false);
+    NewAngle9Cmd->AvailableForStates(G4State_Idle);
+    NewAngle9Cmd->SetDefaultValue(0);
+
+    NewAngle10Cmd = new G4UIcmdWithADouble("/placement/addAngle10",this);
+    NewAngle10Cmd->SetGuidance("Add the 10th far-side detector, and set the angle of the far-side detector in unit of deg.");
+    NewAngle10Cmd->SetParameterName("new_fs_angle_10", false);
+    NewAngle10Cmd->AvailableForStates(G4State_Idle);
+    NewAngle10Cmd->SetDefaultValue(0);
+
     NewNaIAngle1Cmd = new G4UIcmdWithADouble("/placement/addNaIAngle1",this);
     NewNaIAngle1Cmd->SetGuidance("Add the 1st far-side NaI detector, and set the angle of the far-side detector in unit of deg.");
     NewNaIAngle1Cmd->SetParameterName("new_fsNaI_angle_1", false);
@@ -141,6 +153,8 @@ JanisDetectorConstructionMessenger::~JanisDetectorConstructionMessenger()
     delete NewAngle6Cmd;
     delete NewAngle7Cmd;
     delete NewAngle8Cmd;
+    delete NewAngle9Cmd;
+    delete NewAngle10Cmd;
     delete NewNaIAngle1Cmd;
     delete NewNaIAngle2Cmd;
     delete NewNaIAngle3Cmd;
@@ -185,6 +199,12 @@ void JanisDetectorConstructionMessenger::SetNewValue(G4UIcommand* command, G4Str
 
     } else if(command == NewAngle8Cmd){
         DetectorPlacement->add8thFarSideAngle(NewAngle8Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle9Cmd){
+        DetectorPlacement->add9thFarSideAngle(NewAngle9Cmd->GetNewDoubleValue(newValue));
+
+    } else if(command == NewAngle10Cmd){
+        DetectorPlacement->add10thFarSideAngle(NewAngle10Cmd->GetNewDoubleValue(newValue));
 
     } else if(command == NewNaIAngle1Cmd){
         DetectorPlacement->add1stNaIFarSideAngle(NewNaIAngle1Cmd->GetNewDoubleValue(newValue));
