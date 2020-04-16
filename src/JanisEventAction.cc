@@ -121,6 +121,7 @@ void JanisEventAction::EndOfEventAction(const G4Event* event){
 
         if_helium = 0;
         if_farside = 0;
+        if_quartz = 0;
 
         // Select the tracks of interest
         for( size_t i=0; i < stepCollection.size(); ++i ){
@@ -133,6 +134,9 @@ void JanisEventAction::EndOfEventAction(const G4Event* event){
             if( tmp_volume_name=="liquid helium" && edep!=0){
                 if_helium = 1;
             }
+            if( (tmp_volume_name=="quartz_cell" || tmp_volume_name=="pmt_Window") && edep!=0){
+                if_quartz = 1;
+            }
             if(edep!=0 && ( tmp_volume_name.find("NaI")==0 || tmp_volume_name.find("LS")==0) ){
                 // the volume name start with NaI or LS
                 if_farside = 1;
@@ -140,7 +144,7 @@ void JanisEventAction::EndOfEventAction(const G4Event* event){
         }
 
         // There is coincidence. Fill the wanted tracks
-        if(if_farside==1 && if_helium==1){
+        if(if_farside==1 && (if_helium==1 || if_quartz) ){
 
             for( size_t i=0; i < stepCollection.size(); ++i ){
                 eventID = stepCollection[i].GetEventID();
