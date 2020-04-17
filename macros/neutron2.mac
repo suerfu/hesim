@@ -42,4 +42,6 @@
 #/placement/setDistance 135.9
 
 /run/printProgress 1000000
-#/run/beamOn 3000000000
+#/run/beamOn 400000000
+
+# for neutrons, a reasonable number is 400000000, which will finish in about 20 hours with 5 GB memory usage./run/printProgress 1000000
