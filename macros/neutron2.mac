@@ -42,4 +42,6 @@
 #/placement/setDistance 135.9
 
 /run/printProgress 1000000
-#/run/beamOn 3000000000
+/run/beamOn 100000000
+# with floor, slower
+#/run/beamOn 400000000

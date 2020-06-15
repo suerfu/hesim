@@ -9,6 +9,9 @@
 #include "TTree.h"
 #include "TFile.h"
 
+using namespace std;
+
+// structure to hold information read from input ROOT file.
 struct track_info{
     int eventID;
     int trackID;
@@ -25,33 +28,60 @@ struct track_info{
 };
 
 
+// structure to hold information for ROOT output
 struct event_info{
+    char file_name[128];
+
     Int_t ID = -1;
     Int_t evtID = -1;
 
-    Double_t edep_he = 0;
-//    double edep_he_n = 0;
-//    double edep_he_a = 0;
-    Double_t time_he = 1.e10;
+    Double_t edep_he_e = 0;
+    Double_t edep_he_n = 0;
+    Double_t time_he = -1;
 
-    Double_t edep_nai[8];
-    Double_t time_nai[8];
+    Double_t edep_fs_e[10];
+    Double_t edep_fs_n[10];
+    Double_t time_fs[10] = {-1};
 
-//    double edep_ls[9];
-//    double time_ls[9];
+    Double_t time_floor = -1;
+/*
+    vector<double> E_he_e;
+    vector<double> E_he_n;
+    vector<double> T_he_n;
+
+    vector<double> E_fs_e;
+    vector<double> E_fs_n;
+    vector<double> T_fs_n;
+*/
 };
 
-using namespace std;
+
+// reset event info.
+void ResetEventInfo( event_info* wdata ){
+    wdata->evtID = -1;
+    wdata->ID = -1;
+
+    wdata->edep_he_e = 0;
+    wdata->edep_he_n = 0;
+    wdata->time_he = -1;
+
+    for( unsigned int j=0; j<10; j++){
+        wdata->edep_fs_e[j] = 0;
+        wdata->edep_fs_n[j] = 0;
+        wdata->time_fs[j] = -1;
+    }
+    
+    wdata->time_floor = -1;
+}
+
+
 
 int main( int argc, char* argv[]){ 
-    //process_track(string filename, string output_name){
 
     bool print_usage = false;
-
     if( argc==1 ){
         print_usage = true;
     }
-    
     else{
         for( int i=1; i<argc; i++){
             if( strncmp( argv[i], "-h", 2) ==0 || strncmp( argv[i], "--help", 6) ==0 ){
@@ -62,11 +92,11 @@ int main( int argc, char* argv[]){
 
     if( print_usage){
         cout << "usage: " << argv[0] << " File-to-process-0 [ File-to-Process-1 ...] Output-ROOT-File\n";
-        return -1;
+        return 0;
     }
 
     string output_name = argv[argc-1];
-    TFile* outfile = new TFile( output_name.c_str(), "RECREATE");
+    TFile* outfile = new TFile( output_name.c_str(), "NEW");
     if( !outfile ){
         cout << "Error creating file " << output_name << endl;
         return -2;
@@ -75,75 +105,90 @@ int main( int argc, char* argv[]){
     TTree* tree = new TTree( "events", "MC simulation for Compton scattering");
     event_info wdata;   // data for writing
 
+    tree->Branch( "file", &wdata.file_name, "file[128]/C");
     tree->Branch( "ID", &wdata.ID, "ID/I");
     tree->Branch( "evtID", &wdata.evtID, "evtID/I");
-    tree->Branch( "edep_he", &wdata.edep_he, "edep_he/D" );
+    tree->Branch( "edep_he_e", &wdata.edep_he_e, "edep_he_e/D" );
+    tree->Branch( "edep_he_n", &wdata.edep_he_n, "edep_he_n/D" );
     tree->Branch( "time_he", &wdata.time_he, "time_he/D");
-    tree->Branch( "edep_nai", &wdata.edep_nai, "edep_nai[8]/D" );
-    tree->Branch( "time_nai", &wdata.time_nai, "time_nai[8]/D");
+    tree->Branch( "edep_fs_e", &wdata.edep_fs_e, "edep_fs_e[10]/D" );
+    tree->Branch( "edep_fs_n", &wdata.edep_fs_n, "edep_fs_n[10]/D" );
+    tree->Branch( "time_fs", &wdata.time_fs, "time_fs[10]/D");
+    
+    int floor_flag = 0;
+    tree->Branch( "floor_flag", &floor_flag, "floor_flag/I");
+
+    // ************************** //
+    // * Process the input file * //
+    // ************************** //
+
 
     for( int t = 1; t<argc-1; t++ ){
 
         string filename( argv[t] );
-        TFile* infile = TFile::Open( filename.c_str());
+        TFile* infile = TFile::Open( filename.c_str(), "READ");
+
         if( !infile ){
             cout << "ERROR reading file " << filename << endl;
         }
-        else
+        else{
             cout << "Processing " << filename << endl;
+        }
+
+        strncpy( wdata.file_name, argv[t], 128);
 
         TTree* events = (TTree*)infile->Get("Janis");
         int nentries = events->GetEntries();
 
         track_info data;    // data for reading
-
         events -> SetBranchAddress("eventID", &data.eventID);
         events -> SetBranchAddress("trackID", &data.trackID);
         events -> SetBranchAddress("stepID", &data.stepID);
         events -> SetBranchAddress("parentID", &data.parentID);
         events -> SetBranchAddress("particle", &data.particle_name);
         events -> SetBranchAddress("volume", &data.volume_name);
-//        events -> SetBranchAddress("volume_copy_nr", &data.volume_copy_number);
         events -> SetBranchAddress("Eki", &data.Eki);
         events -> SetBranchAddress("Ekf", &data.Ekf);
         events -> SetBranchAddress("Edep", &data.edep);
         events -> SetBranchAddress("t", &data.gtime);
         events -> SetBranchAddress("process", &data.proc_name);
 
-        cout << nentries << " events in the event tree.\n";
 
-
-    //    infile->cd();
+        // ************************** //
+        // * Process the input file * //
+        // ************************** //
 
         int evt_counter = -1;
         for( unsigned int i=0; i<nentries; i++){
-            //cout << i << endl;
-            /*
+            
             events->GetEntry(i);
-            if( i%1000==0 )
-                cout << "processed " << i << " entries" << endl;
-            */
 
-            if( data.parentID==0 && strncmp( data.proc_name, "initStep", 8)==0 ){
+            if( (data.parentID==0 && strncmp( data.proc_name, "initStep", 8)==0) || i==nentries-1 ){
+
                 if( i!=0 ){
-                    //cout << "filling tree at i=" << i << endl;
+                    //ProcessEventInfo( &wdata );
+                    double time_fs = -1;
+                    for( unsigned int i=0; i<10; i++){
+                        if( time_fs<0 && wdata.time_fs[i]>0 )
+                            time_fs = wdata.time_fs[i];
+                        else
+                            time_fs = time_fs < wdata.time_fs[i] ? time_fs : wdata.time_fs[i];
+                    }
+
+                    if( wdata.time_floor<0 )
+                        floor_flag = 0;
+                    else if( wdata.time_floor < wdata.time_he )
+                        floor_flag = 1;
+                    else if( wdata.time_floor > wdata.time_he  && wdata.time_floor < time_fs )
+                        floor_flag = 2;
+                    else if( wdata.time_floor > time_fs )
+                        floor_flag = 3;
+
                     tree->Fill();
                 }
-
-                wdata.ID = i;
-                wdata.edep_he = 0;
-    //            wdata.edep_he_n = 0;
-    //            wdata.edep_he_a = 0;
-                wdata.time_he = -1;
-
-                for( int j=0; j<8; j++){
-                    wdata.edep_nai[j] = 0;
-                    wdata.time_nai[j] = -1;
-                }/*
-                for( int j=0; j<9; j++){
-                    wdata.edep_ls[j] = 0;
-                    wdata.time_ls[j] = -1;
-                }*/
+                
+                ResetEventInfo( &wdata );
+                floor_flag = 0;
 
                 evt_counter++;
                 wdata.ID = evt_counter;
@@ -151,48 +196,59 @@ int main( int argc, char* argv[]){
             }
 
             if( strncmp( data.volume_name, "liquid helium", 13)==0 ){
-                wdata.edep_he += data.edep;
-                if( wdata.time_he<0 || wdata.time_he>data.gtime )
+                if( wdata.time_he<0 ){
                     wdata.time_he = data.gtime;
-            }
-            else if( strncmp( data.volume_name, "NaI", 3)==0 ){
-                int index = (data.volume_name)[3] - '1';
-                //cout << " index is " << index << endl;
-                wdata.edep_nai[index] += data.edep;
-                if( wdata.time_nai[index]<0 || wdata.time_nai[index]>data.gtime )
-                    wdata.time_nai[index] = data.gtime;
-            }/*
-            else if( data.volume_name->find("LS")==0 ){
-                int index = (*data.volume_name)[2] - '0';
-                wdata.edep_nai[index] += data.edep;
-                if( wdata.time_nai[index]>data.gtime )
-                    wdata.time_nai[index] = data.gtime;
-            }
-
-            int index_first = -1;
-            double time_first = -1;
-            for( int j=0; j<8; j++){
-                if( time_first<0 || time_first>wdata.time_nai[j] ){
-                    index_first = j;
-                    time_first = wdata.time_nai[j];
+                }
+                if( strncmp( data.proc_name, "eIoni", 5)==0 ){
+                    wdata.edep_he_e += data.edep;
+                }
+                else{
+                    wdata.edep_he_n += data.edep;
                 }
             }
-            cout << index_first << '\t' << time_first << endl;
-            for( int j=0; j<8; j++){
-                if( j!=index_first )
-                    wdata.time_nai[j] = -1;
-            }
-            */
+            else if( strncmp( data.volume_name, "NaI", 3)==0 || strncmp( data.volume_name, "LS", 2)==0 ){
+                
+                // * First obtain the index of the far-side detector from volume name.* //
+                unsigned int nchar = 0;
+                    // number of characters in volume name until integer.
+                if( strncmp( data.volume_name, "NaI", 3)==0 ){
+                    nchar = 3;
+                }
+                else{
+                    nchar =2;
+                }
 
+                stringstream ss( data.volume_name);
+                char foo;
+                for( unsigned int i=0; i<nchar; i++){
+                    ss >> foo;
+                }
+
+                unsigned index = 0;
+                ss >> index;
+                index -= 1;
+                    
+                if( strncmp( data.proc_name, "eIoni", 5)==0 ){
+                    wdata.edep_fs_e[index] += data.edep;
+                }
+                else if( strncmp( data.proc_name, "hIoni", 5)==0 || strncmp( data.proc_name, "ionIoni", 7)==0 ){
+                    wdata.edep_fs_n[index] += data.edep;
+                    if( wdata.time_fs[index]<0 ){
+                        wdata.time_fs[index] = data.gtime;
+                    }
+                }
+            }
+            else if( strncmp( data.volume_name, "floor", 5)==0 ){
+                if( strcmp(data.particle_name, "neutron")==0 && wdata.time_floor<0 )
+                    wdata.time_floor = data.gtime;
+            }
         }
 
         infile->Close();
     }
 
-    cout << "last step\n";
     outfile->cd();
     tree->Write();
-    cout << "tree written\n";
     outfile->Close();
 
     return 0;

@@ -56,10 +56,11 @@ set(Janis_SCRIPTS
   /macros/compton1.mac
   /macros/compton2.mac
   /macros/neutron1.mac
-  gui.mac
-  init_vis.mac
-  vis.mac
-  icons.mac
+  /macros/neutron2.mac
+  /macros/gui.mac
+  /macros/init_vis.mac
+  /macros/vis.mac
+  /macros/icons.mac
   )
 
 foreach(_script ${Janis_SCRIPTS})

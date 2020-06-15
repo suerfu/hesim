@@ -722,12 +722,12 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     WorldPV = new G4PVPlacement(0, G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0, checkOverlaps);
 
     // Floor
-    /*
+    
     name = "floor";
     G4Tubs* floor_S = new G4Tubs(name, floor_rMin, floor_rMax, floor_Dz/2.0, floor_SPhi, floor_DPhi);
     G4LogicalVolume* floor_LV = new G4LogicalVolume(floor_S, floor_material, name);
     new G4PVPlacement(floor_rm, G4ThreeVector(floor_posX, floor_posY, floor_posZ), floor_LV, name, WorldLV, false, 0, fCheckOverlaps);
-    */
+    
 
     // Cryostat
 
@@ -909,7 +909,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // World
 
-    //WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
+    WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
 
     // Floor
 
@@ -1077,7 +1077,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_1_PV;
     WorldLV->RemoveDaughter(fs_head_outer_1_PV);
     delete fs_head_inner_1_PV;
-    name_in = "fs1_head_inner_1";
+    name_in = "LS1";
     name_out = "fs1_head_outer_1";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1136,7 +1136,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_2_PV;
     WorldLV->RemoveDaughter(fs_head_outer_2_PV);
     delete fs_head_inner_2_PV;
-    name_in = "fs2_head_inner_2";
+    name_in = "LS2";
     name_out = "fs2_head_outer_2";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1195,7 +1195,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_3_PV;
     WorldLV->RemoveDaughter(fs_head_outer_3_PV);
     delete fs_head_inner_3_PV;
-    name_in = "fs3_head_inner_3";
+    name_in = "LS3";
     name_out = "fs3_head_outer_3";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1254,7 +1254,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_4_PV;
     WorldLV->RemoveDaughter(fs_head_outer_4_PV);
     delete fs_head_inner_4_PV;
-    name_in = "fs4_head_inner_4";
+    name_in = "LS4";
     name_out = "fs4_head_outer_4";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1313,7 +1313,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_5_PV;
     WorldLV->RemoveDaughter(fs_head_outer_5_PV);
     delete fs_head_inner_5_PV;
-    name_in = "fs5_head_inner_5";
+    name_in = "LS5";
     name_out = "fs5_head_outer_5";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1372,7 +1372,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_6_PV;
     WorldLV->RemoveDaughter(fs_head_outer_6_PV);
     delete fs_head_inner_6_PV;
-    name_in = "fs6_head_inner_6";
+    name_in = "LS6";
     name_out = "fs6_head_outer_6";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1431,7 +1431,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_7_PV;
     WorldLV->RemoveDaughter(fs_head_outer_7_PV);
     delete fs_head_inner_7_PV;
-    name_in = "fs7_head_inner_7";
+    name_in = "LS7";
     name_out = "fs7_head_outer_7";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1490,7 +1490,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_8_PV;
     WorldLV->RemoveDaughter(fs_head_outer_8_PV);
     delete fs_head_inner_8_PV;
-    name_in = "fs8_head_inner_8";
+    name_in = "LS8";
     name_out = "fs8_head_outer_8";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1549,7 +1549,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_9_PV;
     WorldLV->RemoveDaughter(fs_head_outer_9_PV);
     delete fs_head_inner_9_PV;
-    name_in = "fs9_head_inner_9";
+    name_in = "LS9";
     name_out = "fs9_head_outer_9";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
@@ -1608,7 +1608,7 @@ void JanisDetectorConstruction::setFarSideDistance(G4double fs_distance)
     delete fs_head_outer_10_PV;
     WorldLV->RemoveDaughter(fs_head_outer_10_PV);
     delete fs_head_inner_10_PV;
-    name_in = "fs10_head_inner_10";
+    name_in = "LS10";
     name_out = "fs10_head_outer_10";
 
     G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");

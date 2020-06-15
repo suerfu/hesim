@@ -11,6 +11,7 @@
 /placement/definePMTAngle 45
 
 # Place the far-side detectors. The distances are in unit of cm
+
 /placement/addAngle1 6.738
 /placement/setDistance 151.65
 
@@ -42,4 +43,6 @@
 /placement/setDistance 135.9
 
 /run/printProgress 1000000
-#/run/beamOn 3000000000
+/run/beamOn 100000000
+# with floor 1.2e8 events takes aout 2 days.
+# /run/beamOn 400000000
