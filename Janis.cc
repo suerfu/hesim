@@ -157,7 +157,8 @@ int main(int argc,char** argv)
     ui->SessionStart();
 
     delete visManager;
-    delete ui;
+    if( ui )
+        delete ui;
   }
 
   // Job termination

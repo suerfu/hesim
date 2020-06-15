@@ -905,7 +905,6 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector( 0, 0, -95.322*mm ), liquid_helium_LV, name, WorldLV/*quartz_cell_LV*/, false, 0, fCheckOverlaps);
 
     //===============  Visualization ===============//
-/*
     G4VisAttributes* yellowTVA = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.5));
     G4VisAttributes* redTVA = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.5));
     G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
@@ -916,6 +915,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     // World
 
     WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
+/*
 
     // Floor
 
@@ -967,7 +967,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     */
 
     // Radioactive source
-    /*
+/*    
     G4ThreeVector source_pos = G4ThreeVector(-176.07*mm,176.07*mm,-95.322*mm);
     G4RotationMatrix* source_rot = new G4RotationMatrix();
     source_rot->rotateX( (360-90)*degree);
@@ -984,7 +984,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     new G4PVPlacement( 0, G4ThreeVector(0, 0, src_thickness/2-mylar_thickness/2), src_window_log, "source window", source_log, false, 0, 0);
 
     G4cerr << "Source position is at " << source_pos + (src_thickness/2-mylar_thickness)*G4ThreeVector(1,-1,0)/G4ThreeVector(1,-1,0).mag() << G4endl;
-    */
+*/    
 
     // Deal with Far-side detectors.
     G4String name_in;
@@ -1026,14 +1026,14 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
         G4double fs_head_inner_posY = 0.0*mm;
         G4double fs_head_inner_posZ = 0.0*mm;
 
-        G4double fs_head_outer_posX = fs_placement_distance * cos(fs_angles[i] - angle_corr);
-        G4double fs_head_outer_posY = fs_placement_distance * sin(fs_angles[i] - angle_corr);
+        G4double fs_head_outer_posX = fs_placement_distance * cos(fs_angles[i]*deg - angle_corr);
+        G4double fs_head_outer_posY = fs_placement_distance * sin(fs_angles[i]*deg - angle_corr);
         G4double fs_head_outer_posZ = fs_placement_height;
 
         G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
         G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
         fs_head_outer_rm.rotateY(270.0*deg);
-        fs_head_outer_rm.rotateZ(fs_angles[i] - angle_corr);
+        fs_head_outer_rm.rotateZ(fs_angles[i]*deg - angle_corr);
 
         G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
         fs_head_outer_1_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
@@ -1046,7 +1046,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
         G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
         container_vis->SetVisibility(true);
-        G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+        G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour( 1-0.1*fs_indices[i], .1*fs_indices[i], 0.0, 0.5));
         fs_head_outer_1_LV->SetVisAttributes(container_vis);
         fs_head_inner_1_LV->SetVisAttributes(greenTVA);
     }
