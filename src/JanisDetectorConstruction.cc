@@ -722,12 +722,12 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     WorldPV = new G4PVPlacement(0, G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0, checkOverlaps);
 
     // Floor
-    /*
+    
     name = "floor";
     G4Tubs* floor_S = new G4Tubs(name, floor_rMin, floor_rMax, floor_Dz/2.0, floor_SPhi, floor_DPhi);
     G4LogicalVolume* floor_LV = new G4LogicalVolume(floor_S, floor_material, name);
     new G4PVPlacement(floor_rm, G4ThreeVector(floor_posX, floor_posY, floor_posZ), floor_LV, name, WorldLV, false, 0, fCheckOverlaps);
-    */
+    
 
     // Cryostat
 
@@ -909,7 +909,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // World
 
-    //WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
+    WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
 
     // Floor
 
