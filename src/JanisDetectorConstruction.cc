@@ -43,6 +43,12 @@
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
 
+#include <sstream>
+#include <vector>
+
+using std::vector;
+using std::stringstream;
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 JanisDetectorConstruction::JanisDetectorConstruction()
@@ -728,7 +734,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4LogicalVolume* floor_LV = new G4LogicalVolume(floor_S, floor_material, name);
     new G4PVPlacement(floor_rm, G4ThreeVector(floor_posX, floor_posY, floor_posZ), floor_LV, name, WorldLV, false, 0, fCheckOverlaps);
     
-
+/*
     // Cryostat
 
     name = "can_vacuum_outer";
@@ -890,16 +896,16 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     G4VSolid* quartz_cell_exterior_S = new G4Box(name, quartz_cell_exterior_sizeX/2., quartz_cell_exterior_sizeY/2., quartz_cell_exterior_sizeZ/2.);
     G4LogicalVolume* quartz_cell_LV = new G4LogicalVolume(quartz_cell_exterior_S, quartz_cell_material, name);
     new G4PVPlacement(NO_ROT,G4ThreeVector(), quartz_cell_LV, name, pmt_array_LV, false, 0, fCheckOverlaps);
-
+    */
     // Liquid Helium
 
     name = "liquid helium";
     G4VSolid* liquid_helium_S = new G4Box(name, liquid_helium_sizeX/2., liquid_helium_sizeY/2., liquid_helium_sizeZ/2.);
     G4LogicalVolume* liquid_helium_LV = new G4LogicalVolume(liquid_helium_S, liquid_helium_material, name);
-    liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector(), liquid_helium_LV, name, quartz_cell_LV, false, 0, fCheckOverlaps);
+    liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector( 0, 0, -95.322*mm ), liquid_helium_LV, name, WorldLV/*quartz_cell_LV*/, false, 0, fCheckOverlaps);
 
     //===============  Visualization ===============//
-
+/*
     G4VisAttributes* yellowTVA = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.5));
     G4VisAttributes* redTVA = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.5));
     G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
@@ -952,7 +958,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     //fs_head_outer_LV->SetVisAttributes(container_vis);
     //fs_head_inner_LV->SetVisAttributes(greenTVA);
-    /*
+
     fs_neck_outer_LV->SetVisAttributes(container_vis);
     fs_body_outer_LV->SetVisAttributes(container_vis);
     fs_pants_outer_LV->SetVisAttributes(container_vis);
@@ -979,6 +985,72 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     G4cerr << "Source position is at " << source_pos + (src_thickness/2-mylar_thickness)*G4ThreeVector(1,-1,0)/G4ThreeVector(1,-1,0).mag() << G4endl;
     */
+
+    // Deal with Far-side detectors.
+    G4String name_in;
+    G4String name_out;
+    G4String name_scin;
+
+    vector<int> fs_indices {1,3,5,7,10};
+    vector<G4double> fs_distances { 151.65, 149.25, 148.4, 117.75, 135.9 };
+    vector<G4double> fs_angles { 6.738, 15.855, 26.26, 38.63, 88.84};
+
+    angle_corr = 45*deg;
+
+    for( int i=0; i<fs_indices.size(); i++){
+        stringstream ss;
+        ss << "LS" << fs_indices[i];
+        name_in = ss.str();
+        name_out = ss.str()+"_head_outer";
+
+        G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
+        G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
+
+        G4double fs_head_outer_rMin = 0.0*mm;
+        G4double fs_head_outer_rMax = 66.675*mm;
+        G4double fs_head_outer_Dz = 133.35*mm;
+        G4double fs_head_outer_SPhi = 0.0*deg;
+        G4double fs_head_outer_DPhi = 360.0*deg;
+
+        G4double fs_head_inner_rMin = 0.0*mm;
+        G4double fs_head_inner_rMax = 63.5*mm;
+        G4double fs_head_inner_Dz = 12.7*cm;
+        G4double fs_head_inner_SPhi = 0.0*deg;
+        G4double fs_head_inner_DPhi = 360.0*deg;
+
+        fs_placement_distance = fs_distances[i]*cm;
+
+        G4double fs_placement_height = -10.0*cm;
+
+        G4double fs_head_inner_posX = 0.0*mm;
+        G4double fs_head_inner_posY = 0.0*mm;
+        G4double fs_head_inner_posZ = 0.0*mm;
+
+        G4double fs_head_outer_posX = fs_placement_distance * cos(fs_angles[i] - angle_corr);
+        G4double fs_head_outer_posY = fs_placement_distance * sin(fs_angles[i] - angle_corr);
+        G4double fs_head_outer_posZ = fs_placement_height;
+
+        G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
+        G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
+        fs_head_outer_rm.rotateY(270.0*deg);
+        fs_head_outer_rm.rotateZ(fs_angles[i] - angle_corr);
+
+        G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
+        fs_head_outer_1_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
+        G4Transform3D fs_head_outer_transform(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ));
+        fs_head_outer_1_PV = new G4PVPlacement(fs_head_outer_transform, fs_head_outer_1_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+        G4Tubs* fs_head_inner_S = new G4Tubs(name_in, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
+        fs_head_inner_1_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name_in);
+        new G4PVPlacement(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ), fs_head_inner_1_LV, name_in, fs_head_outer_1_LV, false, 0, fCheckOverlaps);
+
+        G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+        container_vis->SetVisibility(true);
+        G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+        fs_head_outer_1_LV->SetVisAttributes(container_vis);
+        fs_head_inner_1_LV->SetVisAttributes(greenTVA);
+    }
+
     fConstructed = true;
 
     return WorldPV;
