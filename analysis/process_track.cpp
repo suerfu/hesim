@@ -224,7 +224,7 @@ int main( int argc, char* argv[]){
                     ss >> foo;
                 }
 
-                unsigned index = 0;
+                unsigned int index = 0;
                 ss >> index;
                 index -= 1;
                     

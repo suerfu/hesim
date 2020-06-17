@@ -1,11 +1,17 @@
+
 /// \file JanisDetectorConstruction.cc
 /// \brief Implementation of the JanisDetectorConstruction class
 
 #include "JanisDetectorConstruction.hh"
+#include "OxCryoMaterials.hh"
+
+#include "G4tgbVolumeMgr.hh"
 
 #include "G4RunManager.hh"
 #include "G4Material.hh"
 #include "G4NistManager.hh"
+
+#include "JanisDetectorConstructionMessenger.hh"
 
 #include "G4Box.hh"
 #include "G4Tubs.hh"
@@ -45,7 +51,43 @@ using std::stringstream;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-JanisDetectorConstruction::JanisDetectorConstruction() : G4VUserDetectorConstruction(){
+JanisDetectorConstruction::JanisDetectorConstruction()
+: G4VUserDetectorConstruction(),
+  fCheckOverlaps(true),
+  fDetectorMessenger(0),
+  fConstructed(false), // Whether the original volumes have been constructed
+  fReady1(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady2(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady3(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady4(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady5(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady6(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady7(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady8(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady9(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fReady10(false), // fReadyX is the flag that shows whether a new far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady1(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady2(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady3(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady4(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady5(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady6(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady7(false), // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+  fNaIReady8(false)  // fNaIReadyX is the flag that shows whether a new Sodium Iodine far-side detector has been placed so that it is ready to be determined the distance
+{
+  fDetectorMessenger = new JanisDetectorConstructionMessenger(this);
+
+  mylar_surf_density = 0.009 * g/cm2;
+  mylar_thickness = 0.0254 * cm;
+  mylar_density = mylar_surf_density /mylar_thickness;
+
+  src_dia = 2.38 * cm;
+  src_thickness = 0.076 * cm;
+  src_active_dia = 0.3 * cm;
+
+  kapton_surf_density = 0.0009 * g/cm2;
+  kapton_thickness = src_thickness - mylar_thickness;
+  kapton_density = kapton_surf_density /  kapton_thickness;
 
 }
 
@@ -53,122 +95,20 @@ JanisDetectorConstruction::JanisDetectorConstruction() : G4VUserDetectorConstruc
 
 JanisDetectorConstruction::~JanisDetectorConstruction()
 {
-//    delete fDetectorMessenger;
+    delete fDetectorMessenger;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-G4VPhysicalVolume* JanisDetectorConstruction::Construct() {
+G4VPhysicalVolume* JanisDetectorConstruction::Construct()
+{
+  // Define materials
+  DefineMaterials();
 
-    G4NistManager* mat_man = G4NistManager::Instance(); //material mananger
+  return DefineVolumes();
+}
 
-    G4Material* world_material = mat_man -> FindOrBuildMaterial("galactic");
-    G4Material* floor_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
-    G4Material* liquid_helium_material = G4Material::GetMaterial("liquid_helium");
-
-    // Naphthalene
-    G4double density;
-    G4int nComponents, nAtoms;
-    G4String symbol, name;
-    G4double a, z;
-
-    G4Material* BC501A = new G4Material(name = "BC-501A" , density = 0.874*g/cm3 , nComponents = 2);
-    G4Element* elH  = new G4Element(name = "Hydrogen"   , symbol = "H"  , z = 1.  , a =   1.008*g/mole);
-    G4Element* elC  = new G4Element(name = "Carbon"     , symbol = "C"  , z = 6.  , a =  12.011*g/mole);
-    BC501A -> AddElement(elH , nAtoms = 482);
-    BC501A -> AddElement(elC  , nAtoms = 398);
-
-
-    // World
-
-    G4double world_x = 5.*m;
-    G4double world_y = 5.*m;
-    G4double world_z = 4.*m;
-
-    // Floor
-
-    G4double floor_rMin = 0.0*cm;
-    G4double floor_rMax = 200.0*cm;
-    G4double floor_Dz = 30.0*cm;
-    G4double floor_SPhi = 0.0*deg;
-    G4double floor_DPhi = 360.0*deg;
-
-    G4double can_vacuum_outer_Dz = 450.85*mm;
-
-    G4double floor_posX = 0.0*mm;
-    G4double floor_posY = 0.0*mm;
-    G4double floor_posZ = - (can_vacuum_outer_Dz + 68.9*cm + 0.5*floor_Dz); // 68.9cm is the measured distance between the bottom and the floor
-
-
-    // World
-    name = "world_box";
-    G4Box* world_box = new G4Box(name, world_x/2.0, world_y/2.0, world_z/2.0);
-    G4LogicalVolume* WorldLV = new G4LogicalVolume(world_box, world_material, "WorldLV");
-    new G4PVPlacement(0, G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0, false);
-
-
-    // Floor
-    name = "floor";
-    G4Tubs* floor_S = new G4Tubs(name, floor_rMin, floor_rMax, floor_Dz/2.0, floor_SPhi, floor_DPhi);
-    G4LogicalVolume* floor_LV = new G4LogicalVolume(floor_S, floor_material, name);
-    new G4PVPlacement( 0, G4ThreeVector(floor_posX, floor_posY, floor_posZ), floor_LV, name, WorldLV, false, 0, false);
-
-
-    G4double liquid_helium_sizeX = 25.7*mm;
-    G4double liquid_helium_sizeY = 25.7*mm;
-    G4double liquid_helium_sizeZ = 25.7*mm;
-
-    name = "liquid helium";
-    G4VSolid* liquid_helium_S = new G4Box(name, liquid_helium_sizeX/2., liquid_helium_sizeY/2., liquid_helium_sizeZ/2.);
-    G4LogicalVolume* liquid_helium_LV = new G4LogicalVolume(liquid_helium_S, liquid_helium_material, name);
-    new G4PVPlacement( 0, G4ThreeVector( 0, 0, -95.322*mm ), liquid_helium_LV, name, WorldLV, false, 0, false);
-
-
-    G4String name_in;
-    G4String name_scin;
-
-    vector<int> fs_indices {1,3,5,7,8};
-    vector<G4double> fs_distances { 151.65, 149.25, 148.4, 117.75, 135.9 };
-    vector<G4double> fs_angles { 6.738, 15.855, 26.26, 38.63, 88.84};
-
-    G4double angle_corr = 45*deg;
-
-    for( int i=0; i<fs_indices.size(); i++){
-        stringstream ss;
-        ss << "LS" << fs_indices[i];
-        name_in = ss.str();
-
-        G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
-
-        G4double fs_head_inner_rMin = 0.0*mm;
-        G4double fs_head_inner_rMax = 63.5*mm;
-        G4double fs_head_inner_Dz = 12.7*cm;
-        G4double fs_head_inner_SPhi = 0.0*deg;
-        G4double fs_head_inner_DPhi = 360.0*deg;
-
-        G4double fs_placement_distance = fs_distances[i]*cm;
-
-        G4double fs_placement_height = -10.0*cm;
-
-        G4double fs_head_outer_posX = fs_placement_distance * cos(fs_angles[i]*deg - angle_corr);
-        G4double fs_head_outer_posY = fs_placement_distance * sin(fs_angles[i]*deg - angle_corr);
-        G4double fs_head_outer_posZ = fs_placement_height;
-
-        G4Tubs* fs_head_inner_S = new G4Tubs(name_in, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
-        G4LogicalVolume* fs_head_inner_1_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name_in);
-        new G4PVPlacement( 0, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_inner_1_LV, name_in, WorldLV, false, 0, false);
-
-    }
-
-
-
-/*
-
-
-
-
-
-
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void JanisDetectorConstruction::DefineMaterials()
 {
@@ -182,6 +122,10 @@ void JanisDetectorConstruction::DefineMaterials()
     G4int nComponents, nAtoms;
     G4double temp;
 
+    G4Element* elH  = new G4Element(name = "Hydrogen"   , symbol = "H"  , z = 1.  , a =   1.008*g/mole);
+    G4Element* elC  = new G4Element(name = "Carbon"     , symbol = "C"  , z = 6.  , a =  12.011*g/mole);
+    G4Element* elN  = new G4Element(name = "Nitrogen"   , symbol = "N"  , z = 7.  , a =  14.007*g/mole);
+    G4Element* elO  = new G4Element(name = "Oxygen"     , symbol = "O"  , z = 8.  , a =  15.999*g/mole);
     G4Element* elNa = new G4Element(name = "Sodium"     , symbol = "Na" , z = 11. , a =  22.990*g/mole);
     G4Element* elAl = new G4Element(name = "Aluminum"   , symbol = "Al" , z = 13. , a =  26.981*g/mole);
     G4Element* elSi = new G4Element(name = "Silicon"    , symbol = "Si" , z = 14. , a =  28.086*g/mole);
@@ -233,6 +177,10 @@ void JanisDetectorConstruction::DefineMaterials()
     fr4 -> AddElement(elCu , fractionMass =   5*perCent);
     fr4 -> AddElement(elSn , fractionMass =   5*perCent);
 
+    // Naphthalene
+    G4Material* BC501A = new G4Material(name = "BC-501A" , density = 0.874*g/cm3 , nComponents = 2);
+    BC501A -> AddElement(elH , nAtoms = 482);
+    BC501A -> AddElement(elC  , nAtoms = 398);
 
     G4Material* Synthetic_Silica = new G4Material(name = "synthetic_silica" , density = 2.65*g/cm3 , nComponents = 2);
     Synthetic_Silica -> AddElement(elSi , nAtoms = 1);
@@ -276,7 +224,7 @@ void JanisDetectorConstruction::DefineMaterials()
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-/*
+
 G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 {
     // Option to switch on/off checking of volumes overlaps
@@ -284,12 +232,16 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     //===============  Materials ===============//
 
+    G4NistManager* mat_man = G4NistManager::Instance(); //material mananger
 
     //
+    G4Material* world_material = mat_man -> FindOrBuildMaterial("galactic");
+    G4Material* floor_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
 
     // Cryostat
 
     G4Material* default_material = G4Material::GetMaterial("galactic");
+    G4Material* liquid_helium_material = G4Material::GetMaterial("liquid_helium");
 
     G4Material* can_sample_plate_material = G4Material::GetMaterial("ss_t316");
     G4Material* can_sample_ring_material = G4Material::GetMaterial("ss_t316");
@@ -345,6 +297,20 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     //===============  Dimensions ===============//
 
+    // World
+
+    G4double world_x = 5.*m;
+    G4double world_y = 5.*m;
+    G4double world_z = 4.*m;
+
+    // Floor
+
+    G4double floor_rMin = 0.0*cm;
+    G4double floor_rMax = 200.0*cm;
+    G4double floor_Dz = 30.0*cm;
+    G4double floor_SPhi = 0.0*deg;
+    G4double floor_DPhi = 360.0*deg;
+
     // Cryostat
 
     G4double can_sample_plate_rMin = 0.0*mm;
@@ -397,6 +363,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     G4double can_vacuum_outer_rMin = 0.0*mm;
     G4double can_vacuum_outer_rMax = 101.6*mm;
+    G4double can_vacuum_outer_Dz = 450.85*mm;
     G4double can_vacuum_outer_SPhi = 0.0*deg;
     G4double can_vacuum_outer_DPhi = 360.0*deg;
 
@@ -474,6 +441,10 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // Liquid Helium Size (one of our sensitive volumes)
 
+    G4double liquid_helium_sizeX = 25.7*mm;
+    G4double liquid_helium_sizeY = 25.7*mm;
+    G4double liquid_helium_sizeZ = 25.7*mm;
+
     // Quartz cell around liquid helium
 
     G4double quartz_cell_wall_thickness = 1.0*mm;
@@ -517,6 +488,9 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     // Floor
 
+    G4double floor_posX = 0.0*mm;
+    G4double floor_posY = 0.0*mm;
+    G4double floor_posZ = - (can_vacuum_outer_Dz + 68.9*cm + 0.5*floor_Dz); // 68.9cm is the measured distance between the bottom and the floor
 
     // Cryostat
 
@@ -743,6 +717,22 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
 
     //===============  Build Geometry ===============//
 
+    G4String name;
+
+    // World
+
+    name = "world_box";
+    G4Box* world_box = new G4Box(name, world_x/2.0, world_y/2.0, world_z/2.0);
+    WorldLV = new G4LogicalVolume(world_box, world_material, "WorldLV");
+
+    WorldPV = new G4PVPlacement(0, G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0, checkOverlaps);
+
+    // Floor
+    
+    name = "floor";
+    G4Tubs* floor_S = new G4Tubs(name, floor_rMin, floor_rMax, floor_Dz/2.0, floor_SPhi, floor_DPhi);
+    G4LogicalVolume* floor_LV = new G4LogicalVolume(floor_S, floor_material, name);
+    new G4PVPlacement(floor_rm, G4ThreeVector(floor_posX, floor_posY, floor_posZ), floor_LV, name, WorldLV, false, 0, fCheckOverlaps);
     
 /*
     // Cryostat
@@ -909,18 +899,22 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     */
     // Liquid Helium
 
+    name = "liquid helium";
+    G4VSolid* liquid_helium_S = new G4Box(name, liquid_helium_sizeX/2., liquid_helium_sizeY/2., liquid_helium_sizeZ/2.);
+    G4LogicalVolume* liquid_helium_LV = new G4LogicalVolume(liquid_helium_S, liquid_helium_material, name);
+    liquid_helium_PV = new G4PVPlacement(NO_ROT, G4ThreeVector( 0, 0, -95.322*mm ), liquid_helium_LV, name, WorldLV/*quartz_cell_LV*/, false, 0, fCheckOverlaps);
 
     //===============  Visualization ===============//
-//    G4VisAttributes* yellowTVA = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.5));
-//    G4VisAttributes* redTVA = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.5));
-//    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
-//    G4VisAttributes* greyTVA = new G4VisAttributes(G4Colour(0.5, 0.5, 0.5, 0.25));
-//    G4VisAttributes* blueTVA = new G4VisAttributes(G4Colour(0.0, 0.0, 1.0, 0.5));
-//    G4VisAttributes* simpleBoxVisAtt= new G4VisAttributes(G4Colour(1.0,1.0,1.0, 0.5));
+    G4VisAttributes* yellowTVA = new G4VisAttributes(G4Colour(1.0, 1.0, 0.0, 0.5));
+    G4VisAttributes* redTVA = new G4VisAttributes(G4Colour(1.0, 0.0, 0.0, 0.5));
+    G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour(0.0, 1.0, 0.0, 0.5));
+    G4VisAttributes* greyTVA = new G4VisAttributes(G4Colour(0.5, 0.5, 0.5, 0.25));
+    G4VisAttributes* blueTVA = new G4VisAttributes(G4Colour(0.0, 0.0, 1.0, 0.5));
+    G4VisAttributes* simpleBoxVisAtt= new G4VisAttributes(G4Colour(1.0,1.0,1.0, 0.5));
 
     // World
 
-    //WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
+    WorldLV->SetVisAttributes(G4VisAttributes::Invisible);
 /*
 
     // Floor
@@ -990,9 +984,72 @@ G4VPhysicalVolume* JanisDetectorConstruction::DefineVolumes()
     new G4PVPlacement( 0, G4ThreeVector(0, 0, src_thickness/2-mylar_thickness/2), src_window_log, "source window", source_log, false, 0, 0);
 
     G4cerr << "Source position is at " << source_pos + (src_thickness/2-mylar_thickness)*G4ThreeVector(1,-1,0)/G4ThreeVector(1,-1,0).mag() << G4endl;
-* /    
+*/    
 
     // Deal with Far-side detectors.
+    G4String name_in;
+    G4String name_out;
+    G4String name_scin;
+
+    vector<int> fs_indices {1,3,5,7,8};
+    vector<G4double> fs_distances { 151.65, 149.25, 148.4, 117.75, 135.9 };
+    vector<G4double> fs_angles { 6.738, 15.855, 26.26, 38.63, 88.84};
+
+    angle_corr = 45*deg;
+
+    for( int i=0; i<fs_indices.size(); i++){
+        stringstream ss;
+        ss << "LS" << fs_indices[i];
+        name_in = ss.str();
+        name_out = ss.str()+"_head_outer";
+
+        G4Material* fs_head_outer_material = G4Material::GetMaterial("Al");
+        G4Material* fs_head_inner_material = G4Material::GetMaterial("BC-501A");
+
+        G4double fs_head_outer_rMin = 0.0*mm;
+        G4double fs_head_outer_rMax = 66.675*mm;
+        G4double fs_head_outer_Dz = 133.35*mm;
+        G4double fs_head_outer_SPhi = 0.0*deg;
+        G4double fs_head_outer_DPhi = 360.0*deg;
+
+        G4double fs_head_inner_rMin = 0.0*mm;
+        G4double fs_head_inner_rMax = 63.5*mm;
+        G4double fs_head_inner_Dz = 12.7*cm;
+        G4double fs_head_inner_SPhi = 0.0*deg;
+        G4double fs_head_inner_DPhi = 360.0*deg;
+
+        fs_placement_distance = fs_distances[i]*cm;
+
+        G4double fs_placement_height = -10.0*cm;
+
+        G4double fs_head_inner_posX = 0.0*mm;
+        G4double fs_head_inner_posY = 0.0*mm;
+        G4double fs_head_inner_posZ = 0.0*mm;
+
+        G4double fs_head_outer_posX = fs_placement_distance * cos(fs_angles[i]*deg - angle_corr);
+        G4double fs_head_outer_posY = fs_placement_distance * sin(fs_angles[i]*deg - angle_corr);
+        G4double fs_head_outer_posZ = fs_placement_height;
+
+        G4RotationMatrix *fs_head_inner_rm = new G4RotationMatrix;
+        G4RotationMatrix fs_head_outer_rm = G4RotationMatrix();
+        fs_head_outer_rm.rotateY(270.0*deg);
+        fs_head_outer_rm.rotateZ(fs_angles[i]*deg - angle_corr);
+
+        G4Tubs* fs_head_outer_S = new G4Tubs(name_out, fs_head_outer_rMin, fs_head_outer_rMax, fs_head_outer_Dz/2.0, fs_head_outer_SPhi, fs_head_outer_DPhi);
+        fs_head_outer_1_LV = new G4LogicalVolume(fs_head_outer_S, fs_head_outer_material, name_out);
+        G4Transform3D fs_head_outer_transform(fs_head_outer_rm, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ));
+        fs_head_outer_1_PV = new G4PVPlacement(fs_head_outer_transform, fs_head_outer_1_LV, name_out, WorldLV, false, 0, fCheckOverlaps);
+
+        G4Tubs* fs_head_inner_S = new G4Tubs(name_in, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
+        fs_head_inner_1_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name_in);
+        new G4PVPlacement(fs_head_inner_rm, G4ThreeVector(fs_head_inner_posX,fs_head_inner_posY,fs_head_inner_posZ), fs_head_inner_1_LV, name_in, fs_head_outer_1_LV, false, 0, fCheckOverlaps);
+
+        G4VisAttributes* container_vis = new G4VisAttributes(G4Colour(0.5,0.5,0.5,0.75));
+        container_vis->SetVisibility(true);
+        G4VisAttributes* greenTVA = new G4VisAttributes(G4Colour( 1-0.1*fs_indices[i], .1*fs_indices[i], 0.0, 0.5));
+        fs_head_outer_1_LV->SetVisAttributes(container_vis);
+        fs_head_inner_1_LV->SetVisAttributes(greenTVA);
+    }
 
     fConstructed = true;
 
@@ -3355,5 +3412,3 @@ void JanisDetectorConstruction::add8thNaIFarSideAngle(G4double new_fsNaI_angle_8
     G4RunManager::GetRunManager()->GeometryHasBeenModified();
     fNaIReady8 = true;
 }
-
-*/
