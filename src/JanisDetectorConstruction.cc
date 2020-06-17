@@ -104,14 +104,14 @@ G4VPhysicalVolume* JanisDetectorConstruction::Construct() {
     name = "world_box";
     G4Box* world_box = new G4Box(name, world_x/2.0, world_y/2.0, world_z/2.0);
     G4LogicalVolume* WorldLV = new G4LogicalVolume(world_box, world_material, "WorldLV");
-    new G4PVPlacement(0, G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0, false);
+    G4VPhysicalVolume* WorldPV = new G4PVPlacement( 0 , G4ThreeVector(0,0,0), WorldLV, name, 0, false, 0);
 
 
     // Floor
     name = "floor";
     G4Tubs* floor_S = new G4Tubs(name, floor_rMin, floor_rMax, floor_Dz/2.0, floor_SPhi, floor_DPhi);
     G4LogicalVolume* floor_LV = new G4LogicalVolume(floor_S, floor_material, name);
-    new G4PVPlacement( 0, G4ThreeVector(floor_posX, floor_posY, floor_posZ), floor_LV, name, WorldLV, false, 0, false);
+    new G4PVPlacement( 0, G4ThreeVector(floor_posX, floor_posY, floor_posZ), floor_LV, name, WorldLV, false, 0);
 
 
     G4double liquid_helium_sizeX = 25.7*mm;
@@ -121,7 +121,7 @@ G4VPhysicalVolume* JanisDetectorConstruction::Construct() {
     name = "liquid helium";
     G4VSolid* liquid_helium_S = new G4Box(name, liquid_helium_sizeX/2., liquid_helium_sizeY/2., liquid_helium_sizeZ/2.);
     G4LogicalVolume* liquid_helium_LV = new G4LogicalVolume(liquid_helium_S, liquid_helium_material, name);
-    new G4PVPlacement( 0, G4ThreeVector( 0, 0, -95.322*mm ), liquid_helium_LV, name, WorldLV, false, 0, false);
+    new G4PVPlacement( 0, G4ThreeVector( 0, 0, -95.322*mm ), liquid_helium_LV, name, WorldLV, false, 0, true);
 
 
     G4String name_in;
@@ -156,10 +156,12 @@ G4VPhysicalVolume* JanisDetectorConstruction::Construct() {
 
         G4Tubs* fs_head_inner_S = new G4Tubs(name_in, fs_head_inner_rMin, fs_head_inner_rMax, fs_head_inner_Dz/2.0, fs_head_inner_SPhi, fs_head_inner_DPhi);
         G4LogicalVolume* fs_head_inner_1_LV = new G4LogicalVolume(fs_head_inner_S, fs_head_inner_material, name_in);
-        new G4PVPlacement( 0, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_inner_1_LV, name_in, WorldLV, false, 0, false);
+        new G4PVPlacement( 0, G4ThreeVector(fs_head_outer_posX,fs_head_outer_posY,fs_head_outer_posZ), fs_head_inner_1_LV, name_in, WorldLV, false, 0, true);
 
     }
 
+    return WorldPV;
+}
 
 
 /*
@@ -269,7 +271,7 @@ void JanisDetectorConstruction::DefineMaterials()
     kapton_material->AddElement(elH, nAtoms=10);
     kapton_material->AddElement(elN, nAtoms=2);
     kapton_material->AddElement(elO, nAtoms=5);
-    */
+    * /
 
     // Print materials
     G4cout << *(G4Material::GetMaterialTable()) << G4endl;
