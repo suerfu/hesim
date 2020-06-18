@@ -62,15 +62,18 @@ G4VPhysicalVolume* JanisDetectorConstruction::Construct() {
 
     G4NistManager* mat_man = G4NistManager::Instance(); //material mananger
 
-    G4Material* world_material = mat_man -> FindOrBuildMaterial("galactic");
+    G4Material* world_material = mat_man -> FindOrBuildMaterial("G4_Galactic");
     G4Material* floor_material = mat_man -> FindOrBuildMaterial("G4_CONCRETE");
-    G4Material* liquid_helium_material = G4Material::GetMaterial("liquid_helium");
-
-    // Naphthalene
+    
     G4double density;
     G4int nComponents, nAtoms;
     G4String symbol, name;
     G4double a, z;
+
+    new G4Material("liquid_helium",   z=2., a= 4.00*g/mole,  density= 0.141*g/cm3, kStateLiquid, 3.*kelvin);
+    G4Material* liquid_helium_material = G4Material::GetMaterial("liquid_helium");
+
+    // Naphthalene
 
     G4Material* BC501A = new G4Material(name = "BC-501A" , density = 0.874*g/cm3 , nComponents = 2);
     G4Element* elH  = new G4Element(name = "Hydrogen"   , symbol = "H"  , z = 1.  , a =   1.008*g/mole);
@@ -127,13 +130,13 @@ G4VPhysicalVolume* JanisDetectorConstruction::Construct() {
     G4String name_in;
     G4String name_scin;
 
-    vector<int> fs_indices {1,3,5,7,8};
+    vector<int> fs_indices {1,3,5,7,10};
     vector<G4double> fs_distances { 151.65, 149.25, 148.4, 117.75, 135.9 };
     vector<G4double> fs_angles { 6.738, 15.855, 26.26, 38.63, 88.84};
 
     G4double angle_corr = 45*deg;
 
-    for( int i=0; i<fs_indices.size(); i++){
+    for( unsigned int i=0; i<fs_indices.size(); i++){
         stringstream ss;
         ss << "LS" << fs_indices[i];
         name_in = ss.str();
