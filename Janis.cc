@@ -84,8 +84,8 @@ int main(int argc,char** argv)
   G4Random::setTheEngine(new CLHEP::RanecuEngine);
   G4long seeds[2];
   time_t systime = time(NULL);
-  seeds[0] = (long) systime;
-  seeds[1] = (long) (systime*G4UniformRand());
+  seeds[0] = 0; //(long) systime;
+  seeds[1] = 1; //(long) (systime*G4UniformRand());
   G4Random::setTheSeeds(seeds);
 
   G4cout << "Seeds for random generator are " << seeds[0] << ", " << seeds[1] << G4endl;

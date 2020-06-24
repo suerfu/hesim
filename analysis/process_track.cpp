@@ -169,20 +169,28 @@ int main( int argc, char* argv[]){
                     //ProcessEventInfo( &wdata );
                     double time_fs = -1;
                     for( unsigned int i=0; i<10; i++){
-                        if( time_fs<0 && wdata.time_fs[i]>0 )
-                            time_fs = wdata.time_fs[i];
-                        else
+                        if( time_fs<0 ){
+                            if ( wdata.time_fs[i]>0 ){
+                                time_fs = wdata.time_fs[i];
+                            }
+                        }
+                        else if ( wdata.time_fs[i]>0 ){
                             time_fs = time_fs < wdata.time_fs[i] ? time_fs : wdata.time_fs[i];
+                        }
                     }
 
-                    if( wdata.time_floor<0 )
+                    if( wdata.time_floor<0 ){
                         floor_flag = 0;
-                    else if( wdata.time_floor < wdata.time_he )
+                    }
+                    else if( wdata.time_floor < wdata.time_he ){
                         floor_flag = 1;
-                    else if( wdata.time_floor > wdata.time_he  && wdata.time_floor < time_fs )
+                    }
+                    else if( wdata.time_floor > wdata.time_he  && wdata.time_floor < time_fs ){
                         floor_flag = 2;
-                    else if( wdata.time_floor > time_fs )
+                    }
+                    else if( wdata.time_floor > time_fs ){
                         floor_flag = 3;
+                    }
 
                     tree->Fill();
                 }
@@ -239,8 +247,9 @@ int main( int argc, char* argv[]){
                 }
             }
             else if( strncmp( data.volume_name, "floor", 5)==0 ){
-                if( strcmp(data.particle_name, "neutron")==0 && wdata.time_floor<0 )
+                if( strcmp(data.particle_name, "neutron")==0 && wdata.time_floor<0 ){
                     wdata.time_floor = data.gtime;
+                }
             }
         }
 
