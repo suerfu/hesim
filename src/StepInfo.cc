@@ -71,7 +71,7 @@ StepInfo::StepInfo( const G4Step* step )
         volume_copy_number = 0;
     }
     else {
-        volume_name = postStep->GetPhysicalVolume()->GetName();
+        volume_name = preStep->GetPhysicalVolume()->GetName();
         volume_copy_number = postStep->GetPhysicalVolume()->GetCopyNo();
     }
 

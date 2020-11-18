@@ -79,29 +79,10 @@ void JanisEventAction::BeginOfEventAction(const G4Event*){
         if( data_tree!=0 ){
             // information about its order in the event/run sequence
             data_tree->Branch("eventID", &eventID, "eventID/I");
-            data_tree->Branch("trackID", &trackID, "trackID/I");
-            data_tree->Branch("stepID", &stepID, "stepID/I");
-
-            // information about its idenity
-            data_tree->Branch("particle", particle_name, "particle[16]/C");
-            data_tree->Branch("parentID", &parentID, "parentID/I");
-
-            // geometric information
-            data_tree->Branch("volume", volume_name, "volume[16]/C");
-            data_tree->Branch("copy_n", &volume_copy_number, "copy_n/I");
-            data_tree->Branch("x", &x, "x/D");
-            data_tree->Branch("y", &y, "y/D");
-            data_tree->Branch("z", &z, "z/D");
-            data_tree->Branch("px", &px, "px/D");
-            data_tree->Branch("py", &py, "py/D");
-            data_tree->Branch("pz", &pz, "pz/D");
 
             // dynamic information
-            data_tree->Branch("t", &global_time, "t/D");
-            data_tree->Branch("Eki", &Eki, "Eki/D"); // initial kinetic energy before the step
-            data_tree->Branch("Ekf", &Ekf, "Ekf/D"); // final kinetic energy after the step
-            data_tree->Branch("Edep", &edep, "Edep/D"); // energy deposit calculated by Geant4
-            data_tree->Branch("process", process_name, "process[16]/C");
+            data_tree->Branch("Edep", &edep, "Edep/D"); // energy deposit in liquid helium
+            data_tree->Branch("Edep2", &Ekf, "Edep2/D"); // energy deposit in quartz
         }
     }
 }
@@ -125,62 +106,20 @@ void JanisEventAction::EndOfEventAction(const G4Event* event){
         // Select the tracks of interest
         for( size_t i=0; i < stepCollection.size(); ++i ){
 
-            trackID = stepCollection[i].GetTrackID();
+            eventID = stepCollection[i].GetEventID();
             tmp_volume_name = stepCollection[i].GetVolumeName();
-            edep = stepCollection[i].GetDepositedEnergy();
-            tmp_particle_name = stepCollection[i].GetParticleName();
+            if( tmp_volume_name=="liquid helium" ){
+                edep += stepCollection[i].GetDepositedEnergy();
+            }
+            else if( tmp_volume_name=="quartz_cell"){
+                Ekf += stepCollection[i].GetDepositedEnergy();
+            }
 
-            if( tmp_volume_name=="liquid helium" && edep!=0){
-                if_helium = 1;
-            }
-            if(edep!=0 && ( tmp_volume_name.find("NaI")==0 || tmp_volume_name.find("LS")==0) ){
-                // the volume name start with NaI or LS
-                if_farside = 1;
-            }
         }
-
-        // There is coincidence. Fill the wanted tracks
-        if(if_farside==1 && if_helium==1){
-
-            for( size_t i=0; i < stepCollection.size(); ++i ){
-                eventID = stepCollection[i].GetEventID();
-                trackID = stepCollection[i].GetTrackID();
-                stepID = stepCollection[i].GetStepID();
-                edep = stepCollection[i].GetDepositedEnergy();
-
-                parentID = stepCollection[i].GetParentID();
-
-                tmp_particle_name = stepCollection[i].GetParticleName();
-                tmp_volume_name = stepCollection[i].GetVolumeName();
-                tmp_process_name = stepCollection[i].GetProcessName();
-
-                strncpy( particle_name, tmp_particle_name.c_str(), max_char_len);
-                strncpy( process_name, tmp_process_name.c_str(), max_char_len);
-                strncpy( volume_name, tmp_volume_name.c_str(), max_char_len);
-
-                volume_copy_number = stepCollection[i].GetVolumeCopyNumber();
-                Eki = stepCollection[i].GetEki();
-                Ekf = stepCollection[i].GetEkf();
-
-                position = stepCollection[i].GetPosition();
-                momentum = stepCollection[i].GetMomentumDirection();
-
-                x = position.x();
-                y = position.y();
-                z = position.z();
-
-                px = momentum.x();
-                py = momentum.y();
-                pz = momentum.z();
-
-                global_time = stepCollection[i].GetGlobalTime();
-
-                data_tree->Fill();
-            }
-        }
-
-        if_helium = 0;
-        if_farside = 0;
+        if( edep>1.e-9 )
+            data_tree->Fill();
+        edep = 0;
+        Ekf = 0;
     }
 
     stepCollection.clear();
