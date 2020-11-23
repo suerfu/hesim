@@ -37,6 +37,7 @@ private:
 
     // flags used to check whether a track passes both LHe and backing detector.
     int if_helium = 0;
+    int if_quartz = 0;
     int if_farside = 0;
 
     int eventID;
