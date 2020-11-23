@@ -44,8 +44,12 @@ void JanisSteppingAction::UserSteppingAction(const G4Step* step){
   // Don't save the out of world step
   if(!step->GetPostStepPoint()->GetPhysicalVolume()) return;
 
-  if( step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName()!="Transportation" )
+  if( step->GetPostStepPoint()->GetProcessDefinedStep()->GetProcessName()!="Transportation" ){
       fEventAction->GetStepCollection().push_back(StepInfo(step));
+  }
+  else if( step->GetTotalEnergyDeposit()*CLHEP::eV > 1.e-3 ){
+      fEventAction->GetStepCollection().push_back(StepInfo(step));
+  }
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

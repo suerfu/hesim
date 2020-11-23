@@ -42,5 +42,7 @@
 /gps/ang/mintheta 1.57079633 rad
 /gps/ang/maxtheta 3.14159265 rad
 
-/run/printProgress 1000000
-#/run/beamOn 3000000000
+/run/setCut 1 um
+
+#/run/printProgress 1000000
+/run/beamOn 3000000000
